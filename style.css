@@ -1,0 +1,20 @@
+
+body {
+    margin: 0;
+    background-color: #222222;
+}
+
+#game {
+    display: flex;
+    /* margin-top: 5vh; */
+}
+
+#game-canvas {
+    display: flex;
+    width: 1366px;
+    height: 650px;
+    margin: auto;
+    border: 2px solid #222222;
+}
+
+
