@@ -2,8 +2,8 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
 
 // Canvas Configs
-let cWidth = 1360;
-let cHeight = 650;
+let cWidth = 1364;
+let cHeight = 766;
 let bgColor = "#cfeeff";
 // let bgColor = "#cfeeff";
 let container = new Canvas("game-canvas", cWidth, cHeight, bgColor, "2d");

@@ -75,12 +75,6 @@ class Rectagle extends Shape {
         super(x, y, width, height, bgColor);
 
         this.round = (round == undefined || round == null) ? [0] : round;
-
-        // this.vSpeed = 0;
-        // this.hSpeed = 0;
-        // this.vAcceleration = 10;
-        // this.hAcceleration = 0;
-        // this.isHolding = false;
     }
     
     create() {
@@ -97,7 +91,11 @@ class Rectagle extends Shape {
         }
     }
 
-    move() {}
+    move(x, y) {
+        this.x += x;
+        this.y += y;
+        container.refresh()
+    }
 
     // offsetTop() {
     //     return this.y;
@@ -139,14 +137,14 @@ class SceneryObject extends Rectagle {
             this.shapes[i].create();
         }
     }
-    
+
     move(x, y) {
         this.x = x;
         this.y = y;
         for (let i = 0; i < this.shapes.length; i++) {
             this.shapes[i].move(x, y);
         }
-    }
+    } 
 
 }
 
@@ -154,8 +152,11 @@ class SceneryObject extends Rectagle {
 class Chunk extends SceneryObject {
 
     constructor(x, y, width, height, scenery) {
+        for (let i = 0; i < scenery.length; i++) {
+            scenery[i].move(x, y);
+        }
         super(x, y, width, height, scenery);
-
+        
         // this.active = false; // Default
         this.active = true;
     }
@@ -167,12 +168,15 @@ class Chunk extends SceneryObject {
             }
         }
     }
+
 }
 
 // Use to create a new Map (Scenery)
 class GameMap extends SceneryObject {
 
     constructor(width, height, chunks, mapBorderColor) {
+        // console.log(-height/2)
+        // console.log(width)
         let content = [];
         content.push( new Rectagle(-height/2, -height/2, width+height, height/2, mapBorderColor) );
         content.push( new Rectagle(-height/2, height, width+height, height/2, mapBorderColor) );
