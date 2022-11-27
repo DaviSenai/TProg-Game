@@ -28,6 +28,23 @@
 
 
 
+// function getJungleMap() {
+//     let chunks = [];
+//     {
+//         let scenery = [];
+//         {
+//             let shapes = [];
+//             shapes.push( new Rectagle(0, 0, 100, 100, "#444444", [20]) );
+//             shapes.push( new Rectagle(10, 10, 80, 80, "#777777", [20]) );
+
+//             scenery.push( new SceneryObject(0, 0, 100, 100, shapes) );
+//         }
+//         chunks.push( new Chunk(0, 0, 680, 325, scenery) );
+//     }
+//     return new GameMap(1364, 766, chunks, "green");
+// }
+
+
 function getJungleMap() {
     let chunks = [];
     {
@@ -37,9 +54,136 @@ function getJungleMap() {
             shapes.push( new Rectagle(0, 0, 100, 100, "#444444", [20]) );
             shapes.push( new Rectagle(10, 10, 80, 80, "#777777", [20]) );
 
+            shapes.push( new Rectagle(100, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(110, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(200, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(210, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(300, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(310, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(400, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(410, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(500, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(510, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(0, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(10, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(100, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(110, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(200, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(210, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(300, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(310, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(400, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(410, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(500, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(510, 10, 80, 80, "#777777", [20]) );
+
+            scenery.push( new SceneryObject(0, 0, 100, 100, shapes) );
+        }
+        {
+            let shapes = [];
+            shapes.push( new Rectagle(0, 100, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(10, 110, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(100, 200, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(110, 210, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(200, 300, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(210, 310, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(300, 400, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(310, 410, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(400, 500, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(410, 510, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(500, 600, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(510, 610, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(0, 700, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(10, 10, 80, 80, "#777777", [20]) );
+
             scenery.push( new SceneryObject(0, 0, 100, 100, shapes) );
         }
         chunks.push( new Chunk(0, 0, 680, 325, scenery) );
+    }
+    {
+        let scenery = [];
+        {
+            let shapes = [];
+            shapes.push( new Rectagle(0, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(10, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(100, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(110, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(200, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(210, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(300, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(310, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(400, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(410, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(500, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(510, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(0, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(10, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(100, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(110, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(200, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(210, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(300, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(310, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(400, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(410, 10, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(500, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(510, 10, 80, 80, "#777777", [20]) );
+
+            scenery.push( new SceneryObject(0, 0, 100, 100, shapes) );
+        }
+        {
+            let shapes = [];
+            shapes.push( new Rectagle(0, 100, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(10, 110, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(100, 200, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(110, 210, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(200, 300, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(210, 310, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(300, 400, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(310, 410, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(400, 500, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(410, 510, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(500, 600, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(510, 610, 80, 80, "#777777", [20]) );
+
+            shapes.push( new Rectagle(0, 700, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(10, 10, 80, 80, "#777777", [20]) );
+
+            scenery.push( new SceneryObject(0, 0, 100, 100, shapes) );
+        }
+        chunks.push( new Chunk(300, 0, 680, 325, scenery) );
     }
     return new GameMap(1364, 766, chunks, "green");
 }

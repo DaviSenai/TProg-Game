@@ -157,7 +157,7 @@ class GameMap extends SceneryObject {
         content.push( new Rectagle(-height/2, height, width+height, height/2, mapBorderColor) );
         content.push( new Rectagle(-height/2, 0, height/2, height, mapBorderColor) );
         content.push( new Rectagle(width, 0, height/2, height, mapBorderColor) );
-        for (let i = 0; i < chunks[0].shapes.length; i++) {
+        for (let i = 0; i < chunks.length; i++) {
             content.push(chunks[i]);
         }
         super(0, 0, width, height, content);
@@ -188,14 +188,6 @@ class Entity extends Shape {
         this.sprites = [];
     }
 
-    // constructor(x, y, width, height) {
-    //     super(x, y, width, height);
-    //     for (let i = 0; i < imgsSrc.length; i++) {
-    //         this.imgs.push( new Img(imgsSrc[i], x, y, width, height) );
-    //     }
-    // }
-
-
     move(x, y) {
         this.x += x;
         this.y += y;
@@ -207,7 +199,7 @@ class Entity extends Shape {
     }
 
     anim() {
-        console.log("%c" + this.constructor.name + " don't have an anim method!", "background: #222; color: #ff4444; font-size: 24px; font-weight: bold;")
+        console.log("%c" + this.constructor.name + " don't have an anim method!", "background: #222; color: #ff4444; font-size: 24px; font-weight: bold;");
     }
 
     // offsetTop() {

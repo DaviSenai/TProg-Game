@@ -30,7 +30,16 @@ class Player extends Entity {
     }
 
     create() {
-        this.next();
+        if (this.faceRight) {
+            this.spriteParts_Right[this.animPart][this.animSprite].create();
+        } else {
+            this.spriteParts_Left[this.animPart][this.animSprite].create();
+        }
+        // this.next();
+    }
+
+    move(x, y) {
+        container.elements[0].move(-x, -y);
     }
 
     anim() {
@@ -39,21 +48,16 @@ class Player extends Entity {
         // }
     }
 
-    next() {
-        console.log(this)
-        
+    next() {        
         this.animSprite++;
         if (this.animSprite == 4) {
             this.animPart = this.animPart == 1 ? 0 : 1;
             this.animSprite = 0;
         }
         
-        if (this.faceRight) {
-            this.spriteParts_Right[this.animPart][this.animSprite].create();
-        } else {
-            this.spriteParts_Left[this.animPart][this.animSprite].create();
-        }
+        
     }
+
     
 }
 

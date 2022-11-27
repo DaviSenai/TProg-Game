@@ -6,6 +6,7 @@ let cWidth = 1364;
 let cHeight = 766;
 let bgColor = "#cfeeff";
 let container = new Canvas("game-canvas", cWidth, cHeight, bgColor, "2d");
+let frameRate = 30;
 
 const Utils = {
 
@@ -14,11 +15,6 @@ const Utils = {
             case "jungle": {
                 container.elements = [];
                 container.elements.push(getJungleMap());
-                break;
-            }
-            case "test": {
-                container.elements = [];
-                container.elements.push(getTestMap());
                 break;
             }
         }
@@ -37,13 +33,31 @@ const Utils = {
     }
 }
 
+// const Controls = {}
+
+
+
 
 Utils.loadMap("Jungle");
 
-let player = new Player(200, 100);
+
+let player = new Player(cWidth/2-32, cHeight/2-24);
 container.elements.push( player );
 
-container.refresh();
+
+setInterval( () => {container.refresh();}, 1000/frameRate );
+
+setInterval( () => {player.next()}, 100)
+
+
+window.addEventListener("keydown", (k) => {
+    console.log(k.key)
+    switch(k.key) {
+
+    }
+
+    
+});
 
 
 // https://ourcodeworld.com/articles/read/1390/how-to-determine-the-screen-refresh-rate-in-hz-of-the-monitor-with-javascript-in-the-browser
