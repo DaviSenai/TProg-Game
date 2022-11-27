@@ -46,7 +46,7 @@ class Shape {
         this.y = y;
         this.width(width);
         this.height(height);
-        if (typeof(bgColor) == "string") this.bgColor(bgColor);
+        this.bgColor( typeof(bgColor) == "string" ? bgColor : "transparent");
     }
 
     style = {
@@ -94,30 +94,7 @@ class Rectagle extends Shape {
     move(x, y) {
         this.x += x;
         this.y += y;
-        container.refresh()
     }
-
-    // offsetTop() {
-    //     return this.y;
-    // }
-
-    // offsetBottom() {
-    //     return this.y + this.style.height;
-    // }
-    
-    // offsetLeft() {
-    //     return this.x;
-    // }
-    
-    // offsetRight() {
-    //     return this.x + this.style.width;
-    // }
-
-    // incrementPosition(incrementX, incrementY) {
-    //     this.x += this.xForceRemaining(incrementX, container);
-    //     this.y += this.yForceRemaining(incrementY, container);
-    //     container.refresh();
-    // }
 }
 
 // Use to form complex Objects
@@ -175,8 +152,6 @@ class Chunk extends SceneryObject {
 class GameMap extends SceneryObject {
 
     constructor(width, height, chunks, mapBorderColor) {
-        // console.log(-height/2)
-        // console.log(width)
         let content = [];
         content.push( new Rectagle(-height/2, -height/2, width+height, height/2, mapBorderColor) );
         content.push( new Rectagle(-height/2, height, width+height, height/2, mapBorderColor) );
@@ -189,11 +164,68 @@ class GameMap extends SceneryObject {
     }
 }
 
-// Use to add user interaction
-class MovableObject extends SceneryObject {
-    
-    // Create methods do move itself
-    constructor() {
 
+class Img extends Shape {
+
+    constructor(imgSrc, x, y, width, height) {
+        super(x, y, width, height, "");
+        this.img = new Image(100, 100);
+        this.img.src = imgSrc;
+        //this.img.onload = () => {container.refresh()} // --- Temporary (The game will run 30 fps) ---
+    }
+
+    create() {
+        context.drawImage(this.img, this.x, this.y, this.style.width, this.style.height);
     }
 }
+
+
+// Generic class for Entities
+class Entity extends Shape {
+
+    constructor(x, y, width, height) {
+        super(x, y, width, height);
+        this.sprites = [];
+    }
+
+    // constructor(x, y, width, height) {
+    //     super(x, y, width, height);
+    //     for (let i = 0; i < imgsSrc.length; i++) {
+    //         this.imgs.push( new Img(imgsSrc[i], x, y, width, height) );
+    //     }
+    // }
+
+
+    move(x, y) {
+        this.x += x;
+        this.y += y;
+        for (let i = 0; i < this.sprites.length; i++) {
+            this.sprites[i].x += x;
+            this.sprites[i].y += y;
+        }
+        container.refresh();
+    }
+
+    anim() {
+        console.log("%c" + this.constructor.name + " don't have an anim method!", "background: #222; color: #ff4444; font-size: 24px; font-weight: bold;")
+    }
+
+    // offsetTop() {
+    //     return this.y;
+    // }
+
+    // offsetBottom() {
+    //     return this.y + this.style.height;
+    // }
+    
+    // offsetLeft() {
+    //     return this.x;
+    // }
+    
+    // offsetRight() {
+    //     return this.x + this.style.width;
+    // }
+    
+}
+
+

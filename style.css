@@ -7,7 +7,6 @@ body {
 
 #game {
     display: flex;
-    /* margin-top: 5vh; */
 }
 
 #game-canvas {

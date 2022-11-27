@@ -26,6 +26,8 @@
 
 */
 
+
+
 function getJungleMap() {
     let chunks = [];
     {
@@ -39,6 +41,7 @@ function getJungleMap() {
         }
         chunks.push( new Chunk(0, 0, 680, 325, scenery) );
     }
-    return new GameMap(1364, 766, chunks, "green");;
+    return new GameMap(1364, 766, chunks, "green");
 }
+
 

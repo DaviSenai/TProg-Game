@@ -5,7 +5,6 @@
 let cWidth = 1364;
 let cHeight = 766;
 let bgColor = "#cfeeff";
-// let bgColor = "#cfeeff";
 let container = new Canvas("game-canvas", cWidth, cHeight, bgColor, "2d");
 
 const Utils = {
@@ -17,9 +16,13 @@ const Utils = {
                 container.elements.push(getJungleMap());
                 break;
             }
+            case "test": {
+                container.elements = [];
+                container.elements.push(getTestMap());
+                break;
+            }
         }
     },
-
     
     getInRangeElement(arr, x, y) {
         for (let i = 0; i < arr.length; i++) {
@@ -37,6 +40,8 @@ const Utils = {
 
 Utils.loadMap("Jungle");
 
+let player = new Player(200, 100);
+container.elements.push( player );
 
 container.refresh();
 
