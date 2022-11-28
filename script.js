@@ -30,12 +30,8 @@ const Utils = {
     },
     
     colisionVerify(elem, xIncrease, yIncrease, chunk) {
-        console.log(elem)
-        console.log(xIncrease)
-        console.log(yIncrease)
-        console.log(chunk)
         for (let i = 0; i < chunk.shapes.length; i++) {
-            if (this.inRange(elem, xIncrease, yIncrease, chunk[i])) {
+            if (this.inRange(elem, xIncrease, yIncrease, chunk.shapes[i])) {
                 return true;
             }
         }
@@ -62,8 +58,65 @@ const Utils = {
             }
         }
         return false;
+    },
+
+    setGravity(entity) {
+        entity.vAcceleration = 2;
     }
 }
+
+// const Utils = {
+
+//     loadMap(name) {
+//         switch (String(name).toLowerCase()) {
+//             case "jungle": {
+//                 container.elements = [];
+//                 container.elements.push(getJungleMap());
+//                 break;
+//             }
+//             default: {
+//                 console.log("%cMap \"" + name + "\" not found!", "background: #222; color: #ff4444; font-size: 24px; font-weight: bold;");
+//             }
+//         }
+//     },
+    
+//     colisionVerify(elem, xIncrease, yIncrease, chunk) {
+//         for (let i = 0; i < chunk.shapes.length; i++) {
+//             let rangeElem = this.inRange(elem, xIncrease, yIncrease, chunk.shapes[i]);
+//             if (rangeElem != false) {
+//                 return rangeElem;
+//             }
+//         }
+//         return false;
+//     },
+
+//     inRange(elem, xIncrease, yIncrease, elem2) {
+//         let elemTop = elem.offsetTop() + yIncrease;
+//         let elemBottom = elem.offsetBottom() + yIncrease;
+//         let elemLeft = elem.offsetLeft() + xIncrease;
+//         let elemRight = elem.offsetRight() + xIncrease;
+        
+//         if (elemTop >= elem2.offsetTop() && elemTop <= elem2.offsetBottom()) {
+//             if (elemLeft >= elem2.offsetLeft() && elemLeft <= elem2.offsetRight()) {
+//                 return elem2;
+//             } else if (elemRight >= elem2.offsetLeft() && elemRight <= elem2.offsetRight()) {
+//                 return elem2;
+//             }
+//         } else if (elemBottom >= elem2.offsetTop() && elemBottom <= elem2.offsetBottom()) {
+//             if (elemLeft >= elem2.offsetLeft() && elemLeft <= elem2.offsetRight()) {
+//                 return elem2;
+//             } else if (elemRight >= elem2.offsetLeft() && elemRight <= elem2.offsetRight()) {
+//                 return elem2;
+//             }
+//         }
+//         return false;
+//     },
+
+//     setGravity(entity) {
+//         entity.vAcceleration = 2;
+//     }
+// }
+
 
 let Controls = {
 

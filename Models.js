@@ -160,7 +160,6 @@ class Chunk extends SceneryObject {
             }
         }
     }
-
 }
 
 // Use to create a new Map (Scenery)

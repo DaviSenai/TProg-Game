@@ -94,14 +94,23 @@ class Player extends Entity {
     }
 
     move(x, y) {
+        for (let i = 4; i < container.elements[0].shapes.length; i++) {
+            if (container.elements[0].shapes[i].active) {
+                // let rangeElem = Utils.colisionVerify( player, x, y, container.elements[0].shapes[i]);
+                // if (rangeElem != false) {
+                //     if (x > 0)
+                //         x = rangeElem.offsetLeft() - this.offsetRight()
+                //     else if (x < 0)
+                //         x = this.offsetLeft() - rangeElem.offsetRight()
 
-        // for (let i = 4; i < container.elements[0].shapes.length; i++) {
-        //     if (container.elements[0].shapes[i].active) {
-        //         if (Utils.colisionVerify( player, x, y, container.elements[0].shapes[i]) ) {
-        //             return;
-        //         }
-        //     }
-        // }
+                //     if (y > 0)
+                //         y = this.offsetBottom()
+                // }
+                if (Utils.colisionVerify( player, x, y, container.elements[0].shapes[i])) {
+                    return;
+                }
+            }
+        }
         
         container.elements[0].move(-x, -y);
     }
