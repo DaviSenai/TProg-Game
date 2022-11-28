@@ -38,6 +38,8 @@ class Player extends Entity {
         this.animSprite = 0;
         this.faceRight = true;
         this.isJumping = false;
+        this.onAnimation = false;
+
     }
 
     create() {
@@ -46,39 +48,54 @@ class Player extends Entity {
         } else {
             this.spriteParts_Left[this.animPart][this.animSprite].create();
         }
+        this.anim();
     }
 
-    move(x, y) {
-        container.elements[0].move(-x, -y);
-    }
-
-    anim(x, y) {
-        if (y != 0) {
-            if (y < 0) {
-                player.isJumping = true
-                // console.log("%cPlayer Jump Anim", "color: red;")
-                setTimeout( () => {this.jump_next()}, 0);
+    anim() {
+        if (this.hSpeed < 0) {
+            this.faceRight = false;
+        } else if (this.hSpeed > 0) {
+            this.faceRight = true; 
+        }
+        if (this.vSpeed != 0) {
+            if (this.vSpeed < 0 && !this.isJumping) {
+                this.isJumping = true;
+                this.animSprite = 0;
+                this.jump_next();
                 setTimeout( () => {this.jump_next()}, 50);
                 setTimeout( () => {this.jump_next()}, 100);
-                setTimeout( () => {this.jump_next()
-                    let moveByTick = y / 20;
-                    for (let i = 0; i < 20; i++) {
-                        setTimeout( () => {this.move(0, moveByTick)}, 5*i);
+                setTimeout( () => {
+                    this.jump_next();
+                    let nTick = 200 * frameRate / 1000;
+                    for (let i = 0; i < nTick; i++) {
+                        setTimeout( () => {this.move(this.hSpeed, this.vSpeed / nTick)}, 200 / nTick * i);
                     }
                 }, 200);
                 setTimeout( () => {this.jump_next()}, 300);
                 setTimeout( () => {
                     this.jump_next();
+                    this.vSpeed = 0;
                     this.isJumping = false;
                 }, 400);
             }
-        } else if (x != 0) {
-
+        } else if (this.hSpeed != 0) {
+            if (!this.isJumping && !this.onAnimation) {
+                this.onAnimation = true;
+                this.animSprite = 0;
+                this.walk_next()
+                setTimeout( () => {this.walk_next()}, 100);
+                setTimeout( () => {this.walk_next()}, 200);
+                setTimeout( () => {
+                    this.walk_next();
+                    this.onAnimation = false;
+                }, 300);
+            }
+            this.move(this.hSpeed, this.vSpeed);
         }
-        // if (this.animPart == 0) {
+    }
 
-        // }
-        return false;
+    move(x, y) {
+        container.elements[0].move(-x, -y);
     }
 
     walk_next() {        
@@ -102,6 +119,7 @@ class Player extends Entity {
         this.animPart = 0;
         this.animSprite = 0;
     }
+
     
 }
 

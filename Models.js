@@ -186,6 +186,10 @@ class Entity extends Shape {
     constructor(x, y, width, height) {
         super(x, y, width, height);
         this.sprites = [];
+        this.vSpeed = 0;
+        this.hSpeed = 0;
+        this.vAcceleration = 0;
+        this.hAcceleration = 0;
     }
 
     move(x, y) {

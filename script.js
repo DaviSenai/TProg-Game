@@ -41,40 +41,77 @@ const Utils = {
     }
 }
 
+let Controls = {
 
+    mode: "player",
 
+    start() {
+        window.addEventListener("keydown", (k) => {
+            switch(Controls.mode.toLocaleLowerCase()) {
+                case "menu": {}
+                case "player": {
+                    Controls.playerControls(k);
+                }
+            } 
+        });
 
+        window.addEventListener("keyup", (k) => {
+            switch(Controls.mode.toLocaleLowerCase()) {
+                case "menu": {}
+                case "player": {
+                    Controls.playerControls2(k);
+                }
+            } 
+        });
+    },
+
+    playerControls(k) {
+        switch(k.key) {
+            case "ArrowUp": {
+                if (!player.isJumping) {
+                    player.vSpeed -= 80 ;
+                }
+                break;
+            }
+            case "ArrowLeft": {
+                if (!player.onAnimation) {
+                    player.hSpeed = -2;
+                }
+                break;
+            }
+            case "ArrowRight": {
+                if (!player.onAnimation) {
+                    player.hSpeed = 2;
+                }
+                break;
+            }
+        }
+    },
+
+    playerControls2(k) {
+        switch(k.key) {
+            case "ArrowLeft": {
+                // player.hSpeed += 80; 
+                player.hSpeed = 0; 
+            }
+            case "ArrowRight": {
+                // player.hSpeed -= 80; 
+                player.hSpeed = 0; 
+            }
+        }
+    }
+}
 
 Utils.loadMap("Jungle");
-
 
 let player = new Player(cWidth/2-32, cHeight/2-24);
 container.elements.push( player );
 
-
 setInterval( () => {container.refresh();}, 1000/frameRate );
 
-// setInterval( () => {player.walk_next()}, 100)
+Controls.start();
 
 
-const Controls = {
-    onAnimation:false,
-
-
-}
-
-window.addEventListener("keydown", (k) => {
-    console.log(k.key)
-    switch(k.key) {
-        case "ArrowUp": {
-            if (!player.isJumping) {
-                player.anim(0, -80);
-            }            
-        }
-    }
-
-    
-});
 
 
 // https://ourcodeworld.com/articles/read/1390/how-to-determine-the-screen-refresh-rate-in-hz-of-the-monitor-with-javascript-in-the-browser
