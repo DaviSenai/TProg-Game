@@ -47,6 +47,7 @@ class Player extends Entity {
         } else {
             this.spriteParts_Left[this.animPart][this.animSprite].create();
         }
+        
         this.anim();
     }
 
@@ -57,6 +58,7 @@ class Player extends Entity {
             this.faceRight = true; 
         }
         if (this.vSpeed != 0) {
+            //Jump
             if (this.vSpeed < 0 && !this.isJumping) {
                 this.isJumping = true;
                 this.animSprite = 0;
@@ -77,7 +79,12 @@ class Player extends Entity {
                     this.isJumping = false;
                 }, 400);
             }
+            // Fall
+            else if (this.vSpeed > 0) {
+                this.move(this.hSpeed, this.vSpeed);  
+            }
         } else if (this.hSpeed != 0) {
+            // Turn right/left
             if (!this.isJumping && !this.onAnimation) {
                 this.onAnimation = true;
                 this.animSprite = 0;
@@ -96,22 +103,11 @@ class Player extends Entity {
     move(x, y) {
         for (let i = 4; i < container.elements[0].shapes.length; i++) {
             if (container.elements[0].shapes[i].active) {
-                // let rangeElem = Utils.colisionVerify( player, x, y, container.elements[0].shapes[i]);
-                // if (rangeElem != false) {
-                //     if (x > 0)
-                //         x = rangeElem.offsetLeft() - this.offsetRight()
-                //     else if (x < 0)
-                //         x = this.offsetLeft() - rangeElem.offsetRight()
-
-                //     if (y > 0)
-                //         y = this.offsetBottom()
-                // }
                 if (Utils.colisionVerify( player, x, y, container.elements[0].shapes[i])) {
                     return;
                 }
             }
         }
-        
         container.elements[0].move(-x, -y);
     }
 

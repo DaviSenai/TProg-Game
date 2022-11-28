@@ -205,7 +205,7 @@ function getJungleMap() {
             let shapes = [];
             shapes.push( new Rectagle(0, 0, cWidth, 200, "green") );
             
-            scenery.push( new SceneryObject(0, cHeight - 370, cHeight, 200, shapes) );
+            scenery.push( new SceneryObject(0, cHeight - 270, cHeight, 200, shapes) );
         }
         chunks.push( new Chunk(0, 0, cWidth, cHeight, scenery) );
     }
