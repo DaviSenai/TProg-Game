@@ -66,7 +66,22 @@ class Shape {
     move() {
         console.log("%c" + this.constructor.name + " don't have a move method!", "background: #222; color: #ff4444; font-size: 24px; font-weight: bold;")
     }
+
+    offsetTop() {
+        return this.y;
+    }
+
+    offsetBottom() {
+        return this.y + this.style.height;
+    }
     
+    offsetLeft() {
+        return this.x;
+    }
+    
+    offsetRight() {
+        return this.x + this.style.width;
+    }   
 }
 
 class Rectagle extends Shape {
@@ -101,7 +116,7 @@ class Rectagle extends Shape {
 class SceneryObject extends Rectagle {
     
     constructor(x, y, width, height, shapes) {
-        super(x, y, "transparent", 1, false);
+        super(x, y, width, height, "transparent", 1, false);
         for (let i = 0; i < shapes.length; i++) {
             shapes[i].move(x, y);
         }
@@ -116,8 +131,8 @@ class SceneryObject extends Rectagle {
     }
 
     move(x, y) {
-        this.x = x;
-        this.y = y;
+        this.x += x;
+        this.y += y;
         for (let i = 0; i < this.shapes.length; i++) {
             this.shapes[i].move(x, y);
         }
@@ -171,7 +186,6 @@ class Img extends Shape {
         super(x, y, width, height, "");
         this.img = new Image(100, 100);
         this.img.src = imgSrc;
-        //this.img.onload = () => {container.refresh()} // --- Temporary (The game will run 30 fps) ---
     }
 
     create() {
@@ -205,22 +219,6 @@ class Entity extends Shape {
     anim() {
         console.log("%c" + this.constructor.name + " don't have an anim method!", "background: #222; color: #ff4444; font-size: 24px; font-weight: bold;");
     }
-
-    // offsetTop() {
-    //     return this.y;
-    // }
-
-    // offsetBottom() {
-    //     return this.y + this.style.height;
-    // }
-    
-    // offsetLeft() {
-    //     return this.x;
-    // }
-    
-    // offsetRight() {
-    //     return this.x + this.style.width;
-    // }
     
 }
 

@@ -17,7 +17,6 @@ class Player extends Entity {
                 this.sprites.push( this.spriteWalkLeft[i] );
                 this.spriteWalkRight.push( new Img("./assets/entities/player/player" + (i+1) + "_right.png", this.x, this.y, this.style.width, this.style. height) );
                 this.sprites.push( this.spriteWalkRight[i] );
-
             }
             this.spriteParts_Left.push(this.spriteWalkLeft.splice(0, 4));
             this.spriteParts_Left.push(this.spriteWalkLeft);
@@ -95,6 +94,15 @@ class Player extends Entity {
     }
 
     move(x, y) {
+
+        // for (let i = 4; i < container.elements[0].shapes.length; i++) {
+        //     if (container.elements[0].shapes[i].active) {
+        //         if (Utils.colisionVerify( player, x, y, container.elements[0].shapes[i]) ) {
+        //             return;
+        //         }
+        //     }
+        // }
+        
         container.elements[0].move(-x, -y);
     }
 
