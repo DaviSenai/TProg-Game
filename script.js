@@ -60,6 +60,10 @@ const Utils = {
         return false;
     },
 
+    showColisionBox() {
+        container.elements[0].showColisionBox();
+    },
+
     // Continuar e Separar um metodo para x e um para y
     // remainingForce(elem, xIncrease, yIncrease, elem2) {
     //     let remain = {x: 0, y: 0};
@@ -82,20 +86,19 @@ const Utils = {
     //     return remain;
     // }
 
+
+    // ***BUG***
+    // Ao pular e andar para frente em baixo de um bloco o personagem pode teleportar para o canto do bloco conforme a ordem dos ifs abaixo 
+    // Se inverter o if, ao encostar numa parede e pular e andar ao mesmo tempo, o personagem é teleportado ao topo
+    // Se retirar o return de dentro do if, o bug acontece em ambas as situações
     remainingForce(elem, xIncrease, yIncrease, elem2) {
         let remain = {x: 0, y: 0};
-
-        // ***BUG***
-        // Ao pular e andar para frente em baixo de um bloco o personagem pode teleportar para o canto do bloco conforme a ordem dos ifs abaixo 
-        // Se inverter o if, ao encostar numa parede e pular e andar ao mesmo tempo, o personagem é teleportado ao topo
-        // Se retirar o return de dentro do if, o bug acontece em ambas as situações
 
         if (yIncrease != 0) {
             if (elem.y < elem2.y) {
                 remain.y = elem.offsetBottom() - elem2.offsetTop();
             } else {
-                remain.y = elem2.offsetBottom() - elem.offsetTop();
-                
+                remain.y = elem2.offsetBottom() - elem.offsetTop();   
             }
             return remain;
         }
@@ -108,8 +111,31 @@ const Utils = {
             }
             return remain;
         }
+        
         return remain;
-    }
+    },
+
+    // xRemainingForce(elem, xIncrease, elem2) {
+    //     if (xIncrease != 0) {
+    //         if (elem.x < elem2.x) {
+    //             return elem.offsetRight() - elem2.offsetLeft();
+    //         } else {
+    //             return elem2.offsetRight() - elem.offsetLeft();
+    //         }
+    //     }
+    //     return 0;
+    // },
+
+    // yRemainingForce(elem, yIncrease, elem2) {
+    //     if (yIncrease != 0) {
+    //         if (elem.y < elem2.y) {
+    //             return elem.offsetBottom() - elem2.offsetTop();
+    //         } else {
+    //             return elem2.offsetBottom() - elem.offsetTop();   
+    //         }
+    //     }        
+    //     return 0;
+    // }
 
 }
 

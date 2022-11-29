@@ -121,10 +121,15 @@ class SceneryObject extends Rectagle {
             shapes[i].move(x, y);
         }
         this.shapes = shapes;
+        this.showColision = false;
     }
     
     // The shapes will have the position relative to the ScenaryObject
     create() {
+        if (this.showColision) {
+            super.create();
+            return;
+        }
         for (let i = 0; i < this.shapes.length; i++) {
             this.shapes[i].create();
         }
@@ -136,7 +141,12 @@ class SceneryObject extends Rectagle {
         for (let i = 0; i < this.shapes.length; i++) {
             this.shapes[i].move(x, y);
         }
-    } 
+    }
+
+    showColisionBox() {
+        this.showColision = true;
+        this.style.bgColor = "pink";
+    }
 
 }
 
@@ -160,6 +170,12 @@ class Chunk extends SceneryObject {
             }
         }
     }
+
+    showColisionBox() {
+        for (let i = 0; i < this.shapes.length; i++) {
+            this.shapes[i].showColisionBox();
+        }
+    }
 }
 
 // Use to create a new Map (Scenery)
@@ -175,6 +191,12 @@ class GameMap extends SceneryObject {
             content.push(chunks[i]);
         }
         super(0, 0, width, height, content);
+    }
+
+    showColisionBox() {
+        for (let i = 4; i < this.shapes.length; i++) {
+            this.shapes[i].showColisionBox();
+        }
     }
 }
 
