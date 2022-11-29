@@ -203,6 +203,13 @@ function getJungleMap() {
         }
         {
             let shapes = [];
+            shapes.push( new Rectagle(0, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectagle(10, 10, 80, 80, "#777777", [20]) );
+
+            scenery.push( new SceneryObject(650, 220, 100, 100, shapes) );
+        }
+        {
+            let shapes = [];
             shapes.push( new Rectagle(0, 0, cWidth, 200, "green") );
             
             scenery.push( new SceneryObject(0, cHeight - 270, cHeight, 200, shapes) );

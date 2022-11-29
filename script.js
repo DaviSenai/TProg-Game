@@ -32,9 +32,7 @@ const Utils = {
     colisionVerify(elem, xIncrease, yIncrease, chunk) {
         for (let i = 0; i < chunk.shapes.length; i++) {
             if (this.inRange(elem, xIncrease, yIncrease, chunk.shapes[i])) {
-                // Call forceRemaining
                 return this.remainingForce(elem, xIncrease, yIncrease, chunk.shapes[i]);
-                // return true;
             }
         }
         return false;
@@ -96,7 +94,7 @@ const Utils = {
 
         if (yIncrease != 0) {
             if (elem.y < elem2.y) {
-                remain.y = elem2.offsetTop() - elem.offsetBottom();
+                remain.y = elem.offsetBottom() - elem2.offsetTop();
             } else {
                 remain.y = elem2.offsetBottom() - elem.offsetTop();
                 
@@ -140,15 +138,15 @@ let Controls = {
                 break;
             }
             case "ArrowLeft": {
-                if (!player.onAnimation) {
+                // if (!player.onAnimation) {
                     player.hSpeed = -4;
-                }
+                // }
                 break;
             }
             case "ArrowRight": {
-                if (!player.onAnimation) {
+                // if (!player.onAnimation) {
                     player.hSpeed = 4;
-                }
+                // }
                 break;
             }
         }

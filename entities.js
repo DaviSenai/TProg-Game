@@ -59,6 +59,7 @@ class Player extends Entity {
         }
         if (this.vSpeed != 0) {
             //Jump
+            // if (this.vSpeed < 0) {
             if (this.vSpeed < 0 && !this.isJumping) {
                 this.isJumping = true;
                 this.animSprite = 0;
@@ -78,6 +79,7 @@ class Player extends Entity {
                     this.vSpeed = 0;
                     this.isJumping = false;
                 }, 400);
+                // this.move(this.hSpeed, this.vSpeed);  
             }
             // Fall
             else if (this.vSpeed > 0) {
@@ -101,6 +103,8 @@ class Player extends Entity {
     }
 
     move(x, y) {
+        console.log(x)
+        console.log(y)
         for (let i = 4; i < container.elements[0].shapes.length; i++) {
             if (container.elements[0].shapes[i].active) {
                 let correction = Utils.colisionVerify( player, x, y, container.elements[0].shapes[i]);
