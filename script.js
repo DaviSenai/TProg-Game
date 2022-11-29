@@ -44,16 +44,16 @@ const Utils = {
         let elemLeft = elem.offsetLeft() + xIncrease;
         let elemRight = elem.offsetRight() + xIncrease;
         
-        if (elemTop >= elem2.offsetTop() && elemTop <= elem2.offsetBottom()) {
-            if (elemLeft >= elem2.offsetLeft() && elemLeft <= elem2.offsetRight()) {
+        if (elemTop > elem2.offsetTop() && elemTop < elem2.offsetBottom()) {
+            if (elemLeft > elem2.offsetLeft() && elemLeft < elem2.offsetRight()) {
                 return true;
-            } else if (elemRight >= elem2.offsetLeft() && elemRight <= elem2.offsetRight()) {
+            } else if (elemRight > elem2.offsetLeft() && elemRight < elem2.offsetRight()) {
                 return true;
             }
-        } else if (elemBottom >= elem2.offsetTop() && elemBottom <= elem2.offsetBottom()) {
-            if (elemLeft >= elem2.offsetLeft() && elemLeft <= elem2.offsetRight()) {
+        } else if (elemBottom > elem2.offsetTop() && elemBottom < elem2.offsetBottom()) {
+            if (elemLeft > elem2.offsetLeft() && elemLeft < elem2.offsetRight()) {
                 return true;
-            } else if (elemRight >= elem2.offsetLeft() && elemRight <= elem2.offsetRight()) {
+            } else if (elemRight > elem2.offsetLeft() && elemRight < elem2.offsetRight()) {
                 return true;
             }
         }
@@ -84,13 +84,11 @@ const Utils = {
 
     remainingForce(elem, xIncrease, yIncrease, elem2) {
         let remain = {x: 0, y: 0};
-        if (xIncrease != 0) {
-            if (elem.x < elem2.x) {
-                remain.x = elem.offsetRight() - elem2.offsetLeft();
-            } else {
-                remain.x = elem2.offsetRight() - elem.offsetLeft();
-            }
-        }
+
+        // ***BUG***
+        // Ao pular e andar para frente em baixo de um bloco o personagem pode teleportar para o canto do bloco conforme a ordem dos ifs abaixo 
+        // Se inverter o if, ao encostar numa parede e pular e andar ao mesmo tempo, o personagem é teleportado ao topo
+        // Se retirar o return de dentro do if, o bug acontece em ambas as situações
 
         if (yIncrease != 0) {
             if (elem.y < elem2.y) {
@@ -99,6 +97,16 @@ const Utils = {
                 remain.y = elem2.offsetBottom() - elem.offsetTop();
                 
             }
+            return remain;
+        }
+        
+        if (xIncrease != 0) {
+            if (elem.x < elem2.x) {
+                remain.x = elem.offsetRight() - elem2.offsetLeft();
+            } else {
+                remain.x = elem2.offsetRight() - elem.offsetLeft();
+            }
+            return remain;
         }
         return remain;
     }
