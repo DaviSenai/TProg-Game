@@ -103,8 +103,11 @@ class Player extends Entity {
     move(x, y) {
         for (let i = 4; i < container.elements[0].shapes.length; i++) {
             if (container.elements[0].shapes[i].active) {
-                if (Utils.colisionVerify( player, x, y, container.elements[0].shapes[i])) {
-                    return;
+                let correction = Utils.colisionVerify( player, x, y, container.elements[0].shapes[i]);
+                console.log(correction)
+                if (correction != false) {
+                    x = correction.x;
+                    y = correction.y;
                 }
             }
         }

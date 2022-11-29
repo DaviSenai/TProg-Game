@@ -33,7 +33,8 @@ const Utils = {
         for (let i = 0; i < chunk.shapes.length; i++) {
             if (this.inRange(elem, xIncrease, yIncrease, chunk.shapes[i])) {
                 // Call forceRemaining
-                return true;
+                return this.remainingForce(elem, xIncrease, yIncrease, chunk.shapes[i]);
+                // return true;
             }
         }
         return false;
@@ -62,21 +63,45 @@ const Utils = {
     },
 
     // Continuar e Separar um metodo para x e um para y
-    remainingForce(elem, elem2) {
+    // remainingForce(elem, xIncrease, yIncrease, elem2) {
+    //     let remain = {x: 0, y: 0};
+    //     if (xIncrease != 0) {
+    //         if (elem.x < elem2.x) {
+    //             remain.x = elem2.offsetLeft() - elem.offsetRight();
+    //         } else {
+    //             remain.x = elem.offsetLeft() - elem2.offsetRight();
+    //         }
+    //     }
+
+    //     if (yIncrease != 0) {
+    //         if (elem.y < elem2.y) {
+    //             remain.y = elem2.offsetTop() - elem.offsetBottom();
+    //         } else {
+    //             remain.y = elem2.offsetBottom() - elem.offsetTop();
+                
+    //         }
+    //     }
+    //     return remain;
+    // }
+
+    remainingForce(elem, xIncrease, yIncrease, elem2) {
         let remain = {x: 0, y: 0};
-        if (elem.x < elem2.x) {
-            remain.x = elem2.offsetLeft() - elem.offsetRight();
-        } else {
-            remain.x = elem.offsetLeft() - elem2.offsetRight();
+        if (xIncrease != 0) {
+            if (elem.x < elem2.x) {
+                remain.x = elem.offsetRight() - elem2.offsetLeft();
+            } else {
+                remain.x = elem2.offsetRight() - elem.offsetLeft();
+            }
         }
 
-        if (elem.y < elem2.y) {
-            remain.y = elem2.offsetTop() - elem.offsetBottom();
-        } else {
-            remain.y = elem2.offsetBottom() - elem.offsetTop();
-
+        if (yIncrease != 0) {
+            if (elem.y < elem2.y) {
+                remain.y = elem2.offsetTop() - elem.offsetBottom();
+            } else {
+                remain.y = elem2.offsetBottom() - elem.offsetTop();
+                
+            }
         }
-
         return remain;
     }
 
