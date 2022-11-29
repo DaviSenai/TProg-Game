@@ -46,7 +46,7 @@ const Utils = {
         
         if (elemTop > elem2.offsetTop() && elemTop < elem2.offsetBottom()) {
             if (elemLeft > elem2.offsetLeft() && elemLeft < elem2.offsetRight()) {
-                return true;
+                return true; 
             } else if (elemRight > elem2.offsetLeft() && elemRight < elem2.offsetRight()) {
                 return true;
             }
@@ -135,7 +135,7 @@ const Utils = {
     //         }
     //     }        
     //     return 0;
-    // }
+    // },
 
 }
 

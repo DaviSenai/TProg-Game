@@ -2,7 +2,7 @@ let context;
 
 class Canvas {   
     constructor(htmlElementId, width, height, bgColor, dimension) {
-        this.container = new Rectagle(0, 0, width, height, bgColor, [0]);        
+        this.container = new Rectangle(0, 0, width, height, bgColor, [0]);        
         this.canvas = document.getElementById(htmlElementId);
         this.canvas.width = width;
         this.canvas.height = height;
@@ -41,7 +41,7 @@ class Shape {
     constructor(x, y, width, height, bgColor) {
         Shape.idCount++;
 
-        this.id = Rectagle.idCount;
+        this.id = Rectangle.idCount;
         this.x = x;
         this.y = y;
         this.width(width);
@@ -84,7 +84,7 @@ class Shape {
     }   
 }
 
-class Rectagle extends Shape {
+class Rectangle extends Shape {
     
     constructor (x, y, width, height, bgColor, round) {
         super(x, y, width, height, bgColor);
@@ -113,7 +113,7 @@ class Rectagle extends Shape {
 }
 
 // Use to form complex Objects
-class SceneryObject extends Rectagle {
+class SceneryObject extends Rectangle {
     
     constructor(x, y, width, height, shapes) {
         super(x, y, width, height, "transparent", 1, false);
@@ -183,10 +183,10 @@ class GameMap extends SceneryObject {
 
     constructor(width, height, chunks, mapBorderColor) {
         let content = [];
-        content.push( new Rectagle(-height/2, -height/2, width+height, height/2, mapBorderColor) );
-        content.push( new Rectagle(-height/2, height, width+height, height/2, mapBorderColor) );
-        content.push( new Rectagle(-height/2, 0, height/2, height, mapBorderColor) );
-        content.push( new Rectagle(width, 0, height/2, height, mapBorderColor) );
+        content.push( new Rectangle(-height/2, -height/2, width+height, height/2, mapBorderColor) );
+        content.push( new Rectangle(-height/2, height, width+height, height/2, mapBorderColor) );
+        content.push( new Rectangle(-height/2, 0, height/2, height, mapBorderColor) );
+        content.push( new Rectangle(width, 0, height/2, height, mapBorderColor) );
         for (let i = 0; i < chunks.length; i++) {
             content.push(chunks[i]);
         }
