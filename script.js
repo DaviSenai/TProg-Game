@@ -13,6 +13,8 @@ let fitScreen = false; // false for development
 if (fitScreen) {
     document.body.style.zoom = window.innerWidth / cWidth;
 }
+let gravity = 1;
+let fallSpeedLimit = 20;
 
 const Utils = {
 
@@ -153,7 +155,7 @@ const Utils = {
 
     yRemainingForce(elem, elem2) {
         if (elem.y < elem2.y) {
-            return elem.offsetBottom() - elem2.offsetTop();
+            return elem2.offsetTop() - elem.offsetBottom();
         } else {
             return elem2.offsetBottom() - elem.offsetTop();   
         }
@@ -189,19 +191,26 @@ let Controls = {
         switch(k.key) {
             case "ArrowUp": {
                 if (!player.isJumping) {
-                    player.vSpeed -= 100 ;
+                    this.isJumping = true;
+                    player.vSpeed = -225 ;
+                }
+                break;
+            }
+            case "ArrowDown": {
+                if (!player.isJumping) {
+                    player.vSpeed = 20 ;
                 }
                 break;
             }
             case "ArrowLeft": {
                 // if (!player.onAnimation) {
-                    player.hSpeed = -4;
+                    player.hSpeed = -5;
                 // }
                 break;
             }
             case "ArrowRight": {
                 // if (!player.onAnimation) {
-                    player.hSpeed = 4;
+                    player.hSpeed = 5;
                 // }
                 break;
             }
@@ -217,6 +226,10 @@ let Controls = {
             case "ArrowRight": {
                 // player.hSpeed -= 80; 
                 player.hSpeed = 0; 
+            }
+            case "ArrowDown": {
+                // player.hSpeed -= 80; 
+                player.vSpeed = 0; 
             }
         }
     }

@@ -3,7 +3,7 @@ class Player extends Entity {
 
     constructor(x, y) {
 
-        super(x - 48/2, y - 64/2, 48, 64);
+        super(x - 72/2, y - 96/2, 72, 96);
 
         this.spriteParts_Left = [];
         this.spriteParts_Right = [];
@@ -47,6 +47,10 @@ class Player extends Entity {
         } else {
             this.spriteParts_Left[this.animPart][this.animSprite].create();
         }
+
+        if (this.vSpeed >= 0 && this.vSpeed + gravity <= fallSpeedLimit && !this.isJumping) {
+            this.vSpeed += gravity;
+        }
         
         this.anim();
     }
@@ -57,35 +61,33 @@ class Player extends Entity {
         } else if (this.hSpeed > 0) {
             this.faceRight = true; 
         }
-        if (this.vSpeed != 0) {
-            //Jump
-            // if (this.vSpeed < 0) {
-            if (this.vSpeed < 0 && !this.isJumping) {
-                this.isJumping = true;
-                this.animSprite = 0;
+        //Jump
+        if (this.vSpeed < 0 && !this.isJumping) {
+            this.isJumping = true;
+            this.animSprite = 0;
+            this.jump_next();
+            setTimeout( () => {this.jump_next()}, 50);
+            setTimeout( () => {this.jump_next()}, 100);
+            setTimeout( () => {
                 this.jump_next();
-                setTimeout( () => {this.jump_next()}, 50);
-                setTimeout( () => {this.jump_next()}, 100);
-                setTimeout( () => {
-                    this.jump_next();
-                    let nTick = 200 * frameRate / 1000;
-                    for (let i = 0; i < nTick; i++) {
-                        setTimeout( () => {this.move(this.hSpeed, this.vSpeed / nTick)}, 200 / nTick * i);
-                    }
-                }, 200);
-                setTimeout( () => {this.jump_next()}, 300);
-                setTimeout( () => {
-                    this.jump_next();
-                    this.vSpeed = 0;
-                    this.isJumping = false;
-                }, 400);
-                // this.move(this.hSpeed, this.vSpeed);  
-            }
-            // Fall
-            else if (this.vSpeed > 0) {
-                this.move(this.hSpeed, this.vSpeed);  
-            }
-        } else if (this.hSpeed != 0) {
+                let nTick = 200 * frameRate / 1000;
+                for (let i = 0; i < nTick; i++) {
+                    setTimeout( () => {this.move(this.hSpeed, this.vSpeed / nTick)}, 200 / nTick * i);
+                }
+            }, 200);
+            setTimeout( () => {this.jump_next()}, 300);
+            setTimeout( () => {
+                this.defaultSprite();
+                this.vSpeed = 0;
+                this.isJumping = false;
+            }, 400); 
+        }
+        // Fall
+        else if (this.vSpeed > 0) {
+            this.move(this.hSpeed, this.vSpeed);  
+        }
+        
+        if (this.hSpeed != 0) {
             // Turn right/left
             if (!this.isJumping && !this.onAnimation) {
                 this.onAnimation = true;
@@ -103,12 +105,9 @@ class Player extends Entity {
     }
 
     move(x, y) {
-        // console.log(x)
-        // console.log(y)
         for (let i = 4; i < container.elements[0].shapes.length; i++) {
             if (container.elements[0].shapes[i].active) {
                 let correction = Utils.colisionVerify( player, x, y, container.elements[0].shapes[i]);
-                // console.log(correction)
                 if (correction != false) {
                     x = correction.x;
                     y = correction.y;

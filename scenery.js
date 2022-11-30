@@ -212,11 +212,11 @@ function getJungleMap() {
             let shapes = [];
             shapes.push( new Rectangle(0, 0, cWidth, 200, "green") );
             
-            scenery.push( new SceneryObject(0, cHeight - 270, cHeight, 200, shapes) );
+            scenery.push( new SceneryObject(0, cHeight - 270, cWidth, 200, shapes) );
         }
         chunks.push( new Chunk(0, 0, cWidth, cHeight, scenery) );
     }
-    return new GameMap(1364, 766, chunks, "green");
+    return new GameMap(cWidth, cHeight, chunks, "gray");
 }
 
 function getLifeBar() {
