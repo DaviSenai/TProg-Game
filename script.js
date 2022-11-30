@@ -7,7 +7,7 @@ let cHeight = 766;
 let bgColor = "#000000";
 // let bgColor = "#cfeeff";
 let container = new Canvas("game-canvas", cWidth, cHeight, bgColor, "2d");
-let frameRate = 30;
+let frameRate = 45;
 let fitScreen = false; // false for development
 // let fitScreen = true; // true for test and play
 if (fitScreen) {
@@ -31,12 +31,35 @@ const Utils = {
     
     colisionVerify(elem, xIncrease, yIncrease, chunk) {
         for (let i = 0; i < chunk.shapes.length; i++) {
-            if (this.inRange(elem, xIncrease, yIncrease, chunk.shapes[i])) {
-                return this.remainingForce(elem, xIncrease, yIncrease, chunk.shapes[i]);
+            let correction = Utils.inRange(elem, xIncrease, yIncrease, chunk.shapes[i]);
+            if (correction != false) {
+                return correction;
             }
         }
         return false;
     },
+
+    // inRange(elem, xIncrease, yIncrease, elem2) {
+    //     let elemTop = elem.offsetTop() + yIncrease;
+    //     let elemBottom = elem.offsetBottom() + yIncrease;
+    //     let elemLeft = elem.offsetLeft() + xIncrease;
+    //     let elemRight = elem.offsetRight() + xIncrease;
+        
+    //     if (elemTop > elem2.offsetTop() && elemTop < elem2.offsetBottom()) {
+    //         if (elemLeft > elem2.offsetLeft() && elemLeft < elem2.offsetRight()) {
+    //             return true; 
+    //         } else if (elemRight > elem2.offsetLeft() && elemRight < elem2.offsetRight()) {
+    //             return true;
+    //         }
+    //     } else if (elemBottom > elem2.offsetTop() && elemBottom < elem2.offsetBottom()) {
+    //         if (elemLeft > elem2.offsetLeft() && elemLeft < elem2.offsetRight()) {
+    //             return true;
+    //         } else if (elemRight > elem2.offsetLeft() && elemRight < elem2.offsetRight()) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // },
 
     inRange(elem, xIncrease, yIncrease, elem2) {
         let elemTop = elem.offsetTop() + yIncrease;
@@ -44,20 +67,25 @@ const Utils = {
         let elemLeft = elem.offsetLeft() + xIncrease;
         let elemRight = elem.offsetRight() + xIncrease;
         
-        if (elemTop > elem2.offsetTop() && elemTop < elem2.offsetBottom()) {
-            if (elemLeft > elem2.offsetLeft() && elemLeft < elem2.offsetRight()) {
-                return true; 
-            } else if (elemRight > elem2.offsetLeft() && elemRight < elem2.offsetRight()) {
-                return true;
-            }
-        } else if (elemBottom > elem2.offsetTop() && elemBottom < elem2.offsetBottom()) {
-            if (elemLeft > elem2.offsetLeft() && elemLeft < elem2.offsetRight()) {
-                return true;
-            } else if (elemRight > elem2.offsetLeft() && elemRight < elem2.offsetRight()) {
-                return true;
+        if ( elemTop > elem2.offsetTop() && elemTop < elem2.offsetBottom() 
+            || elemBottom > elem2.offsetTop() && elemBottom < elem2.offsetBottom() ) {
+
+            if ( elemLeft > elem2.offsetLeft() && elemLeft < elem2.offsetRight() 
+                || elemRight > elem2.offsetLeft() && elemRight < elem2.offsetRight()) {
+                return Utils.axisCorrection(elem, xIncrease, yIncrease, elem2); 
             }
         }
         return false;
+    },
+
+    axisCorrection(elem, xIncrease, yIncrease, elem2) {
+        let correction = {x: xIncrease, y: yIncrease};
+        if (elem.offsetTop() >= elem2.offsetBottom() || elem.offsetBottom() <= elem2.offsetTop()) {
+            correction.y = this.yRemainingForce(elem, elem2);
+        } else if (elem.offsetLeft() >= elem2.offsetRight() || elem.offsetRight() <= elem2.offsetLeft()) {
+            correction.x = this.xRemainingForce(elem, elem2);
+        }
+        return correction;
     },
 
     showColisionBox() {
@@ -91,51 +119,45 @@ const Utils = {
     // Ao pular e andar para frente em baixo de um bloco o personagem pode teleportar para o canto do bloco conforme a ordem dos ifs abaixo 
     // Se inverter o if, ao encostar numa parede e pular e andar ao mesmo tempo, o personagem é teleportado ao topo
     // Se retirar o return de dentro do if, o bug acontece em ambas as situações
-    remainingForce(elem, xIncrease, yIncrease, elem2) {
-        let remain = {x: 0, y: 0};
+    // remainingForce(elem, xIncrease, yIncrease, elem2) {
+    //     let remain = {x: 0, y: 0};
 
-        if (yIncrease != 0) {
-            if (elem.y < elem2.y) {
-                remain.y = elem.offsetBottom() - elem2.offsetTop();
-            } else {
-                remain.y = elem2.offsetBottom() - elem.offsetTop();   
-            }
-            return remain;
-        }
-        
-        if (xIncrease != 0) {
-            if (elem.x < elem2.x) {
-                remain.x = elem.offsetRight() - elem2.offsetLeft();
-            } else {
-                remain.x = elem2.offsetRight() - elem.offsetLeft();
-            }
-            return remain;
-        }
-        
-        return remain;
-    },
-
-    // xRemainingForce(elem, xIncrease, elem2) {
-    //     if (xIncrease != 0) {
-    //         if (elem.x < elem2.x) {
-    //             return elem.offsetRight() - elem2.offsetLeft();
-    //         } else {
-    //             return elem2.offsetRight() - elem.offsetLeft();
-    //         }
-    //     }
-    //     return 0;
-    // },
-
-    // yRemainingForce(elem, yIncrease, elem2) {
     //     if (yIncrease != 0) {
     //         if (elem.y < elem2.y) {
-    //             return elem.offsetBottom() - elem2.offsetTop();
+    //             remain.y = elem.offsetBottom() - elem2.offsetTop();
     //         } else {
-    //             return elem2.offsetBottom() - elem.offsetTop();   
+    //             remain.y = elem2.offsetBottom() - elem.offsetTop();   
     //         }
-    //     }        
-    //     return 0;
+    //         return remain;
+    //     }
+        
+    //     if (xIncrease != 0) {
+    //         if (elem.x < elem2.x) {
+    //             remain.x = elem.offsetRight() - elem2.offsetLeft();
+    //         } else {
+    //             remain.x = elem2.offsetRight() - elem.offsetLeft();
+    //         }
+    //         return remain;
+    //     }
+        
+    //     return remain;
     // },
+
+    xRemainingForce(elem, elem2) {
+        if (elem.x < elem2.x) {
+            return elem.offsetRight() - elem2.offsetLeft();
+        } else {
+            return elem2.offsetRight() - elem.offsetLeft();
+        }
+    },
+
+    yRemainingForce(elem, elem2) {
+        if (elem.y < elem2.y) {
+            return elem.offsetBottom() - elem2.offsetTop();
+        } else {
+            return elem2.offsetBottom() - elem.offsetTop();   
+        }
+    },
 
 }
 

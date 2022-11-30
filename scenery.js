@@ -219,7 +219,6 @@ function getJungleMap() {
     return new GameMap(1364, 766, chunks, "green");
 }
 
-
 function getLifeBar() {
     let shapes = [];
     shapes.push( new Rectangle(0, 0, 10, 30, "#940101", [5]) );
@@ -235,6 +234,3 @@ function getLifeBar() {
     
     return new SceneryObject(cWidth - 160, 20, 145, 30, shapes);
 }
-
-
-

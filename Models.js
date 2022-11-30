@@ -212,6 +212,11 @@ class Img extends Shape {
     create() {
         context.drawImage(this.img, this.x, this.y, this.style.width, this.style.height);
     }
+
+    move(x, y) {
+        this.x += x;
+        this.y += y;
+    }
 }
 
 
@@ -242,5 +247,3 @@ class Entity extends Shape {
     }
     
 }
-
-
