@@ -210,6 +210,12 @@ function getJungleMap() {
         }
         {
             let shapes = [];
+            shapes.push( new Rectangle(0, 0, 48, 100, "#444444", [20]) );
+
+            scenery.push( new SceneryObject(850, cHeight -370, 48, 100, shapes) );
+        }
+        {
+            let shapes = [];
             shapes.push( new Rectangle(0, 0, cWidth, 200, "green") );
             
             scenery.push( new SceneryObject(0, cHeight - 270, cWidth, 200, shapes) );

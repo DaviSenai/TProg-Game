@@ -25,43 +25,125 @@ const Utils = {
                 container.elements.push(getJungleMap());
                 break;
             }
+            case "temple": {
+                container.elements = [];
+                container.elements.push(getTempleMap());
+                break;
+            }
             default: {
                 console.log("%cMap \"" + name + "\" not found!", "background: #222; color: #ff4444; font-size: 24px; font-weight: bold;");
             }
         }
     },
-    
-    colisionVerify(elem, xIncrease, yIncrease, chunk) {
+
+    colisionVerify2(elem, xIncrease, yIncrease, chunk) {
+        let correction = {x: xIncrease, y: yIncrease};
+
+        let xInRangeElements = [];
+        let yInRangeElements = [];
+        
         for (let i = 0; i < chunk.shapes.length; i++) {
-            let correction = Utils.inRange(elem, xIncrease, yIncrease, chunk.shapes[i]);
-            if (correction != false) {
-                return correction;
+            // Elementos da chunk
+            if (xIncrease != 0) {
+                // Caso o objeto esteja na mesma linha da entidade (player)
+                if ( Utils.inRangeY(elem, yIncrease, chunk.shapes[i]) ) {
+                    // Se o incremento for positivo
+                    if ( xIncrease > 0 ) {    
+                        // Caso o objeto esteja depois
+                        if ( chunk.shapes[i].x > elem.x ) {
+                            // Compare se o offsetLeft é menor ou igual à distância com incremento
+                            if ( chunk.shapes[i].offsetLeft() <= elem.offsetRight() + xIncrease ) {
+                                // Coloca o objeto numa lista
+                                xInRangeElements.push( chunk.shapes[i] );
+                            }
+                        }
+                    }
+                    // Se o incremento for negativo
+                    if ( xIncrease < 0 ) {
+                        // Caso o objeto esteja antes
+                        if ( chunk.shapes[i].x < elem.x ) {
+                            // Compare se o offsetRight é maior ou igual à distância com incremento
+                            if ( chunk.shapes[i].offsetRight() >= elem.offsetLeft() + xIncrease ) {
+                                // Coloca o objeto numa lista
+                                xInRangeElements.push( chunk.shapes[i] )
+                            }
+                        }
+                    }
+                }
             }
+
+            if (yIncrease != 0) {
+                // Caso o objeto esteja na mesma coluna da entidade (player)
+                if ( Utils.inRangeX(elem, xIncrease, chunk.shapes[i]) ) {
+                    // Se o incremento for positivo
+                    if ( yIncrease > 0 ) {    
+                        // Caso o objeto esteja abaixo
+                        if ( chunk.shapes[i].y > elem.y ) {
+                            // Compare se o offsetTop é menor ou igual à distância com incremento
+                            if ( chunk.shapes[i].offsetTop() <= elem.offsetBottom() + yIncrease ) {
+                                // Coloca o objeto numa lista
+                                yInRangeElements.push( chunk.shapes[i] );
+                            }
+                        }
+                    }
+                    // Se o incremento for negativo
+                    if ( xIncrease < 0 ) {
+                        // Caso o objeto esteja acima
+                        if ( chunk.shapes[i].y < elem.y ) {
+                            // Compare se o offsetBottom é maior ou igual à distância com incremento
+                            if ( chunk.shapes[i].offsetBottom() >= elem.offsetTop() + yIncrease ) {
+                                // Coloca o objeto numa lista
+                                yInRangeElements.push( chunk.shapes[i] )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        console.log(xInRangeElements);
+        console.log(yInRangeElements);
+        return correction;
+    },
+
+    // inRangeX(elem,  xIncrease, elem2) {
+    //     let elemLeft = elem.offsetLeft() + xIncrease;
+    //     let elemRight = elem.offsetRight() + xIncrease;
+    //     if ( (elem2.offsetRight() >= elemLeft && elem2.offsetRight() <= elemRight) 
+    //         || (elem2.offsetLeft() <= elemRight  && elem2.offsetLeft() >= elemLeft) ) {
+    //         return true;
+    //     }
+    //     return false;
+    // },
+
+    // inRangeY(elem,  yIncrease, elem2) {
+    //     let elemTop = elem.offsetTop() + yIncrease;
+    //     let elemBottom = elem.offsetBottom() + yIncrease;
+    //     if ( (elem2.offsetBottom() >= elemTop && elem2.offsetBottom() <= elemBottom) 
+    //         || (elem2.offsetTop() <= elemBottom  && elem2.offsetTop() >= elemTop) ) {
+    //         return true;
+    //     }
+    //     return false;
+    // },
+
+    inRangeX(elem,  xIncrease, elem2) {
+        let elemLeft = elem.offsetLeft() + xIncrease;
+        let elemRight = elem.offsetRight() + xIncrease;
+        if ( (elem2.offsetRight() >= elemLeft && elem2.offsetRight() <= elemRight) 
+            || (elem2.offsetLeft() <= elemRight  && elem2.offsetLeft() >= elemLeft) ) {
+            return true;
         }
         return false;
     },
 
-    // inRange(elem, xIncrease, yIncrease, elem2) {
-    //     let elemTop = elem.offsetTop() + yIncrease;
-    //     let elemBottom = elem.offsetBottom() + yIncrease;
-    //     let elemLeft = elem.offsetLeft() + xIncrease;
-    //     let elemRight = elem.offsetRight() + xIncrease;
-        
-    //     if (elemTop > elem2.offsetTop() && elemTop < elem2.offsetBottom()) {
-    //         if (elemLeft > elem2.offsetLeft() && elemLeft < elem2.offsetRight()) {
-    //             return true; 
-    //         } else if (elemRight > elem2.offsetLeft() && elemRight < elem2.offsetRight()) {
-    //             return true;
-    //         }
-    //     } else if (elemBottom > elem2.offsetTop() && elemBottom < elem2.offsetBottom()) {
-    //         if (elemLeft > elem2.offsetLeft() && elemLeft < elem2.offsetRight()) {
-    //             return true;
-    //         } else if (elemRight > elem2.offsetLeft() && elemRight < elem2.offsetRight()) {
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // },
+    inRangeY(elem,  yIncrease, elem2) {
+        let elemTop = elem.offsetTop() + yIncrease;
+        let elemBottom = elem.offsetBottom() + yIncrease;
+        if ( (elem2.offsetBottom() <= elemTop && elem2.offsetBottom() >= elemBottom) 
+            || (elem2.offsetTop() >= elemBottom  && elem2.offsetTop() <= elemTop) ) {
+            return true;
+        }
+        return false;
+    },
 
     inRange(elem, xIncrease, yIncrease, elem2) {
         let elemTop = elem.offsetTop() + yIncrease;
@@ -93,6 +175,71 @@ const Utils = {
     showColisionBox() {
         container.elements[0].showColisionBox();
     },
+
+
+
+    xRemainingForce(elem, elem2) {
+        if (elem.x < elem2.x) {
+            return elem.offsetRight() - elem2.offsetLeft();
+        } else {
+            return elem2.offsetRight() - elem.offsetLeft();
+        }
+    },
+
+    yRemainingForce(elem, elem2) {
+        if (elem.y < elem2.y) {
+            return elem2.offsetTop() - elem.offsetBottom();
+        } else {
+            return elem2.offsetBottom() - elem.offsetTop();   
+        }
+    },
+
+    
+    colisionVerify(elem, xIncrease, yIncrease, chunk) {
+        let correction = {x: xIncrease, y: yIncrease};
+        for (let i = 0; i < chunk.shapes.length; i++) {
+            let correctionElem = Utils.inRange(elem, xIncrease, yIncrease, chunk.shapes[i]);
+            if (correctionElem != false) {
+                if (correctionElem.x != xIncrease)
+                    correction.x = correctionElem.x;
+                if (correctionElem.y != yIncrease)
+                    correction.y = correctionElem.y;
+            }
+        }
+        return correction;
+    },
+    
+    // colisionVerify(elem, xIncrease, yIncrease, chunk) {
+    //     for (let i = 0; i < chunk.shapes.length; i++) {
+    //         let correction = Utils.inRange(elem, xIncrease, yIncrease, chunk.shapes[i]);
+    //         if (correction != false) {
+    //             return correction;
+    //         }
+    //     }
+    //     return false;
+    // },
+
+    // inRange(elem, xIncrease, yIncrease, elem2) {
+    //     let elemTop = elem.offsetTop() + yIncrease;
+    //     let elemBottom = elem.offsetBottom() + yIncrease;
+    //     let elemLeft = elem.offsetLeft() + xIncrease;
+    //     let elemRight = elem.offsetRight() + xIncrease;
+        
+    //     if (elemTop > elem2.offsetTop() && elemTop < elem2.offsetBottom()) {
+    //         if (elemLeft > elem2.offsetLeft() && elemLeft < elem2.offsetRight()) {
+    //             return true; 
+    //         } else if (elemRight > elem2.offsetLeft() && elemRight < elem2.offsetRight()) {
+    //             return true;
+    //         }
+    //     } else if (elemBottom > elem2.offsetTop() && elemBottom < elem2.offsetBottom()) {
+    //         if (elemLeft > elem2.offsetLeft() && elemLeft < elem2.offsetRight()) {
+    //             return true;
+    //         } else if (elemRight > elem2.offsetLeft() && elemRight < elem2.offsetRight()) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // },
 
     // Continuar e Separar um metodo para x e um para y
     // remainingForce(elem, xIncrease, yIncrease, elem2) {
@@ -144,22 +291,6 @@ const Utils = {
         
     //     return remain;
     // },
-
-    xRemainingForce(elem, elem2) {
-        if (elem.x < elem2.x) {
-            return elem.offsetRight() - elem2.offsetLeft();
-        } else {
-            return elem2.offsetRight() - elem.offsetLeft();
-        }
-    },
-
-    yRemainingForce(elem, elem2) {
-        if (elem.y < elem2.y) {
-            return elem2.offsetTop() - elem.offsetBottom();
-        } else {
-            return elem2.offsetBottom() - elem.offsetTop();   
-        }
-    },
 
 }
 
