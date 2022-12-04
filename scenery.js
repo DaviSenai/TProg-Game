@@ -194,13 +194,13 @@ function getJungleMap() {
 	let chunks = [];
 	{
 		let scenery = [];
-		{
-			let shapes = [];
-			shapes.push( new Rectangle(0, 0, 100, 100, "#444444", [20]) );
-			shapes.push( new Rectangle(10, 10, 80, 80, "#777777", [20]) );
+		// {
+		// 	let shapes = [];
+		// 	shapes.push( new Rectangle(0, 0, 100, 100, "#444444", [20]) );
+		// 	shapes.push( new Rectangle(10, 10, 80, 80, "#777777", [20]) );
 
-			scenery.push( new SceneryObject(450, 300, 100, 100, shapes) );
-		}
+		// 	scenery.push( new SceneryObject(450, 300, 100, 100, shapes) );
+		// }
 		{
 			let shapes = [];
 			shapes.push( new Rectangle(0, 0, 100, 100, "#444444", [20]) );
@@ -208,12 +208,12 @@ function getJungleMap() {
 
 			scenery.push( new SceneryObject(650, 220, 100, 100, shapes) );
 		}
-		{
-			let shapes = [];
-			shapes.push( new Rectangle(0, 0, 48, 100, "#444444", [20]) );
+		// {
+		// 	let shapes = [];
+		// 	shapes.push( new Rectangle(0, 0, 48, 100, "#444444", [20]) );
 
-			scenery.push( new SceneryObject(850, cHeight -370, 48, 100, shapes) );
-		}
+		// 	scenery.push( new SceneryObject(850, cHeight -370, 48, 100, shapes) );
+		// }
 		{
 			let shapes = [];
 			shapes.push( new Rectangle(0, 0, 48, 100, "#444444", [20]) );
