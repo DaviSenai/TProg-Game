@@ -188,25 +188,6 @@ const Utils = {
 	showColisionBox() {
 		container.elements[0].showColisionBox();
 	},
-
-
-
-	// xRemainingForce(elem, elem2) {
-	// 	if (elem.x < elem2.x) {
-	// 		return elem.offsetRight() - elem2.offsetLeft();
-	// 	} else {
-	// 		return elem2.offsetRight() - elem.offsetLeft();
-	// 	}
-	// },
-
-	// yRemainingForce(elem, elem2) {
-	// 	if (elem.y < elem2.y) {
-	// 		return elem2.offsetTop() - elem.offsetBottom();
-	// 	} else {
-	// 		return elem2.offsetBottom() - elem.offsetTop();   
-	// 	}
-	// },
-
 }
 
 let Controls = {
@@ -256,49 +237,19 @@ let Controls = {
 		}
 	},
 
-	// playerControls(k) {
-	// 	switch(k.key) {
-	// 		case "ArrowUp": {
-	// 			if (!player.isJumping) {
-	// 				this.isJumping = true;
-	// 				player.vSpeed = -225 ;
-	// 			}
-	// 			break;
-	// 		}
-	// 		case "ArrowDown": {
-	// 			if (!player.isJumping) {
-	// 				player.vSpeed = 20 ;
-	// 			}
-	// 			break;
-	// 		}
-	// 		case "ArrowLeft": {
-	// 			// if (!player.onAnimation) {
-	// 				player.hSpeed = -5;
-	// 			// }
-	// 			break;
-	// 		}
-	// 		case "ArrowRight": {
-	// 			// if (!player.onAnimation) {
-	// 				player.hSpeed = 5;
-	// 			// }
-	// 			break;
-	// 		}
-	// 	}
-	// },
-
 	playerControls2(k) {
 		switch(k.key) {
 			case "ArrowLeft": {
-				// player.hSpeed += 80; 
-				player.hSpeed = 0; 
+				player.hSpeed = 0;
+				break;
 			}
 			case "ArrowRight": {
-				// player.hSpeed -= 80; 
 				player.hSpeed = 0; 
+				break;
 			}
 			case "ArrowDown": {
-				// player.hSpeed -= 80; 
 				player.vSpeed = 0; 
+				break;
 			}
 		}
 	}

@@ -44,7 +44,7 @@ class Player extends Entity {
 		this.jumpMoveDistance = 120;
 		// this.jumpMoveDistance = 100;
 
-		this.hMoveDistance = 150 / frameRate;
+		this.hMoveDistance = 250 / frameRate;
 	}
 
 	jump() {
@@ -107,14 +107,10 @@ class Player extends Entity {
 					this.defaultSprite();
 					this.vSpeed = gravity;
 					this.isJumping = false;
-				}, 400);
+				}, 1000 / frameRate * nTick);
 			}
-			// Impede de executar 
+			// Impede de executar o move 2 vezes
 			return;
-		}
-		// Fall
-		else if (this.vSpeed > 0) {
-			this.move(this.hSpeed, this.vSpeed);  
 		}
 		
 		if (this.hSpeed != 0) {
@@ -132,8 +128,8 @@ class Player extends Entity {
 					this.onAnimation = false;
 				}, 300);
 			}
-			this.move(this.hSpeed, this.vSpeed);
 		}
+		this.move(this.hSpeed, this.vSpeed);
 	}
 
 	move(x, y) {
