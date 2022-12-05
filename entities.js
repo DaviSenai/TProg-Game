@@ -37,7 +37,7 @@ class Player extends Entity {
 		this.animSprite = 0;
 		this.faceRight = true;
 		this.isJumping = false;
-		this.canJump = true;
+		this.yCanJump = true;
 		this.onAnimation = false;
 
 		this.jumpSpeed = 500;
@@ -48,7 +48,7 @@ class Player extends Entity {
 	}
 
 	jump() {
-		if (!this.isJumping && this.canJump) {
+		if (!this.isJumping && (this.yCanJump || this.xCanJump)) {
 			this.vSpeed = -this.jumpSpeed;
 		}
 	}
@@ -88,16 +88,21 @@ class Player extends Entity {
 		}
 		//Jump
 		if (this.vSpeed < 0) {
-			if (!this.isJumping) {
+			if (!this.isJumping && (this.yCanJump || this.xCanJump)) {
 
 				this.isJumping = true;
 				this.animSprite = 0;
-
+				
 				let nTick = this.jumpMoveDistance * frameRate / this.jumpSpeed;
+				
+				let fMove = (this.yCanJump)     ?  () => {this.move(this.hSpeed, this.vSpeed / frameRate )}
+						   :(this.xCanJump > 0) ?  () => {this.move(-this.hMoveDistance, this.vSpeed / frameRate )}
+						   : () => {this.move(this.hMoveDistance, this.vSpeed / frameRate )}
+				
 				for (let i = 0; i < nTick; i++) {
-					setTimeout( () => {this.move(this.hSpeed, this.vSpeed / frameRate )}, 1000 / frameRate * i);
+					setTimeout( fMove, 1000 / frameRate * i);
 				}
-
+				
 				this.jump_next();
 				setTimeout( () => {this.jump_next()}, .125 * 1000 / frameRate * nTick);
 				setTimeout( () => {this.jump_next()}, .25 * 1000 / frameRate * nTick);
@@ -136,10 +141,18 @@ class Player extends Entity {
 		for (let i = 4; i < container.elements[0].shapes.length; i++) {
 			if (container.elements[0].shapes[i].active) {
 				let correction = Utils.colisionVerify( player, x, y, container.elements[0].shapes[i]);
-				if (correction != false) {
-					x = correction.x;
-					y = correction.y;
+				if (y > 0 && y != correction.y) {
+					this.yCanJump = true;
+				} else {
+					this.yCanJump = false;
 				}
+				if (x != correction.x) {
+					this.xCanJump = (x > 0) ? 1 : -1;
+				} else {
+					this.xCanJump = false;
+				}
+				x = correction.x;
+				y = correction.y;
 			}
 		}
 		container.elements[0].move(-x, -y);

@@ -78,6 +78,18 @@ function getJungleMap() {
 		}
 		{
 			let shapes = [];
+			shapes.push( new Rectangle(0, 0, 48, 500, "#444444", [20]) );
+
+			scenery.push( new SceneryObject(1050, cHeight -770, 48, 500, shapes) );
+		}
+		{
+			let shapes = [];
+			shapes.push( new Rectangle(0, 0, 48, 400, "#444444", [20]) );
+
+			scenery.push( new SceneryObject(850, cHeight -770, 48, 400, shapes) );
+		}
+		{
+			let shapes = [];
 			shapes.push( new Rectangle(0, 0, cWidth, 200, "green") );
 			
 			scenery.push( new SceneryObject(0, cHeight - 270, cWidth, 200, shapes) );

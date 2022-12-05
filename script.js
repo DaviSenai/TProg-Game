@@ -7,7 +7,7 @@ let cHeight = 766;
 let bgColor = "#000000";
 // let bgColor = "#cfeeff";
 let container = new Canvas("game-canvas", cWidth, cHeight, bgColor, "2d");
-let frameRate = 60;
+let frameRate = 30;
 let fitScreen = false; // false for development
 // let fitScreen = true; // true for test and play
 if (fitScreen) {
