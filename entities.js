@@ -72,7 +72,7 @@ class Player extends Entity {
 			this.spriteParts_Left[this.animPart][this.animSprite].create();
 		}
 
-		if (this.vSpeed >= 0 && this.vSpeed + gravity <= fallSpeedLimit && !this.isJumping) {
+		if (gravityOn && this.vSpeed >= 0 && this.vSpeed + gravity <= fallSpeedLimit && !this.isJumping) {
 			this.vSpeed += gravity;
 		}
 
@@ -96,8 +96,14 @@ class Player extends Entity {
 				let nTick = this.jumpMoveDistance * frameRate / this.jumpSpeed;
 				
 				let fMove = (this.yCanJump)     ?  () => {this.move(this.hSpeed, this.vSpeed / frameRate )}
-						   :(this.xCanJump > 0) ?  () => {this.move(-this.hMoveDistance, this.vSpeed / frameRate )}
-						   : () => {this.move(this.hMoveDistance, this.vSpeed / frameRate )}
+						   :(this.xCanJump > 0) ?  () => {
+														this.move(-this.hMoveDistance, this.vSpeed / frameRate );
+														this.faceRight = false;
+													}
+						   : () => {
+								this.move(this.hMoveDistance, this.vSpeed / frameRate );
+								this.faceRight = true;
+							}
 				
 				for (let i = 0; i < nTick; i++) {
 					setTimeout( fMove, 1000 / frameRate * i);
@@ -139,22 +145,31 @@ class Player extends Entity {
 
 	move(x, y) {
 		for (let i = 4; i < container.elements[0].shapes.length; i++) {
-			if (container.elements[0].shapes[i].active) {
-				let correction = Utils.colisionVerify( player, x, y, container.elements[0].shapes[i]);
-				if (y > 0 && y != correction.y) {
-					this.yCanJump = true;
-				} else {
-					this.yCanJump = false;
-				}
-				if (x != correction.x) {
-					this.xCanJump = (x > 0) ? 1 : -1;
-				} else {
-					this.xCanJump = false;
-				}
-				x = correction.x;
-				y = correction.y;
+			// if (Utils.inRangeX(player, 0, container.elements[0].shapes[i]) && Utils.inRangeY(player, 0, container.elements[0].shapes[i])) {
+			let chunk = container.elements[0].shapes[i];
+			if (
+				( Utils.inRangeX(player, -visionFieldSize / 2, chunk) || Utils.inRangeX(player, visionFieldSize / 2, chunk))
+				&&
+				( Utils.inRangeY(player, -visionFieldSize / 2, chunk) || Utils.inRangeY(player, visionFieldSize / 2, chunk))
+			) {
+				container.elements[0].shapes[i].active = true;
+			} else {
+				container.elements[0].shapes[i].active = false;
 			}
 		}
+		let correction = Utils.colisionVerify( player, x, y, container.elements[0].shapes);
+		if (y > 0 && y != correction.y) {
+			this.yCanJump = true;
+		} else {
+			this.yCanJump = false;
+		}
+		if (x != correction.x) {
+			this.xCanJump = (x > 0) ? 1 : -1;
+		} else {
+			this.xCanJump = false;
+		}
+		x = correction.x;
+		y = correction.y;
 		container.elements[0].move(-x, -y);
 	}
 

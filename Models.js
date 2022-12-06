@@ -122,6 +122,7 @@ class SceneryObject extends Rectangle {
 		}
 		this.shapes = shapes;
 		this.showColision = false;
+		this.style.bgColor = "pink";
 	}
 	
 	// The shapes will have the position relative to the ScenaryObject
@@ -143,9 +144,8 @@ class SceneryObject extends Rectangle {
 		}
 	}
 
-	showColisionBox() {
-		this.showColision = true;
-		this.style.bgColor = "pink";
+	showColisionBox(value) {
+		this.showColision = value != false ? true : false;
 	}
 
 }
@@ -154,13 +154,14 @@ class SceneryObject extends Rectangle {
 class Chunk extends SceneryObject {
 
 	constructor(x, y, width, height, scenery) {
-		for (let i = 0; i < scenery.length; i++) {
-			scenery[i].move(x, y);
-		}
+
 		super(x, y, width, height, scenery);
-		
-		// this.active = false; // Default
-		this.active = true;
+		this.bgColor("white");
+		this.fill(false);
+		this.active = false; // Default
+		// this.active = true;
+		// this.showBorder = false;
+		this.showBorder = true;
 	}
 
 	create() {
@@ -169,11 +170,19 @@ class Chunk extends SceneryObject {
 				this.shapes[i].create();
 			}
 		}
+
+		if (this.showBorder) {
+			context.beginPath();
+			context.lineWidth = this.style.lineWidth;
+			context.roundRect(this.x, this.y, this.style.width, this.style.height, this.round);
+			context.strokeStyle = this.style.bgColor;
+			context.stroke();
+		}
 	}
 
-	showColisionBox() {
+	showColisionBox(value) {
 		for (let i = 0; i < this.shapes.length; i++) {
-			this.shapes[i].showColisionBox();
+			this.shapes[i].showColisionBox(value);
 		}
 	}
 }
@@ -193,9 +202,15 @@ class GameMap extends SceneryObject {
 		super(0, 0, width, height, content);
 	}
 
-	showColisionBox() {
+	showColisionBox(value) {
 		for (let i = 4; i < this.shapes.length; i++) {
-			this.shapes[i].showColisionBox();
+			this.shapes[i].showColisionBox(value);
+		}
+	}
+
+	showChunkBorder(value) {
+		for (let i = 4; i < this.shapes.length; i++) {
+			this.shapes[i].showBorder = value != false ? true : false;
 		}
 	}
 }
