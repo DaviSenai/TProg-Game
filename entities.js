@@ -193,10 +193,5 @@ class Player extends Entity {
 	defaultSprite() {
 		this.animPart = 0;
 		this.animSprite = 0;
-	}
-
-	
+	}	
 }
-
-
-

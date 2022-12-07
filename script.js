@@ -19,16 +19,18 @@ let gravityOn = true;
 
 let player = new Player(cWidth/2, cHeight/2);
 
-let visionFieldSize = 400;
+let visionFieldSize = 600;
 
 function getDarkPitch() {
-
-	
 	let shapes = [];
 	shapes.push( new Rectangle(0, 0, cWidth, (cHeight - visionFieldSize) / 2, "#000000") );
 	shapes.push( new Rectangle(0, cHeight - (cHeight - visionFieldSize) / 2, cWidth, (cHeight - visionFieldSize) / 2, "#000000") );
 	shapes.push( new Rectangle(0, (cHeight - visionFieldSize) / 2, (cWidth - visionFieldSize) / 2, visionFieldSize, "#000000") );
 	shapes.push( new Rectangle(cWidth - (cWidth - visionFieldSize) / 2, (cHeight - visionFieldSize) / 2, (cWidth - visionFieldSize) / 2, visionFieldSize, "#000000") );
+	let circle = new Rectangle((cWidth - visionFieldSize) / 2, (cHeight - visionFieldSize) / 2, visionFieldSize, visionFieldSize, "#000000", [visionFieldSize])
+	circle.fill(false);
+	circle.lineWidth(250);
+	shapes.push( circle );
 
 	return new SceneryObject(0, 0, 0, 0, shapes);
 }
@@ -37,14 +39,6 @@ const Utils = {
 
 	loadMap(name) {
 		switch (String(name).toLowerCase()) {
-			case "jungle": {
-				container.elements = [];
-				container.elements.push( getJungleMap() );
-				// container.elements.push( getDarkPitch() );
-				container.elements.push( player );
-				container.elements.push( getLifeBar() );
-				break;
-			}
 			case "temple": {
 				container.elements = [];
 				container.elements.push( getTempleMap() );
@@ -55,9 +49,9 @@ const Utils = {
 			case "forest": {
 				container.elements = [];
 				let map = getForestMap();
-				// container.elements.push( getDarkPitch() );
 				map.move(200, 100);
 				container.elements.push( map );
+				container.elements.push( getDarkPitch() );
 				container.elements.push( player );
 				container.elements.push( getLifeBar() );
 				break;
@@ -204,141 +198,8 @@ const Utils = {
 				correction.y = yClosestElement - elem.offsetTop();
 			}
 		}
-
-		// console.log(correction)
 		return correction;
 	},
-
-	// colisionVerify(elem, xIncrease, yIncrease, chunk) {
-	// 	let correction = {x: xIncrease, y: yIncrease};
-
-	// 	let xInRangeElements = [];
-	// 	let yInRangeElements = [];
-		
-	// 	if (xIncrease != 0) {
-	// 		// Elementos da chunk
-	// 		for (let i = 0; i < chunk.shapes.length; i++) {
-	// 			// Caso o objeto esteja na mesma linha da entidade (player)
-	// 			if ( Utils.inRangeY(elem, 0, chunk.shapes[i]) ) {
-	// 				// Se o incremento for positivo
-	// 				if ( xIncrease > 0 ) {	
-	// 					// Caso o objeto esteja depois
-	// 					if ( chunk.shapes[i].offsetLeft() > elem.x ) {
-	// 						// Compare se o offsetLeft é menor ou igual à distância com incremento
-	// 						if ( chunk.shapes[i].offsetLeft() <= elem.offsetRight() + xIncrease ) {
-	// 							// Coloca o objeto numa lista
-	// 							xInRangeElements.push( chunk.shapes[i] );
-	// 						}
-	// 					}
-	// 				}
-	// 				// Se o incremento for negativo
-	// 				if ( xIncrease < 0 ) {
-	// 					// Caso o objeto esteja antes
-	// 					if ( chunk.shapes[i].offsetRight() <= elem.x ) {
-	// 						// Compare se o offsetRight é maior ou igual à distância com incremento
-	// 						if ( chunk.shapes[i].offsetRight() >= elem.offsetLeft() + xIncrease ) {
-	// 							// Coloca o objeto numa lista
-	// 							xInRangeElements.push( chunk.shapes[i] )
-	// 						}
-	// 					}
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	
-	// 	if (yIncrease != 0) {
-	// 		for (let i = 0; i < chunk.shapes.length; i++) {
-	// 			// Caso o objeto esteja na mesma coluna da entidade (player)
-	// 			if ( Utils.inRangeX(elem, 0, chunk.shapes[i]) ) {
-	// 				// Se o incremento for positivo
-	// 				if ( yIncrease > 0 ) {	
-	// 					// Caso o objeto esteja abaixo
-	// 					if ( chunk.shapes[i].offsetTop() > elem.y ) {
-	// 						// Compare se o offsetTop é menor ou igual à distância com incremento
-	// 						if ( chunk.shapes[i].offsetTop() <= elem.offsetBottom() + yIncrease ) {
-	// 							// Coloca o objeto numa lista
-	// 							yInRangeElements.push( chunk.shapes[i] );
-	// 						}
-	// 					}
-	// 				}
-	// 				// Se o incremento for negativo
-	// 				if ( yIncrease < 0 ) {
-	// 					// Caso o objeto esteja acima
-	// 					if ( chunk.shapes[i].offsetBottom() <= elem.y ) {
-	// 						// Compare se o offsetBottom é maior ou igual à distância com incremento
-	// 						if ( chunk.shapes[i].offsetBottom() >= elem.offsetTop() + yIncrease ) {
-	// 							// Coloca o objeto numa lista
-	// 							yInRangeElements.push( chunk.shapes[i] )
-	// 						}
-	// 					}
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-		
-	// 	// Verifica se existe algum objeto na mesma linha do personagem
-	// 	if (xInRangeElements.length > 0) {
-	// 		let xClosestElement = null;
-	// 		// Caso o increase seja positivo
-	// 		if (xIncrease > 0) {
-	// 			// Será pego o elemento mais à esquerda
-	// 			for (let i = 0; i < xInRangeElements.length; i++) {
-	// 				if (xClosestElement == null) {
-	// 					xClosestElement = xInRangeElements[i].offsetLeft();
-	// 				} else if (xInRangeElements[i].offsetLeft() < xClosestElement) {
-	// 					xClosestElement = xInRangeElements[i].offsetLeft();
-	// 				}
-	// 			}
-	// 			// E será calculada a distância entre eles
-	// 			correction.x = xClosestElement - elem.offsetRight();
-	// 		} 
-	// 		// Caso o increase seja negativo
-	// 		else {
-	// 			// Será pego o elemento mais à direita
-	// 			for (let i = 0; i < xInRangeElements.length; i++) {
-	// 				if (xClosestElement == null) {
-	// 					xClosestElement = xInRangeElements[i].offsetRight();
-	// 				} else if (xInRangeElements[i].offsetRight() > xClosestElement) {
-	// 					xClosestElement = xInRangeElements[i].offsetRight();
-	// 				}
-	// 			}
-	// 			// E será calculada a distância entre eles
-	// 			correction.x = xClosestElement - elem.offsetLeft();
-	// 		}
-	// 	}
-
-	// 	// Verifica se existe algum objeto na mesma coluna do personagem
-	// 	if (yInRangeElements.length > 0) {
-	// 		let yClosestElement = null;
-	// 		// Caso o increase seja positivo
-	// 		if (yIncrease > 0) {
-	// 			// Será pego o elemento mais alto
-	// 			for (let i = 0; i < yInRangeElements.length; i++) {
-	// 				if (yClosestElement == null) {
-	// 					yClosestElement = yInRangeElements[i].offsetTop();
-	// 				} else if (yInRangeElements[i].offsetTop() < yClosestElement) {
-	// 					yClosestElement = yInRangeElements[i].offsetTop();
-	// 				}
-	// 			}
-	// 			// E será calculada a distância entre eles
-	// 			correction.y = yClosestElement - elem.offsetBottom();
-	// 		// Caso o increase seja negativo
-	// 		} else {
-	// 			// Será pego o elemento mais baixo
-	// 			for (let i = 0; i < yInRangeElements.length; i++) {
-	// 				if (yClosestElement == null) {
-	// 					yClosestElement = yInRangeElements[i].offsetBottom();
-	// 				} else if (yInRangeElements[i].offsetBottom() > yClosestElement) {
-	// 					yClosestElement = yInRangeElements[i].offsetBottom();
-	// 				}
-	// 			}
-	// 			correction.y = yClosestElement - elem.offsetTop();
-	// 		}
-	// 	}
-
-	// 	// console.log(correction)
-	// 	return correction;
-	// },
 
 	inRangeX(elem,  xIncrease, elem2) {
 		let elemLeft = elem.offsetLeft() + xIncrease;
@@ -454,14 +315,8 @@ let Controls = {
 }
 
 Utils.loadMap("Forest");
-
-
 setInterval( () => {container.refresh();}, 1000/frameRate );
-
 Controls.start();
-
-
-
 
 
 // Raio
