@@ -44,7 +44,7 @@ class Player extends Entity {
 		this.jumpMoveDistance = 120;
 		// this.jumpMoveDistance = 100;
 
-		this.hMoveDistance = 250 / frameRate;
+		this.hMoveDistance = 375 / frameRate;
 	}
 
 	jump() {

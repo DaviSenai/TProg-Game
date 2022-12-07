@@ -42,6 +42,7 @@ const Utils = {
 			case "temple": {
 				container.elements = [];
 				container.elements.push( getTempleMap() );
+				container.elements.push( getDarkPitch() );
 				container.elements.push( player );
 				container.elements.push( getLifeBar() );
 				break;
@@ -314,7 +315,7 @@ let Controls = {
 	}
 }
 
-Utils.loadMap("Forest");
+Utils.loadMap("Temple");
 setInterval( () => {container.refresh();}, 1000/frameRate );
 Controls.start();
 

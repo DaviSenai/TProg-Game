@@ -26,19 +26,6 @@
 
 */
 
-function getMenu(){
-    let color = "white";
-    let chunks = [];
-    {
-        let scenery = [];
-        {
-            scenery.push( new SceneryObject(144, 240, 432, 48, shapes));
-        }
-        chunks.push( new Chunk(0, 0, chunkWidth, chunkHeight, scenery) );
-    }
-    return new GameMap(30000, 10000, chunks, "purple");
-}
-
 
 function getForestMap(){
     let chunks = [];
