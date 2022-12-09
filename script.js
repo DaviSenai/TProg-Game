@@ -21,20 +21,6 @@ let player = new Player(cWidth/2, cHeight/2);
 
 let visionFieldSize = 600;
 
-function getDarkPitch() {
-	let shapes = [];
-	shapes.push( new Rectangle(0, 0, cWidth, (cHeight - visionFieldSize) / 2, "#000000") );
-	shapes.push( new Rectangle(0, cHeight - (cHeight - visionFieldSize) / 2, cWidth, (cHeight - visionFieldSize) / 2, "#000000") );
-	shapes.push( new Rectangle(0, (cHeight - visionFieldSize) / 2, (cWidth - visionFieldSize) / 2, visionFieldSize, "#000000") );
-	shapes.push( new Rectangle(cWidth - (cWidth - visionFieldSize) / 2, (cHeight - visionFieldSize) / 2, (cWidth - visionFieldSize) / 2, visionFieldSize, "#000000") );
-	let circle = new Rectangle((cWidth - visionFieldSize) / 2, (cHeight - visionFieldSize) / 2, visionFieldSize, visionFieldSize, "#000000", [visionFieldSize])
-	circle.fill(false);
-	circle.lineWidth(250);
-	shapes.push( circle );
-
-	return new SceneryObject(0, 0, 0, 0, shapes);
-}
-
 const Utils = {
 
 	loadMap(name) {
@@ -42,11 +28,23 @@ const Utils = {
 			case "temple": {
 				container.elements = [];
 				container.elements.push( getTempleMap() );
-				container.elements.push( getDarkPitch() );
-				container.elements.push( player );
-				container.elements.push( getLifeBar() );
+
+				// let gadgets = [];
+				// gadgets.push( getDarkPitch() );
+				// gadgets.push( player );
+				// gadgets.push( getLifeBar() );
+				// container.elements.push( new SceneryObject(0, 0, 0, 0, gadgets) );
+				container.elements.push( new StaticGadgets() );
 				break;
 			}
+			// case "temple": {
+			// 	container.elements = [];
+			// 	container.elements.push( getTempleMap() );
+			// 	container.elements.push( getDarkPitch() );
+			// 	container.elements.push( player );
+			// 	container.elements.push( getLifeBar() );
+			// 	break;
+			// }
 			case "forest": {
 				container.elements = [];
 				let map = getForestMap();
@@ -72,11 +70,6 @@ const Utils = {
 		for (let c = 4; c < chunks.length; c++) {
 			let chunk = chunks[c];
 			if (chunk.active) {
-			// if (
-			// 	( Utils.inRangeX(player, -visionFieldSize / 2, chunk) || Utils.inRangeX(player, visionFieldSize / 2, chunk))
-			// 	&&
-			// 	( Utils.inRangeY(player, -visionFieldSize / 2, chunk) || Utils.inRangeY(player, visionFieldSize / 2, chunk))
-			// ) {
 				if (xIncrease != 0) {
 					// Elementos da chunk
 					for (let i = 0; i < chunk.shapes.length; i++) {
@@ -100,37 +93,7 @@ const Utils = {
 									// Compare se o offsetRight é maior ou igual à distância com incremento
 									if ( chunk.shapes[i].offsetRight() >= elem.offsetLeft() + xIncrease ) {
 										// Coloca o objeto numa lista
-										xInRangeElements.push( chunk.shapes[i] )
-									}
-								}
-							}
-						}
-					}
-				}
-
-				if (yIncrease != 0) {
-					for (let i = 0; i < chunk.shapes.length; i++) {
-						// Caso o objeto esteja na mesma coluna da entidade (player)
-						if ( Utils.inRangeX(elem, 0, chunk.shapes[i]) ) {
-							// Se o incremento for positivo
-							if ( yIncrease > 0 ) {	
-								// Caso o objeto esteja abaixo
-								if ( chunk.shapes[i].offsetTop() > elem.y ) {
-									// Compare se o offsetTop é menor ou igual à distância com incremento
-									if ( chunk.shapes[i].offsetTop() <= elem.offsetBottom() + yIncrease ) {
-										// Coloca o objeto numa lista
-										yInRangeElements.push( chunk.shapes[i] );
-									}
-								}
-							}
-							// Se o incremento for negativo
-							if ( yIncrease < 0 ) {
-								// Caso o objeto esteja acima
-								if ( chunk.shapes[i].offsetBottom() <= elem.y ) {
-									// Compare se o offsetBottom é maior ou igual à distância com incremento
-									if ( chunk.shapes[i].offsetBottom() >= elem.offsetTop() + yIncrease ) {
-										// Coloca o objeto numa lista
-										yInRangeElements.push( chunk.shapes[i] )
+										xInRangeElements.push( chunk.shapes[i] );
 									}
 								}
 							}
@@ -139,7 +102,7 @@ const Utils = {
 				}
 			}
 		}
-		
+
 		// Verifica se existe algum objeto na mesma linha do personagem
 		if (xInRangeElements.length > 0) {
 			let xClosestElement = null;
@@ -168,6 +131,42 @@ const Utils = {
 				}
 				// E será calculada a distância entre eles
 				correction.x = xClosestElement - elem.offsetLeft();
+			}
+		}
+
+		for (let c = 4; c < chunks.length; c++) {
+			let chunk = chunks[c];
+			if (chunk.active) {
+				if (yIncrease != 0) {
+					for (let i = 0; i < chunk.shapes.length; i++) {
+						// Caso o objeto esteja na mesma coluna da entidade (player)
+						// if ( Utils.inRangeX(elem, 0, chunk.shapes[i]) ) {
+						if ( Utils.inRangeX(elem, correction.x, chunk.shapes[i]) ) {
+							// Se o incremento for positivo
+							if ( yIncrease > 0 ) {	
+								// Caso o objeto esteja abaixo
+								if ( chunk.shapes[i].offsetTop() > elem.y ) {
+									// Compare se o offsetTop é menor ou igual à distância com incremento
+									if ( chunk.shapes[i].offsetTop() <= elem.offsetBottom() + yIncrease ) {
+										// Coloca o objeto numa lista
+										yInRangeElements.push( chunk.shapes[i] );
+									}
+								}
+							}
+							// Se o incremento for negativo
+							if ( yIncrease < 0 ) {
+								// Caso o objeto esteja acima
+								if ( chunk.shapes[i].offsetBottom() <= elem.y ) {
+									// Compare se o offsetBottom é maior ou igual à distância com incremento
+									if ( chunk.shapes[i].offsetBottom() >= elem.offsetTop() + yIncrease ) {
+										// Coloca o objeto numa lista
+										yInRangeElements.push( chunk.shapes[i] );
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 

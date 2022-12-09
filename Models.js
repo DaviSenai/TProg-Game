@@ -50,7 +50,7 @@ class Shape {
 	}
 
 	style = {
-		bgColor:"", lineWidth:1, fill:true, width:0, height:0,
+		bgColor:"", lineWidth:1, fill:true, width:0, height:0, hidden:false
 	}
 
 	bgColor(color) {this.style.bgColor = color}
@@ -58,6 +58,7 @@ class Shape {
 	fill(fill) {this.style.fill = fill == true ? true : false}
 	width(size) {this.style.width = size}
 	height(size) {this.style.height = size}
+	hidden(value) {this.style.hidden = value == false ? false : true}
 
 	create() {
 		console.log("%c" + this.constructor.name + " don't have a create method!", "background: #222; color: #ff4444; font-size: 24px; font-weight: bold;")
@@ -93,16 +94,18 @@ class Rectangle extends Shape {
 	}
 	
 	create() {
-		context.beginPath();
-		context.lineWidth = this.style.lineWidth;
-		context.roundRect(this.x, this.y, this.style.width, this.style.height, this.round);
-				
-		if (this.style.fill === true) {
-			context.fillStyle = this.style.bgColor;
-			context.fill();
-		} else {
-			context.strokeStyle = this.style.bgColor;
-			context.stroke();
+		if (!this.style.hidden) {
+			context.beginPath();
+			context.lineWidth = this.style.lineWidth;
+			context.roundRect(this.x, this.y, this.style.width, this.style.height, this.round);
+			
+			if (this.style.fill === true) {
+				context.fillStyle = this.style.bgColor;
+				context.fill();
+			} else {
+				context.strokeStyle = this.style.bgColor;
+				context.stroke();
+			}
 		}
 	}
 
@@ -259,6 +262,70 @@ class Entity extends Shape {
 
 	anim() {
 		console.log("%c" + this.constructor.name + " don't have an anim method!", "background: #222; color: #ff4444; font-size: 24px; font-weight: bold;");
+	}
+	
+}
+
+
+class StaticGadgets extends Rectangle {
+	
+	constructor() {
+		super(0, 0, cWidth, cHeight, "transparent", 1, false);
+		this.vignette = getDarkPitch();
+		this.player = player;
+		this.lifeBar = new LifeBar();
+
+		for (let i = 0; i < this.player.lifeBar; i++) {
+			setTimeout( () => {
+				this.lifeBar.add( new Rectangle(135 - 15*i, 0, 10, 30, "#940101", [5]) );
+			}, 500*i );
+		}
+		setTimeout( () => {this.lifeBar.blink()}, 500*this.player.lifeBar );
+		
+	}
+	
+	create() {
+		this.vignette.create();
+		this.player.create();
+		this.lifeBar.create();
+	}
+	
+}
+
+class LifeBar extends SceneryObject {
+
+	constructor() {
+		super(cWidth - 160, 20, 145, 30, []);
+	}
+
+	add(stack) {
+		for (let shape of this.shapes) {
+			shape.move(-this.x, -this.y);
+		}
+		this.shapes.push( new Rectangle(135 - 15*this.shapes.length, 0, 10, 30, "#940101", [5]) );
+		for (let shape of this.shapes) {
+			shape.move(this.x, this.y);
+		}
+	}
+
+	remove() {
+		this.shapes.pop();
+	}
+
+	blink() {
+		let delay = 500;
+		for (let i = 0; i < 5; i++) {
+			setTimeout( () => {
+				this.hidden(true);
+				setTimeout( () => { this.hidden(false) }, delay );
+			}, delay*2*i );
+		}
+	}
+
+	hidden(value) {
+		for (let i = 0; i < this.shapes.length; i++) {
+			this.shapes[i].hidden(value);
+		}
 	}
 	
 }

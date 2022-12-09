@@ -5,6 +5,8 @@ class Player extends Entity {
 
 		super(x - 72/2, y - 96/2, 72, 96);
 
+		this.lifeBar = 10;
+
 		this.spriteParts_Left = [];
 		this.spriteParts_Right = [];
 		{

@@ -26,19 +26,20 @@
 
 */
 
+function getDarkPitch() {
+	let shapes = [];
+	shapes.push( new Rectangle(0, 0, cWidth, (cHeight - visionFieldSize) / 2, "#000000") );
+	shapes.push( new Rectangle(0, cHeight - (cHeight - visionFieldSize) / 2, cWidth, (cHeight - visionFieldSize) / 2, "#000000") );
+	shapes.push( new Rectangle(0, (cHeight - visionFieldSize) / 2, (cWidth - visionFieldSize) / 2, visionFieldSize, "#000000") );
+	shapes.push( new Rectangle(cWidth - (cWidth - visionFieldSize) / 2, (cHeight - visionFieldSize) / 2, (cWidth - visionFieldSize) / 2, visionFieldSize, "#000000") );
+	let circle = new Rectangle((cWidth - visionFieldSize) / 2, (cHeight - visionFieldSize) / 2, visionFieldSize, visionFieldSize, "#000000", [visionFieldSize])
+	circle.fill(false);
+	circle.lineWidth(250);
+	shapes.push( circle );
+
+	return new SceneryObject(0, 0, 0, 0, shapes);
+}
 
 function getLifeBar() {
-    let shapes = [];
-    shapes.push( new Rectangle(0, 0, 10, 30, "#940101", [5]) );
-    shapes.push( new Rectangle(15, 0, 10, 30, "#940101", [5]) );
-    shapes.push( new Rectangle(30, 0, 10, 30, "#940101", [5]) );
-    shapes.push( new Rectangle(45, 0, 10, 30, "#940101", [5]) );
-    shapes.push( new Rectangle(60, 0, 10, 30, "#940101", [5]) );
-    shapes.push( new Rectangle(75, 0, 10, 30, "#940101", [5]) );
-    shapes.push( new Rectangle(90, 0, 10, 30, "#940101", [5]) );
-    shapes.push( new Rectangle(105, 0, 10, 30, "#940101", [5]) );
-    shapes.push( new Rectangle(120, 0, 10, 30, "#940101", [5]) );
-    shapes.push( new Rectangle(135, 0, 10, 30, "#940101", [5]) );
-    
-    return new SceneryObject(cWidth - 160, 20, 145, 30, shapes);
+    return new SceneryObject(cWidth - 160, 20, 145, 30, []);
 }
