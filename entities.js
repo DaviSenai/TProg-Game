@@ -70,8 +70,7 @@ class Player extends Entity {
 					container.elements[1].lifeBar.remove();
 				}
 				this.lifeBar = 0;
-				this.hasImmunity = true;
-				alert("perdeu!");
+				Utils.clockStop();
 			}
 		}
 	}
@@ -254,16 +253,6 @@ class Bat extends Entity {
 		this.hMoveDistance = 250 / frameRate;
 	}
 
-	left() {
-		this.faceRight = false;
-		this.hSpeed = -this.hMoveDistance;
-	}
-
-	right() {
-		this.faceRight = true;
-		this.hSpeed = this.hMoveDistance;
-	}
-
 	create() {
 		if (this.faceRight) {
 			this.spriteParts_Right[this.animSprite].create();
@@ -295,17 +284,12 @@ class Bat extends Entity {
 	}
 
 	move(x, y) {
-		let correction = Utils.colisionVerify( this, x, y, container.elements[0].shapes );
+		let correction = Utils.colisionVerify( this, x, y, container.elements[0].shapes, true );
 		super.move(correction.x, correction.y);
 		if (x != correction.x) {
 			this.hSpeed = -this.hSpeed;
 		}
-		
-		if ( Utils.inRangeX(player, 0, this) && Utils.inRangeY(player, 0, this) ) {
-			console.log("dmg")
-			player.takeDmg( this.dmg );
-		}
-
+		this.playerColision();
 	}
 
 	next() {		

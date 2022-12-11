@@ -115,6 +115,52 @@ class Rectangle extends Shape {
 	}
 }
 
+class Img extends Shape {
+
+	constructor(imgSrc, x, y, width, height) {
+		super(x, y, width, height, "");
+		this.img = new Image(100, 100);
+		this.img.src = imgSrc;
+	}
+
+	create() {
+		context.drawImage(this.img, this.x, this.y, this.style.width, this.style.height);
+	}
+
+	move(x, y) {
+		this.x += x;
+		this.y += y;
+	}
+}
+
+class CText extends Shape {
+
+	constructor(initialText, x, y, width, height) {
+		super(x, y, width, height, "");
+		this.text = initialText;
+
+		this.style.fontSize = 16;
+		this.style.fontFamily = "sans-serif";
+		this.style.color = "black";
+	}
+
+	create() {
+		context.font = this.style.fontSize + "px " + this.style.fontFamily;
+		context.fillStyle = this.style.color;
+		context.textBaseline = "bottom";
+		context.fillText( this.text, this.x, this.y );
+	}
+
+	move(x, y) {
+		this.x += x;
+		this.y += y;
+	}
+
+	fontSize(size) {this.style.fontSize = size || 16;}
+	fontFamily(family) {this.style.fontFamily = family || "sans-serif"}	
+	color(color) {this.style.color = color || "black"}
+}
+
 // Use to form complex Objects
 class SceneryObject extends Rectangle {
 	
@@ -233,24 +279,6 @@ class GameMap extends SceneryObject {
 	}
 }
 
-class Img extends Shape {
-
-	constructor(imgSrc, x, y, width, height) {
-		super(x, y, width, height, "");
-		this.img = new Image(100, 100);
-		this.img.src = imgSrc;
-	}
-
-	create() {
-		context.drawImage(this.img, this.x, this.y, this.style.width, this.style.height);
-	}
-
-	move(x, y) {
-		this.x += x;
-		this.y += y;
-	}
-}
-
 // Generic class for Entities
 class Entity extends Shape {
 
@@ -275,6 +303,12 @@ class Entity extends Shape {
 	anim() {
 		console.log("%c" + this.constructor.name + " don't have an anim method!", "background: #222; color: #ff4444; font-size: 24px; font-weight: bold;");
 	}
+
+	playerColision() {
+		if ( Utils.inRangeX(player, 0, this) && Utils.inRangeY(player, 0, this) ) {
+			player.takeDmg( this.dmg );
+		}
+	}
 	
 }
 
@@ -285,6 +319,7 @@ class StaticGadgets extends Rectangle {
 		this.vignette = getDarkPitch();
 		this.player = player;
 		this.lifeBar = new LifeBar();
+		this.scoreBar = new ScoreBar();
 
 		for (let i = 0; i < this.player.lifeBar; i++) {
 			setTimeout( () => {
@@ -299,6 +334,7 @@ class StaticGadgets extends Rectangle {
 		// this.vignette.create();
 		this.player.create();
 		this.lifeBar.create();
+		this.scoreBar.create();
 	}
 	
 }
@@ -337,6 +373,40 @@ class LifeBar extends SceneryObject {
 		for (let i = 0; i < this.shapes.length; i++) {
 			this.shapes[i].hidden(value);
 		}
+	}
+	
+}
+
+class ScoreBar extends SceneryObject {
+
+	constructor() {
+
+		let shapes = [];
+
+		shapes.push( new Img("./assets/img/wall-clock.png", 0, 0, 30, 30) );
+
+		let label = new CText("Score:", 50, 30, 50, 30)
+		label.fontSize(24);
+		label.color("#ffcc00");
+		shapes.push( label );
+
+		let score = new CText(0, 70 + context.measureText(label).width, 30, 50, 30);
+		score.fontSize(24);
+		score.color("#ffcc00");
+		shapes.push( score );
+		
+		super( 15, 20, 200, 30, shapes);
+
+		this.score = score;
+		this.timerId;
+	}
+
+	start() {
+		this.timerId = setInterval( () => {this.score.text += 1}, 1000 );
+	}
+
+	stop() {
+		clearInterval( this.timerId );
 	}
 	
 }

@@ -29,7 +29,8 @@
 
 function getJungleMap() {
     let chunks = [];
-    {       
+    {
+        // Mobs
         let mobs = [];
         mobs.push( new Bat(600, 220) );
         
@@ -42,6 +43,32 @@ function getJungleMap() {
 
             scenery.push( new SceneryObject(350, 220, 100, 100, shapes) );
         }
+        // {
+        //     let shapes = [];
+        //     shapes.push( new Rectangle(0, 0, 100, 100, "#444444", [20]) );
+        //     shapes.push( new Rectangle(10, 10, 80, 80, "#777777", [20]) );
+
+        //     scenery.push( new SceneryObject(750, 220, 100, 100, shapes) );
+        // }
+        {
+            let shapes = [];
+            shapes.push( new Rectangle(0, 0, cWidth, 200, "green") );
+            
+            scenery.push( new SceneryObject(0, cHeight - 270, cWidth, 200, shapes) );
+        }
+        chunks.push( new Chunk(0, 0, cWidth, cHeight, scenery, mobs) );
+    }
+    {
+        
+        // Scenery
+        let scenery = [];
+        // {
+        //     let shapes = [];
+        //     shapes.push( new Rectangle(0, 0, 100, 100, "#444444", [20]) );
+        //     shapes.push( new Rectangle(10, 10, 80, 80, "#777777", [20]) );
+
+        //     scenery.push( new SceneryObject(350, 220, 100, 100, shapes) );
+        // }
         {
             let shapes = [];
             shapes.push( new Rectangle(0, 0, 100, 100, "#444444", [20]) );
@@ -55,11 +82,9 @@ function getJungleMap() {
             
             scenery.push( new SceneryObject(0, cHeight - 270, cWidth, 200, shapes) );
         }
-
-        // Passar os mobs como Parâmetro separado
-        chunks.push( new Chunk(0, 0, cWidth, cHeight, scenery, mobs) );
+        chunks.push( new Chunk(cWidth, 0, cWidth, cHeight, scenery) );
     }
-    return new GameMap(cWidth, cHeight, chunks, "gray");
+    return new GameMap(2*cWidth, cHeight, chunks, "gray");
 }
 
 

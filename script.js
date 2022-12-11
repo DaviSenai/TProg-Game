@@ -23,6 +23,9 @@ let visionFieldSize = 600;
 
 const Utils = {
 
+	clockId:0,
+	clockStarted:false,
+
 	loadMap(name) {
 		switch (String(name).toLowerCase()) {
 			case "jungle": {
@@ -53,7 +56,23 @@ const Utils = {
 		}
 	},
 
-	colisionVerify(elem, xIncrease, yIncrease, chunks) {
+	clockStart() {
+		if (!Utils.clockStarted) {
+			Utils.clockId = setInterval( () => {container.refresh();}, 1000/frameRate );
+			container.elements[1].scoreBar.start();
+			Utils.clockStarted = true;
+		}
+	},
+
+	clockStop() {
+		if (Utils.clockStarted) {
+			clearInterval( Utils.clockId );
+			container.elements[1].scoreBar.stop()
+			Utils.clockStarted = false;
+		}
+	},
+
+	colisionVerify(elem, xIncrease, yIncrease, chunks, forceLoadChunk) {
 		let correction = {x: xIncrease, y: yIncrease};
 
 		let xInRangeElements = [];
@@ -61,7 +80,7 @@ const Utils = {
 		
 		for (let c = 4; c < chunks.length; c++) {
 			let chunk = chunks[c];
-			if (chunk.active) {
+			if (chunk.active || forceLoadChunk == true) {
 				if (xIncrease != 0) {
 					// Elementos da chunk
 					for (let i = 0; i < chunk.shapes.length; i++) {
@@ -245,36 +264,38 @@ let Controls = {
 	},
 
 	playerControls(k) {
-		switch(k.key.toLowerCase()) {
-			case "arrowup": {
-				player.jump();
-				break;
-			}
-			case "arrowdown": {
-				if (!player.isJumping) {
-					player.vSpeed = 20 ;
+		if ( Utils.clockStarted ) {
+			switch(k.key.toLowerCase()) {
+				case "arrowup": {
+					player.jump();
+					break;
 				}
-				break;
-			}
-			case "arrowleft": {
-				player.left();
-				break;
-			}
-			case "arrowright": {
-				player.right();
-				break;
-			}
-			case "w": {
-				player.jump();
-				break;
-			}
-			case "a": {
-				player.left();
-				break;
-			}
-			case "d": {
-				player.right();
-				break;
+				case "arrowdown": {
+					if (!player.isJumping) {
+						player.vSpeed = 20 ;
+					}
+					break;
+				}
+				case "arrowleft": {
+					player.left();
+					break;
+				}
+				case "arrowright": {
+					player.right();
+					break;
+				}
+				case "w": {
+					player.jump();
+					break;
+				}
+				case "a": {
+					player.left();
+					break;
+				}
+				case "d": {
+					player.right();
+					break;
+				}
 			}
 		}
 	},
@@ -306,7 +327,7 @@ let Controls = {
 }
 
 Utils.loadMap("Jungle");
-setInterval( () => {container.refresh();}, 1000/frameRate );
+Utils.clockStart();
 Controls.start();
 
 
