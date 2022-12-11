@@ -6,6 +6,8 @@ class Player extends Entity {
 		super(x - 72/2, y - 96/2, 72, 96);
 
 		this.lifeBar = 10;
+		this.hasImmunity = false;
+		this.immunityDelay = 2000;
 
 		this.spriteParts_Left = [];
 		this.spriteParts_Right = [];
@@ -44,9 +46,34 @@ class Player extends Entity {
 
 		this.jumpSpeed = 500;
 		this.jumpMoveDistance = 120;
-		// this.jumpMoveDistance = 100;
 
 		this.hMoveDistance = 375 / frameRate;
+	}
+
+	takeDmg(dmg) {
+		if (!this.hasImmunity) {
+			if (dmg < this.lifeBar) {
+				this.lifeBar -= dmg;
+				for (let i = 0; i < dmg; i++) {
+					container.elements[1].lifeBar.remove();
+				}
+				this.hasImmunity = true;
+				for (let i = 0; i < this.immunityDelay / 250; i++) {
+					setTimeout( () => { player.hidden( player.style.hidden ? false : true ) }, 250*i);
+				}
+				setTimeout( () => { 
+					this.hasImmunity = false;
+					player.hidden( false );
+				}, this.immunityDelay);
+			} else {
+				for (let i = 0; i < container.elements[1].lifeBar.shapes.length; i++) {
+					container.elements[1].lifeBar.remove();
+				}
+				this.lifeBar = 0;
+				this.hasImmunity = true;
+				alert("perdeu!");
+			}
+		}
 	}
 
 	jump() {
@@ -69,16 +96,18 @@ class Player extends Entity {
 
 	create() {
 		if (this.faceRight) {
-			this.spriteParts_Right[this.animPart][this.animSprite].create();
+			if (!this.style.hidden) {
+				this.spriteParts_Right[this.animPart][this.animSprite].create();
+			}
 		} else {
-			this.spriteParts_Left[this.animPart][this.animSprite].create();
+			if (!this.style.hidden) {
+				this.spriteParts_Left[this.animPart][this.animSprite].create();
+			}
 		}
 
 		if (gravityOn && this.vSpeed >= 0 && this.vSpeed + gravity <= fallSpeedLimit && !this.isJumping) {
 			this.vSpeed += gravity;
 		}
-
-		
 		this.anim();
 	}
 
@@ -196,4 +225,94 @@ class Player extends Entity {
 		this.animPart = 0;
 		this.animSprite = 0;
 	}	
+}
+
+class Bat extends Entity {
+
+	constructor(x, y) {
+
+		super(x, y, 80, 48);
+
+		this.dmg = 3;
+
+		this.spriteParts_Left = [];
+		this.spriteParts_Right = [];
+		{
+			for (let i = 1; i <= 4 ; i++) {
+				this.spriteParts_Left.push( new Img("./assets/entities/bat/bat" + i + "_left.png", this.x, this.y, this.style.width, this.style. height) );
+				this.sprites.push( this.spriteParts_Left[i-1] );
+				this.spriteParts_Right.push( new Img("./assets/entities/bat/bat" + i + "_right.png", this.x, this.y, this.style.width, this.style. height) );
+				this.sprites.push( this.spriteParts_Right[i-1] );
+			}
+		}
+
+		this.animSprite = 0;
+		this.faceRight = true;
+		this.onAnimation = false;
+
+		this.hSpeed = 100 / frameRate;
+		this.hMoveDistance = 250 / frameRate;
+	}
+
+	left() {
+		this.faceRight = false;
+		this.hSpeed = -this.hMoveDistance;
+	}
+
+	right() {
+		this.faceRight = true;
+		this.hSpeed = this.hMoveDistance;
+	}
+
+	create() {
+		if (this.faceRight) {
+			this.spriteParts_Right[this.animSprite].create();
+		} else {
+			this.spriteParts_Left[this.animSprite].create();
+		}
+		this.anim();
+	}
+
+	anim() {
+		if (this.hSpeed < 0) {
+			this.faceRight = false;
+		} else if (this.hSpeed > 0) {
+			this.faceRight = true; 
+		}
+
+		if (!this.onAnimation) {
+			this.onAnimation = true;
+			this.animSprite = 0;
+			this.next()
+			setTimeout( () => {this.next()}, 100);
+			setTimeout( () => {this.next()}, 200);
+			setTimeout( () => {
+				this.next();
+				this.onAnimation = false;
+			}, 300);
+		}
+		this.move(this.hSpeed, this.vSpeed);
+	}
+
+	move(x, y) {
+		let correction = Utils.colisionVerify( this, x, y, container.elements[0].shapes );
+		super.move(correction.x, correction.y);
+		if (x != correction.x) {
+			this.hSpeed = -this.hSpeed;
+		}
+		
+		if ( Utils.inRangeX(player, 0, this) && Utils.inRangeY(player, 0, this) ) {
+			console.log("dmg")
+			player.takeDmg( this.dmg );
+		}
+
+	}
+
+	next() {		
+		this.animSprite++;
+		if (this.animSprite == 4) {
+			this.animPart = this.animPart == 1 ? 0 : 1;
+			this.animSprite = 0;
+		}
+	}
 }

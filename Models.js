@@ -156,7 +156,7 @@ class SceneryObject extends Rectangle {
 // Use to create Chunks (Increases performance as it'll load only if it is being displayed to the user)
 class Chunk extends SceneryObject {
 
-	constructor(x, y, width, height, scenery) {
+	constructor(x, y, width, height, scenery, mobs) {
 
 		super(x, y, width, height, scenery);
 		this.bgColor("white");
@@ -165,12 +165,16 @@ class Chunk extends SceneryObject {
 		// this.active = true;
 		// this.showBorder = false;
 		this.showBorder = true;
+		this.mobs = mobs || [];
 	}
 
 	create() {
 		if (this.active) {
 			for (let i = 0; i < this.shapes.length; i++) {
 				this.shapes[i].create();
+			}
+			for (let i = 0; i < this.mobs.length; i++) {
+				this.mobs[i].create();
 			}
 		}
 
@@ -181,6 +185,17 @@ class Chunk extends SceneryObject {
 			context.strokeStyle = this.style.bgColor;
 			context.stroke();
 		}
+	}
+
+	move(x, y) {
+		// this.x += x;
+		// this.y += y;
+		if (container.elements.length > 0) {
+			for (let i = 0; i < this.mobs.length; i++) {
+				this.mobs[i].move(x, y);
+			}
+		}
+		super.move(x, y);
 	}
 
 	showColisionBox(value) {
@@ -218,7 +233,6 @@ class GameMap extends SceneryObject {
 	}
 }
 
-
 class Img extends Shape {
 
 	constructor(imgSrc, x, y, width, height) {
@@ -236,7 +250,6 @@ class Img extends Shape {
 		this.y += y;
 	}
 }
-
 
 // Generic class for Entities
 class Entity extends Shape {
@@ -257,7 +270,6 @@ class Entity extends Shape {
 			this.sprites[i].x += x;
 			this.sprites[i].y += y;
 		}
-		container.refresh();
 	}
 
 	anim() {
@@ -265,7 +277,6 @@ class Entity extends Shape {
 	}
 	
 }
-
 
 class StaticGadgets extends Rectangle {
 	
@@ -277,15 +288,15 @@ class StaticGadgets extends Rectangle {
 
 		for (let i = 0; i < this.player.lifeBar; i++) {
 			setTimeout( () => {
-				this.lifeBar.add( new Rectangle(135 - 15*i, 0, 10, 30, "#940101", [5]) );
-			}, 500*i );
+				this.lifeBar.add();
+			}, 200*i );
 		}
-		setTimeout( () => {this.lifeBar.blink()}, 500*this.player.lifeBar );
+		setTimeout( () => {this.lifeBar.blink()}, 200*this.player.lifeBar );
 		
 	}
 	
 	create() {
-		this.vignette.create();
+		// this.vignette.create();
 		this.player.create();
 		this.lifeBar.create();
 	}
@@ -298,7 +309,7 @@ class LifeBar extends SceneryObject {
 		super(cWidth - 160, 20, 145, 30, []);
 	}
 
-	add(stack) {
+	add() {
 		for (let shape of this.shapes) {
 			shape.move(-this.x, -this.y);
 		}

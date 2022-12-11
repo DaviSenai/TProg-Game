@@ -25,34 +25,26 @@ const Utils = {
 
 	loadMap(name) {
 		switch (String(name).toLowerCase()) {
-			case "temple": {
+			case "jungle": {
 				container.elements = [];
-				container.elements.push( getTempleMap() );
-
-				// let gadgets = [];
-				// gadgets.push( getDarkPitch() );
-				// gadgets.push( player );
-				// gadgets.push( getLifeBar() );
-				// container.elements.push( new SceneryObject(0, 0, 0, 0, gadgets) );
+				container.elements.push( getJungleMap() );
 				container.elements.push( new StaticGadgets() );
 				break;
 			}
-			// case "temple": {
-			// 	container.elements = [];
-			// 	container.elements.push( getTempleMap() );
-			// 	container.elements.push( getDarkPitch() );
-			// 	container.elements.push( player );
-			// 	container.elements.push( getLifeBar() );
-			// 	break;
-			// }
+			
+			case "temple": {
+				container.elements = [];
+				container.elements.push( getTempleMap() );
+				container.elements.push( new StaticGadgets() );
+				break;
+			}
+
 			case "forest": {
 				container.elements = [];
 				let map = getForestMap();
 				map.move(200, 100);
 				container.elements.push( map );
-				container.elements.push( getDarkPitch() );
-				container.elements.push( player );
-				container.elements.push( getLifeBar() );
+				container.elements.push( new StaticGadgets() );
 				break;
 			}
 			default: {
@@ -253,7 +245,6 @@ let Controls = {
 	},
 
 	playerControls(k) {
-		console.log(k.key)
 		switch(k.key.toLowerCase()) {
 			case "arrowup": {
 				player.jump();
@@ -314,7 +305,7 @@ let Controls = {
 	}
 }
 
-Utils.loadMap("Temple");
+Utils.loadMap("Jungle");
 setInterval( () => {container.refresh();}, 1000/frameRate );
 Controls.start();
 

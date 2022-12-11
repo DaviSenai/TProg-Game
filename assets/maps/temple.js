@@ -45,36 +45,6 @@
 // }
 
 
-
-function getJungleMap() {
-    let chunks = [];
-    {
-        let scenery = [];
-        {
-            let shapes = [];
-            shapes.push( new Rectangle(0, 0, 100, 100, "#444444", [20]) );
-            shapes.push( new Rectangle(10, 10, 80, 80, "#777777", [20]) );
-
-            scenery.push( new SceneryObject(450, 300, 100, 100, shapes) );
-        }
-        {
-            let shapes = [];
-            shapes.push( new Rectangle(0, 0, 100, 100, "#444444", [20]) );
-            shapes.push( new Rectangle(10, 10, 80, 80, "#777777", [20]) );
-
-            scenery.push( new SceneryObject(650, 220, 100, 100, shapes) );
-        }
-        {
-            let shapes = [];
-            shapes.push( new Rectangle(0, 0, cWidth, 200, "green") );
-            
-            scenery.push( new SceneryObject(0, cHeight - 270, cHeight, 200, shapes) );
-        }
-        chunks.push( new Chunk(0, 0, cWidth, cHeight, scenery) );
-    }
-    return new GameMap(1364, 766, chunks, "green");
-}
-
 function getTempleMap() {
     let chunks = [];
     let chunkW = 2496;
@@ -421,23 +391,3 @@ function getTempleMap() {
     // 2496 x 4 = 9984;
     // 1248 x 5 = 6240;
 }
-
-
-function getLifeBar() {
-    let shapes = [];
-    shapes.push( new Rectangle(0, 0, 10, 30, "#940101", [5]) );
-    shapes.push( new Rectangle(15, 0, 10, 30, "#940101", [5]) );
-    shapes.push( new Rectangle(30, 0, 10, 30, "#940101", [5]) );
-    shapes.push( new Rectangle(45, 0, 10, 30, "#940101", [5]) );
-    shapes.push( new Rectangle(60, 0, 10, 30, "#940101", [5]) );
-    shapes.push( new Rectangle(75, 0, 10, 30, "#940101", [5]) );
-    shapes.push( new Rectangle(90, 0, 10, 30, "#940101", [5]) );
-    shapes.push( new Rectangle(105, 0, 10, 30, "#940101", [5]) );
-    shapes.push( new Rectangle(120, 0, 10, 30, "#940101", [5]) );
-    shapes.push( new Rectangle(135, 0, 10, 30, "#940101", [5]) );
-    
-    return new SceneryObject(cWidth - 160, 20, 145, 30, shapes);
-}
-
-
-

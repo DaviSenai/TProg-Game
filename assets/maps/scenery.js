@@ -26,6 +26,43 @@
 
 */
 
+
+function getJungleMap() {
+    let chunks = [];
+    {       
+        let mobs = [];
+        mobs.push( new Bat(600, 220) );
+        
+        // Scenery
+        let scenery = [];
+        {
+            let shapes = [];
+            shapes.push( new Rectangle(0, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectangle(10, 10, 80, 80, "#777777", [20]) );
+
+            scenery.push( new SceneryObject(350, 220, 100, 100, shapes) );
+        }
+        {
+            let shapes = [];
+            shapes.push( new Rectangle(0, 0, 100, 100, "#444444", [20]) );
+            shapes.push( new Rectangle(10, 10, 80, 80, "#777777", [20]) );
+
+            scenery.push( new SceneryObject(750, 220, 100, 100, shapes) );
+        }
+        {
+            let shapes = [];
+            shapes.push( new Rectangle(0, 0, cWidth, 200, "green") );
+            
+            scenery.push( new SceneryObject(0, cHeight - 270, cWidth, 200, shapes) );
+        }
+
+        // Passar os mobs como Parâmetro separado
+        chunks.push( new Chunk(0, 0, cWidth, cHeight, scenery, mobs) );
+    }
+    return new GameMap(cWidth, cHeight, chunks, "gray");
+}
+
+
 function getDarkPitch() {
 	let shapes = [];
 	shapes.push( new Rectangle(0, 0, cWidth, (cHeight - visionFieldSize) / 2, "#000000") );
