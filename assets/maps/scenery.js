@@ -59,6 +59,10 @@ function getJungleMap() {
         chunks.push( new Chunk(0, 0, cWidth, cHeight, scenery, mobs) );
     }
     {
+        // Mobs
+        let mobs = [];
+        mobs.push( new Mummy(350, 450) );
+        mobs.push( new Bat(600, 220) );
         
         // Scenery
         let scenery = [];
@@ -78,11 +82,23 @@ function getJungleMap() {
         }
         {
             let shapes = [];
+            shapes.push( new Rectangle(0, 0, 100, 20, "#444444", [20]) );
+
+            scenery.push( new SceneryObject(150, 480, 100, 20, shapes) );
+        }
+        // {
+        //     let shapes = [];
+        //     shapes.push( new Rectangle(0, 0, 100, 20, "#444444", [20]) );
+
+        //     scenery.push( new SceneryObject(1150, 480, 100, 20, shapes) );
+        // }
+        {
+            let shapes = [];
             shapes.push( new Rectangle(0, 0, cWidth, 200, "green") );
             
             scenery.push( new SceneryObject(0, cHeight - 270, cWidth, 200, shapes) );
         }
-        chunks.push( new Chunk(cWidth, 0, cWidth, cHeight, scenery) );
+        chunks.push( new Chunk(cWidth, 0, cWidth, cHeight, scenery, mobs) );
     }
     return new GameMap(2*cWidth, cHeight, chunks, "gray");
 }

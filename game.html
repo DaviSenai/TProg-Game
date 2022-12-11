@@ -9,6 +9,24 @@
     <link rel="icon" href="./assets/entities/player/player1_right.png">
 </head>
 <body>
+    <section id="menu">
+        <div id="flex-container-inicio">
+            <header>
+                <div id="title">AMAZE RELIC</div>
+            </header>
+            <main>
+                <div id="buttons">
+                    <button id="button-start" class="flex-buttons" onclick="Game.start()">
+                        <img src="./assets/img/play_2.png" alt="COMEÇAR">
+                    </button>
+                    <button class="flex-buttons" onClick ="Game.showScore()">PLACAR</button>
+                    <button class="flex-buttons" onClick ="Game.showHowToPlay()">COMO JOGAR?</button>
+                </div>
+            </main>
+            <footer>*PRESSIONE F11 E UTILIZE FONES DE OUVIDO PARA UMA MAIOR IMERSÃO*</footer>
+        </div>
+        <div id="modal"></div>
+    </section>
     <section id="game">
         <canvas id="game-canvas">
             <h1>O Canvas não é suportado em seu navegador! :(</h1>

@@ -205,13 +205,20 @@ class Chunk extends SceneryObject {
 	constructor(x, y, width, height, scenery, mobs) {
 
 		super(x, y, width, height, scenery);
+		this.mobs = mobs || [];
+		for (let i = 0; i < this.mobs.length; i++) {
+			this.mobs[i].x += x;
+			this.mobs[i].y += y;
+			for (let s = 0; s < this.mobs[i].sprites.length; s++) {
+				this.mobs[i].sprites[s].move( x, y );
+			}
+		}
 		this.bgColor("white");
 		this.fill(false);
 		this.active = false; // Default
 		// this.active = true;
 		// this.showBorder = false;
 		this.showBorder = true;
-		this.mobs = mobs || [];
 	}
 
 	create() {
@@ -385,7 +392,7 @@ class ScoreBar extends SceneryObject {
 
 		shapes.push( new Img("./assets/img/wall-clock.png", 0, 0, 30, 30) );
 
-		let label = new CText("Score:", 50, 30, 50, 30)
+		let label = new CText("Score:", 50, 30, 50, 30);
 		label.fontSize(24);
 		label.color("#ffcc00");
 		shapes.push( label );

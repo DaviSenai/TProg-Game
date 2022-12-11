@@ -17,9 +17,281 @@ let gravity = 1;
 let fallSpeedLimit = 20;
 let gravityOn = true;
 
-let player = new Player(cWidth/2, cHeight/2);
+let player;
 
 let visionFieldSize = 600;
+
+const Game = {
+	start() {
+		player = new Player(cWidth/2, cHeight/2);
+		Game.hideMenu();
+		Game.showCanvas();
+		Utils.loadMap("Jungle");
+		Controls.start();
+	},
+
+	showMenu() {
+		document.querySelector("#menu").style.visibility = "visible";
+	},
+
+	hideMenu() {
+		document.querySelector("#menu").style.visibility = "hidden";
+	},
+
+	showModal() {
+		document.querySelector("#modal").style.visibility = "visible";
+	},
+
+	hideModal() {
+		document.querySelector("#modal").style.visibility = "hidden";
+		document.querySelector("#modal").innerHTML = "";
+	},
+
+	showCanvas() {
+		document.querySelector("#game").style.visibility = "visible";
+	},
+
+	hideCanvas() {
+		document.querySelector("#game").style.visibility = "hidden";
+	},
+
+	showScore(){     
+		document.querySelector("#modal").innerHTML = `
+		<div id="flex-container-score">
+			<div id="header-score">
+				<button class="come-back score" onclick="Game.hideModal()">
+					<img src="./assets/img/button-come-back.png" alt="voltar">
+				</button>
+			</div>
+			<div class="flex-item-border" id="border-score">
+				<div id="flex-container-table">
+					<table>
+						<caption id="score-subtitle">
+							<p>SCORE</p>
+						</caption>
+						<thead>
+							<tr>
+								<th>POSIÇÃO</th>
+								<th>JOGADOR</th>
+								<th>TEMPO</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="posicao top3 top10">1</td>
+								<td class="nome top3 top10">Ana</td>
+								<td class="tempo top3 top10">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao top3 top10">2</td>
+								<td class="nome top3 top10">Ana</td>
+								<td class="tempo top3 top10">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao top3 top10">3</td>
+								<td class="nome top3 top10">Ana</td>
+								<td class="tempo top3 top10">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao top10">4</td>
+								<td class="nome top10">Ana</td>
+								<td class="tempo top10">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao top10">5</td>
+								<td class="nome top10">Ana</td>
+								<td class="tempo top10">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao top10">6</td>
+								<td class="nome top10">Ana</td>
+								<td class="tempo top10">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao top10">7</td>
+								<td class="nome top10">Ana</td>
+								<td class="tempo top10">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao top10">8</td>
+								<td class="nome top10">Ana</td>
+								<td class="tempo top10">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao top10">9</td>
+								<td class="nome top10">Ana</td>
+								<td class="tempo top10">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao top10">10</td>
+								<td class="nome top10">Ana</td>
+								<td class="tempo top10">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao">11</td>
+								<td class="nome">Ana</td>
+								<td class="tempo">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao">12</td>
+								<td class="nome">Ana</td>
+								<td class="tempo">00:30</td>
+							</tr>  
+							<tr>
+								<td class="posicao">13</td>
+								<td class="nome">Ana</td>
+								<td class="tempo">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao">13</td>
+								<td class="nome">Ana</td>
+								<td class="tempo">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao">13</td>
+								<td class="nome">Ana</td>
+								<td class="tempo">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao">13</td>
+								<td class="nome">Ana</td>
+								<td class="tempo">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao">13</td>
+								<td class="nome">Ana</td>
+								<td class="tempo">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao">13</td>
+								<td class="nome">Ana</td>
+								<td class="tempo">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao">13</td>
+								<td class="nome">Ana</td>
+								<td class="tempo">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao">13</td>
+								<td class="nome">Ana</td>
+								<td class="tempo">00:30</td>
+							</tr>
+							<tr>
+								<td class="posicao">15</td>
+								<td class="nome">Ana</td>
+								<td class="tempo">00:30</td>
+							</tr>
+							
+						   
+	
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>`
+
+		Game.showModal();
+	},
+
+	showHowToPlay(){
+		let cards = [
+			`<div class="flex-item-border">
+				<div class="flex-box-card">
+					<div class="flex-item-image">
+						<img src="./assets/img/wasd.png">
+					</div>
+					<div class="flex-item-explication">
+						<p>UTILIZE ESSAS TECLAS PARA O PERSONAGEM:</p>
+						<p>W PULAR</p>
+						<p>A IR À ESQUERDA</p>
+						<p>D IR À DIREITA</p>
+					</div>
+				</div>
+			</div>`,
+			`<div class="flex-item-border">
+				<div class="flex-box-card">
+					<div class="flex-item-image">
+						<img src="./assets/img/arrow.png">
+					</div>
+					<div class="flex-item-explication">
+						<p>OU UTILIZE ESSAS TECLAS:</p>
+						<p>^ PULAR</p>
+						<p>< IR À ESQUERDA</p>
+						<p>> IR À DIREITA</p>
+					</div>
+				</div>
+			</div>
+			`,
+			`<div class="flex-item-border">
+				<div class="flex-box-card">
+					<div class="flex-item-image">
+						<img src="./assets/img/time.png">
+					</div>
+					<div class="flex-item-explication">
+						<p>CUIDADO COM O TEMPO!</p>
+						<P>ELE MARCA OS SEUS PONTOS</P>
+					</div>
+				</div>
+			</div>
+			`,
+			`<div class="flex-item-border">
+				<div class="flex-box-card">
+					<div class="flex-item-image">
+						<img src="./assets/img/snake.png">
+					</div>
+					<div class="flex-item-explication">
+						<p>CUIDADO COM OS SEUS INIMIGOS!</p>
+						<p>VOCÊ PERDE VIDA AO ENCOSTAR NELES</p>
+					</div>
+				</div>
+			</div>
+			`,
+			` <div class="flex-item-border" id="border-relic">
+				<div class="flex-box-card" id="relic">
+					<div class="flex-item-image">
+						<img src="./assets/img/pedra-deus-sol.png">
+					</div>
+					<div class="flex-item-explication">
+						<p>ENCONTRE A RELÍQUIA!</p>
+					</div>
+				</div>
+			</div>`
+		];
+	
+		document.querySelector("#modal").innerHTML = `
+		<div id="flex-container-como-jogar">
+			<div class="header">
+				<button class="come-back" onclick="Game.hideModal()">
+					<img src="./assets/img/button-come-back.png" alt="voltar">
+				</button>
+				<div id="subtitle">
+					<p>COMO JOGAR</p>
+				</div>
+			</div>
+			<div id="flex-container-card">
+			</div>    
+		</div>
+		`;
+
+		Game.showModal();
+
+
+		Game.writeCardDelay(cards);
+	},
+
+	writeCardDelay(cards) {
+		if (cards != undefined) {
+			if (cards.length > 0) {
+				setTimeout( () => {
+					document.querySelector("#modal #flex-container-card").innerHTML += cards[0];
+					cards.shift();
+					Game.writeCardDelay(cards);
+				}, 500);
+			}
+		}
+	}
+}
 
 const Utils = {
 
@@ -30,8 +302,11 @@ const Utils = {
 		switch (String(name).toLowerCase()) {
 			case "jungle": {
 				container.elements = [];
-				container.elements.push( getJungleMap() );
+				let map = getJungleMap();
+				// map.move(-cWidth, 300);
+				container.elements.push( map );
 				container.elements.push( new StaticGadgets() );
+				Utils.clockStart();
 				break;
 			}
 			
@@ -39,6 +314,7 @@ const Utils = {
 				container.elements = [];
 				container.elements.push( getTempleMap() );
 				container.elements.push( new StaticGadgets() );
+				Utils.clockStart();
 				break;
 			}
 
@@ -48,6 +324,7 @@ const Utils = {
 				map.move(200, 100);
 				container.elements.push( map );
 				container.elements.push( new StaticGadgets() );
+				Utils.clockStart();
 				break;
 			}
 			default: {
@@ -325,11 +602,7 @@ let Controls = {
 		}
 	}
 }
-
-Utils.loadMap("Jungle");
-Utils.clockStart();
-Controls.start();
-
+		
 
 // Raio
 // setTimeout( () => {
