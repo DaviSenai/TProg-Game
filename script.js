@@ -4,29 +4,36 @@
 // Canvas Configs
 let cWidth = 1364;
 let cHeight = 766;
-let bgColor = "#2222ee";
+let bgColor = "transparent";
+// let bgColor = "#2222ee";
 // let bgColor = "#cfeeff";
 let container = new Canvas("game-canvas", cWidth, cHeight, bgColor, "2d");
 let frameRate = 30;
-let fitScreen = false; // false for development
-// let fitScreen = true; // true for test and play
+// let fitScreen = false; // false for development
+let fitScreen = true; // true for test and play
 if (fitScreen) {
-	document.body.style.zoom = window.innerWidth / cWidth;
+	document.querySelector("#game").style.zoom = window.innerWidth / cWidth;
 }
 let gravity = 1;
 let fallSpeedLimit = 20;
 let gravityOn = true;
-
 let player;
+let visionFieldSize = 350;
 
-let visionFieldSize = 600;
 
 const Game = {
+
+	playerName:"rootadm",
+	// scoreMap1:0,
+	// scoreMap2:0,
+	scoreMap1:undefined,
+	scoreMap2:undefined,
+
 	start() {
 		player = new Player(cWidth/2, cHeight/2);
 		Game.hideMenu();
 		Game.showCanvas();
-		Utils.loadMap("Jungle");
+		Utils.loadMap("Forest");
 		Controls.start();
 	},
 
@@ -284,9 +291,11 @@ const Game = {
 		if (cards != undefined) {
 			if (cards.length > 0) {
 				setTimeout( () => {
-					document.querySelector("#modal #flex-container-card").innerHTML += cards[0];
-					cards.shift();
-					Game.writeCardDelay(cards);
+					try {
+						document.querySelector("#modal #flex-container-card").innerHTML += cards[0];
+						cards.shift();
+						Game.writeCardDelay(cards);
+					} catch (e) {}
 				}, 500);
 			}
 		}
@@ -514,11 +523,64 @@ const Utils = {
 	showChunkBorder(value) {
 		container.elements[0].showChunkBorder(value);
 	},
+
+	getRank() {
+		return Storage.get("ranking");
+	},
+
+	addScore() {
+		if (Game.playerName != undefined) {
+			let ranking = Utils.getRank();
+			for (let i = 0; i < ranking.length; i++) {
+				if (ranking[i].playerName == Game.playerName) {
+					if (Game.scoreMap1 != undefined) {
+						if (Game.scoreMap1 < ranking[i].scoreMap1 || ranking[i].scoreMap1 == undefined) {
+							ranking[i].scoreMap1 = Game.scoreMap1;
+						}
+					}
+
+					if (Game.scoreMap2 != undefined) {
+						if (Game.scoreMap2 < ranking[i].scoreMap2 || ranking[i].scoreMap2 == undefined) {
+							ranking[i].scoreMap2 = Game.scoreMap2;
+						}
+					}
+
+					Storage.set( "ranking", ranking );
+					return;
+				}
+			}
+
+			let playerRank = {playerName: Game.playerName, scoreMap1:undefined, scoreMap2:undefined};
+
+			if (Game.scoreMap1 != undefined) {
+				playerRank.scoreMap1 = Game.scoreMap1;
+			}
+			
+			if (Game.scoreMap2 != undefined) {
+				playerRank.scoreMap2 = Game.scoreMap2;
+			}
+
+			ranking.push( playerRank );
+			Storage.set( "ranking", ranking );
+		}
+	}
+}
+
+const Storage = {
+	get(key) {
+		return JSON.parse( window.localStorage.getItem(key) );
+	},
+
+	set(key, value) {
+		window.localStorage.setItem(key, JSON.stringify(value));
+	}
 }
 
 let Controls = {
 
 	mode: "player",
+	walking_left: false,
+	walking_right: false,
 
 	start() {
 		window.addEventListener("keydown", (k) => {
@@ -549,16 +611,18 @@ let Controls = {
 				}
 				case "arrowdown": {
 					if (!player.isJumping) {
-						player.vSpeed = 20 ;
+						player.vSpeed = 20;
 					}
 					break;
 				}
 				case "arrowleft": {
 					player.left();
+					Controls.walking_left = true;
 					break;
 				}
 				case "arrowright": {
 					player.right();
+					Controls.walking_right = true;
 					break;
 				}
 				case "w": {
@@ -567,10 +631,12 @@ let Controls = {
 				}
 				case "a": {
 					player.left();
+					Controls.walking_left = true;
 					break;
 				}
 				case "d": {
 					player.right();
+					Controls.walking_right = true;
 					break;
 				}
 			}
@@ -580,11 +646,21 @@ let Controls = {
 	playerControls2(k) {
 		switch(k.key.toLowerCase()) {
 			case "arrowleft": {
-				player.hSpeed = 0;
+				if (!Controls.walking_right) {
+					player.hSpeed = 0;
+				} else {
+					player.right();
+				}
+				Controls.walking_left = false;
 				break;
 			}
 			case "arrowright": {
-				player.hSpeed = 0; 
+				if (!Controls.walking_left) {
+					player.hSpeed = 0;
+				} else {
+					player.left();
+				}
+				Controls.walking_right = false;
 				break;
 			}
 			case "arrowdown": {
@@ -592,17 +668,30 @@ let Controls = {
 				break;
 			}
 			case "a": {
-				player.hSpeed = 0;
+				if (!Controls.walking_right) {
+					player.hSpeed = 0;
+				} else {
+					player.right();
+				}
+				Controls.walking_left = false;
 				break;
 			}
 			case "d": {
-				player.hSpeed = 0; 
+				if (!Controls.walking_left) {
+					player.hSpeed = 0;
+				} else {
+					player.left();
+				}
+				Controls.walking_right = false;
 				break;
 			}
 		}
 	}
 }
-		
+
+if ( Storage.get("ranking") == null ) {
+	Storage.set("ranking", []);
+}
 
 // Raio
 // setTimeout( () => {

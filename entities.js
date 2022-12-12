@@ -232,7 +232,7 @@ class Bat extends Entity {
 
 		super(x, y, 80, 48);
 
-		this.dmg = 3;
+		this.dmg = 2;
 
 		this.spriteParts_Left = [];
 		this.spriteParts_Right = [];
@@ -307,7 +307,7 @@ class Mummy extends Entity {
 
 		super(x, y, 58, 90);
 
-		this.dmg = 5;
+		this.dmg = 4;
 
 		this.spriteParts_Left = [];
 		this.spriteParts_Right = [];
@@ -366,12 +366,10 @@ class Mummy extends Entity {
 	move(x, y) {
 		let correction = Utils.colisionVerify( this, x, y, container.elements[0].shapes, true );
 		super.move(correction.x, correction.y);
-		let fallDetect = Utils.colisionVerify(this, this.style.width, 1, container.elements[0].shapes, true );
-		if (x != correction.x || fallDetect.y != 0 ) {
-			// if (x != correction.x) {
-				this.hSpeed = -this.hSpeed;
-				// this.hSpeed = -this.hSpeed;
-		} else {
+		// let fallDetect = Utils.colisionVerify(this, -this.style.width, 1, container.elements[0].shapes, true );
+		// if (x != correction.x || fallDetect.y != 0 ) {
+		if (x != correction.x) {
+			this.hSpeed = -this.hSpeed;
 		}
 		this.playerColision();
 	}
@@ -383,3 +381,112 @@ class Mummy extends Entity {
 		// }
 	}
 }
+
+class Snake extends Entity {
+
+	constructor(x, y) {
+
+		super(x, y, 52, 45);
+
+		this.dmg = 4;
+
+		this.spriteParts_Left = [];
+		this.spriteParts_Right = [];
+		{
+			for (let i = 1; i <= 8 ; i++) {
+				this.spriteParts_Left.push( new Img("./assets/entities/snake/snake" + i + "_left.png", this.x, this.y, this.style.width, this.style. height) );
+				this.sprites.push( this.spriteParts_Left[i-1] );
+				this.spriteParts_Right.push( new Img("./assets/entities/snake/snake" + i + "_right.png", this.x, this.y, this.style.width, this.style. height) );
+				this.sprites.push( this.spriteParts_Right[i-1] );
+			}
+		}
+
+		this.animSprite = 0;
+		this.faceRight = true;
+		this.onAnimation = false;
+
+		this.hSpeed = 200 / frameRate;
+		this.hMoveDistance = 250 / frameRate;
+	}
+
+	create() {
+		if (this.faceRight) {
+			this.spriteParts_Right[this.animSprite].create();
+		} else {
+			this.spriteParts_Left[this.animSprite].create();
+		}
+
+		if (gravityOn && this.vSpeed >= 0 && this.vSpeed + gravity <= fallSpeedLimit && !this.isJumping) {
+			this.vSpeed += gravity;
+		}
+		
+		this.anim();
+	}
+
+	anim() {
+		if (this.hSpeed < 0) {
+			this.faceRight = false;
+		} else if (this.hSpeed > 0) {
+			this.faceRight = true; 
+		}
+
+		if (!this.onAnimation) {
+			this.onAnimation = true;
+			this.animSprite = 0;
+			this.next()
+			setTimeout( () => {this.next()}, 100);
+			setTimeout( () => {this.next()}, 200);
+			setTimeout( () => {this.next()}, 300);
+			setTimeout( () => {this.next()}, 400);
+			setTimeout( () => {this.next()}, 500);
+			setTimeout( () => {this.next()}, 600);
+			setTimeout( () => {
+				this.next();
+				this.onAnimation = false;
+			}, 700);
+		}
+		this.move(this.hSpeed, this.vSpeed);
+	}
+
+	move(x, y) {
+		let correction = Utils.colisionVerify( this, x, y, container.elements[0].shapes, true );
+		super.move(correction.x, correction.y);
+		// let fallDetect = Utils.colisionVerify(this, -this.style.width, 1, container.elements[0].shapes, true );
+		// if (x != correction.x || fallDetect.y != 0 ) {
+		if (x != correction.x) {
+			this.hSpeed = -this.hSpeed;
+		}
+		this.playerColision();
+	}
+
+	next() {		
+		this.animSprite++;
+		if (this.animSprite == 8) {
+			this.animSprite = 0;
+		}
+	}
+}
+
+class Mushroom extends Entity {
+
+	constructor(x, y) {
+		super(x, y, 54, 48);
+
+		this.dmg = 7;
+		{
+			this.sprites.push( new Img("./assets/entities/mushroom/mushroom.png", this.x, this.y, this.style.width, this.style. height) );
+
+		}
+	}
+
+	create() {
+		this.sprites[0].create();
+	}
+
+	move(x, y) {
+		super.move(x, y);
+		this.playerColision();
+	}
+	
+}
+

@@ -33,6 +33,8 @@ function getJungleMap() {
         // Mobs
         let mobs = [];
         mobs.push( new Bat(600, 220) );
+        mobs.push( new Mushroom(150, 450) );
+        mobs.push( new Snake(250, 450) );
         
         // Scenery
         let scenery = [];
@@ -61,7 +63,7 @@ function getJungleMap() {
     {
         // Mobs
         let mobs = [];
-        mobs.push( new Mummy(350, 450) );
+        mobs.push( new Mummy(350, 350) );
         mobs.push( new Bat(600, 220) );
         
         // Scenery
@@ -110,9 +112,9 @@ function getDarkPitch() {
 	shapes.push( new Rectangle(0, cHeight - (cHeight - visionFieldSize) / 2, cWidth, (cHeight - visionFieldSize) / 2, "#000000") );
 	shapes.push( new Rectangle(0, (cHeight - visionFieldSize) / 2, (cWidth - visionFieldSize) / 2, visionFieldSize, "#000000") );
 	shapes.push( new Rectangle(cWidth - (cWidth - visionFieldSize) / 2, (cHeight - visionFieldSize) / 2, (cWidth - visionFieldSize) / 2, visionFieldSize, "#000000") );
-	let circle = new Rectangle((cWidth - visionFieldSize) / 2, (cHeight - visionFieldSize) / 2, visionFieldSize, visionFieldSize, "#000000", [visionFieldSize])
+	let circle = new Rectangle((cWidth - visionFieldSize) / 2 - visionFieldSize/8, (cHeight - visionFieldSize) / 2 - visionFieldSize/8, visionFieldSize + visionFieldSize/4, visionFieldSize + visionFieldSize/4, "#000000", [visionFieldSize])
 	circle.fill(false);
-	circle.lineWidth(250);
+	circle.lineWidth(visionFieldSize/4);
 	shapes.push( circle );
 
 	return new SceneryObject(0, 0, 0, 0, shapes);

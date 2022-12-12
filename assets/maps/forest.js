@@ -2382,6 +2382,13 @@ function getForestMap(){
 
     /*
         Medida interna(CHUNK):  1728 - largura e 1584 - altura
-        Coloquei um pixel de diferença para cada chunk */
-    return new GameMap(6916, 3160, chunks, "purple");
+        Coloquei um pixel de diferença para cada chunk 
+    */
+    let bgX = cWidth - (cWidth + visionFieldSize)/2 - visionFieldSize/2;
+    let bgY = 0
+    let bgWidth = 6916 / 8 + (cWidth - visionFieldSize)/2
+    let bgHeight = 6916 / 8 + (cWidth - visionFieldSize)/2
+    let background = new Img("./assets/maps/background/forest.png", bgX, bgY, bgWidth, bgHeight);
+    
+    return new GameMap(6916, 3160, chunks, "transparent", background);
 }

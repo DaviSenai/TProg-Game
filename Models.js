@@ -119,7 +119,7 @@ class Img extends Shape {
 
 	constructor(imgSrc, x, y, width, height) {
 		super(x, y, width, height, "");
-		this.img = new Image(100, 100);
+		this.img = new Image(width, height);
 		this.img.src = imgSrc;
 	}
 
@@ -226,9 +226,9 @@ class Chunk extends SceneryObject {
 			for (let i = 0; i < this.shapes.length; i++) {
 				this.shapes[i].create();
 			}
-			for (let i = 0; i < this.mobs.length; i++) {
-				this.mobs[i].create();
-			}
+		}
+		for (let i = 0; i < this.mobs.length; i++) {
+			this.mobs[i].create();
 		}
 
 		if (this.showBorder) {
@@ -241,8 +241,6 @@ class Chunk extends SceneryObject {
 	}
 
 	move(x, y) {
-		// this.x += x;
-		// this.y += y;
 		if (container.elements.length > 0) {
 			for (let i = 0; i < this.mobs.length; i++) {
 				this.mobs[i].move(x, y);
@@ -261,7 +259,7 @@ class Chunk extends SceneryObject {
 // Use to create a new Map (Scenery)
 class GameMap extends SceneryObject {
 
-	constructor(width, height, chunks, mapBorderColor) {
+	constructor(width, height, chunks, mapBorderColor, bgImgSrc) {
 		let content = [];
 		content.push( new Rectangle(-height/2, -height/2, width+height, height/2, mapBorderColor) );
 		content.push( new Rectangle(-height/2, height, width+height, height/2, mapBorderColor) );
@@ -271,6 +269,24 @@ class GameMap extends SceneryObject {
 			content.push(chunks[i]);
 		}
 		super(0, 0, width, height, content);
+		this.background;
+		if (bgImgSrc != undefined) {
+			this.background = bgImgSrc;
+		}
+	}
+
+	create() {
+		if (this.background != undefined) {
+			this.background.create();
+		}
+		super.create();
+	}
+
+	move(x, y) {
+		if (this.background != undefined) {
+			this.background.move(x / 8, y / 8);
+		}
+		super.move(x, y);
 	}
 
 	showColisionBox(value) {
@@ -338,7 +354,7 @@ class StaticGadgets extends Rectangle {
 	}
 	
 	create() {
-		// this.vignette.create();
+		this.vignette.create();
 		this.player.create();
 		this.lifeBar.create();
 		this.scoreBar.create();
