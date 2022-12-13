@@ -2384,6 +2384,7 @@ function getForestMap(){
         Medida interna(CHUNK):  1728 - largura e 1584 - altura
         Coloquei um pixel de diferença para cada chunk 
     */
+
     let bgX = cWidth - (cWidth + visionFieldSize)/2 - visionFieldSize/2;
     let bgY = 0
     let bgWidth = 6916 / 8 + (cWidth - visionFieldSize)/2
