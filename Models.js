@@ -124,7 +124,9 @@ class Img extends Shape {
 	}
 
 	create() {
-		context.drawImage(this.img, this.x, this.y, this.style.width, this.style.height);
+		if (!this.style.hidden) {
+			context.drawImage(this.img, this.x, this.y, this.style.width, this.style.height);
+		}
 	}
 
 	move(x, y) {

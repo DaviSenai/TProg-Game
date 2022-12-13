@@ -550,11 +550,64 @@ class TempleDoor extends Entity {
 		super.move(x, y);
 		if ( this.playerColision() ) {
 			if ( player.haveKey ) {
-				
+				setTimeout( () => {
+					Utils.clockStop();
+					Game.hideCanvas();
+					Game.showMenu();
+					Game.hideForestMenu();
+					Game.showTempleMenu();
+					Game.scoreMap1 = container.elements[1].scoreBar.score.text;
+					Game.addScore();
+					document.querySelector("#forest-menu .right-buttons div:last-child").style.visibility = "visible";
+				}, 1000);
 			} else if (!this.showWarning) {
 				this.showWarning = true;
 				setTimeout( () => {this.showWarning = false}, 2000);
 			}
+		}
+	}
+}
+
+class Relic extends Entity {
+
+	constructor(x, y) {
+		super(x, y, 150, 48);
+		{
+			// this.sprites.push( new Img("./assets/entities/temple/temple.png", this.x, this.y, this.style.width, this.style. height) );
+			this.sprites.push( new Rectangle(this.x, this.y, this.style.width, this.style. height, "pink") );
+			let warning = new CText("Pegue a chave antes", this.x, this.y + this.style.height/2, this.style.width, this.style.height)
+			warning.color("white");
+			warning.fontSize(18);
+			this.sprites.push( warning );
+		}
+		this.endGame = false;
+	}
+
+	create() {
+		this.sprites[0].create();
+		if (this.showWarning) {
+			this.sprites[1].create();
+		}
+	}
+
+	move(x, y) {
+		super.move(x, y);
+		if ( this.playerColision() && !this.endGame ) {
+			this.endGame = true;
+			Utils.thunderbolt();
+			setTimeout( () => {Utils.thunderbolt();}, 600);
+			setTimeout( () => {Utils.thunderbolt();}, 2000);
+			setTimeout( () => {
+				document.querySelector("#game").style.transition = "5s";
+				document.querySelector("#game").style.filter = "brightness(200)";
+			}, 3000);
+			setTimeout( () => {
+				Utils.clockStop();
+				document.querySelector("#game").style.transition = "";
+				document.querySelector("#game").style.filter = "";
+				Game.hideCanvas();
+				Game.showMenu();
+			}, 8000);
 		}
 	}
 }

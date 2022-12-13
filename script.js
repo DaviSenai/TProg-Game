@@ -122,7 +122,7 @@ const Game = {
 		document.querySelector("#menu").style.visibility = "hidden";
 		Sounds.menu.stop();
 	},
-// 
+ 
 	showForestMenu() {
 		Game.currentMap = "Forest";
 		document.querySelector("#forest-menu").style.display = "block";
@@ -142,7 +142,7 @@ const Game = {
 	hideTempleMenu() {
 		document.querySelector("#temple-menu").style.display = "none";
 	},
-// 
+
 	showModal() {
 		document.querySelector("#modal").style.visibility = "visible";
 	},
@@ -161,6 +161,23 @@ const Game = {
 	},
 
 	showScore(){     
+
+		let playerRanks = Utils.getRank();
+		let rank = [];
+
+		for (let i = 0; i < playerRanks.length; i++) {
+			if (Game.currentMap == "Forest") {
+				if (playerRanks[i].scoreMap1 != undefined) {
+					rank.push( playerRanks[i] );
+				}
+			} else {
+				if (playerRanks[i].scoreMap2 != undefined) {
+					rank.push( playerRanks[i] );
+				}
+			}
+		}
+		
+		
 		document.querySelector("#modal").innerHTML = `
 		<div id="flex-container-score">
 			<div id="header-score">
@@ -404,7 +421,44 @@ const Game = {
 		Controls.mode = "player";
 		document.querySelector("#start-game").style.visibility = "hidden";
 		Game.showMenu();
-	}
+	},
+
+	addScore() {
+		if (Game.playerName != undefined) {
+			let ranking = Utils.getRank();
+			for (let i = 0; i < ranking.length; i++) {
+				if (ranking[i].playerName == Game.playerName) {
+					if (Game.scoreMap1 != undefined) {
+						if (Game.scoreMap1 < ranking[i].scoreMap1 || ranking[i].scoreMap1 == undefined) {
+							ranking[i].scoreMap1 = Game.scoreMap1;
+						}
+					}
+
+					if (Game.scoreMap2 != undefined) {
+						if (Game.scoreMap2 < ranking[i].scoreMap2 || ranking[i].scoreMap2 == undefined) {
+							ranking[i].scoreMap2 = Game.scoreMap2;
+						}
+					}
+
+					Storage.set( "ranking", ranking );
+					return;
+				}
+			}
+
+			let playerRank = {playerName: Game.playerName, scoreMap1:undefined, scoreMap2:undefined};
+
+			if (Game.scoreMap1 != undefined) {
+				playerRank.scoreMap1 = Game.scoreMap1;
+			}
+			
+			if (Game.scoreMap2 != undefined) {
+				playerRank.scoreMap2 = Game.scoreMap2;
+			}
+
+			ranking.push( playerRank );
+			Storage.set( "ranking", ranking );
+		}
+	},
 }
 
 const Utils = {
@@ -633,41 +687,21 @@ const Utils = {
 		return Storage.get("ranking");
 	},
 
-	addScore() {
-		if (Game.playerName != undefined) {
-			let ranking = Utils.getRank();
-			for (let i = 0; i < ranking.length; i++) {
-				if (ranking[i].playerName == Game.playerName) {
-					if (Game.scoreMap1 != undefined) {
-						if (Game.scoreMap1 < ranking[i].scoreMap1 || ranking[i].scoreMap1 == undefined) {
-							ranking[i].scoreMap1 = Game.scoreMap1;
-						}
-					}
-
-					if (Game.scoreMap2 != undefined) {
-						if (Game.scoreMap2 < ranking[i].scoreMap2 || ranking[i].scoreMap2 == undefined) {
-							ranking[i].scoreMap2 = Game.scoreMap2;
-						}
-					}
-
-					Storage.set( "ranking", ranking );
-					return;
-				}
-			}
-
-			let playerRank = {playerName: Game.playerName, scoreMap1:undefined, scoreMap2:undefined};
-
-			if (Game.scoreMap1 != undefined) {
-				playerRank.scoreMap1 = Game.scoreMap1;
-			}
-			
-			if (Game.scoreMap2 != undefined) {
-				playerRank.scoreMap2 = Game.scoreMap2;
-			}
-
-			ranking.push( playerRank );
-			Storage.set( "ranking", ranking );
-		}
+	thunderbolt() {
+		setTimeout( () => {
+		container.elements[0].background.hidden(true);
+		container.container.style.bgColor = "#ffffff";
+		setTimeout( () => {
+			container.container.style.bgColor = "#000000";
+		}, 100);
+		setTimeout( () => {
+			container.container.style.bgColor = "#ffffff";
+		}, 200);
+		setTimeout( () => {
+			container.container.style.bgColor = "#000000";
+			container.elements[0].background.hidden(false);
+		}, 300);
+	}, 1000)
 	}
 }
 

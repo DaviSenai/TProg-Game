@@ -39,8 +39,14 @@ body > section {
     width: 40vw;
     height: 20px;
     padding: 10px;
-    border: 10px gray solid;
+    border: 10px #1d1d1d solid;
     border-radius: 5px;
+    color: white;
+    background: gray;
+}
+
+#start-game input::placeholder {
+    color: lightgray;
 }
 
 #start-game input:focus {
@@ -83,6 +89,10 @@ body > section {
     background-image: url('./assets/img/cenary_2.png');
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+#forest-menu .right-buttons div:last-child {
+    visibility: hidden;
 }
 
 #temple-menu {

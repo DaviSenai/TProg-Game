@@ -34,6 +34,8 @@ function getJungleMap() {
         let mobs = [];
         mobs.push( new Bat(600, 220) );
         mobs.push( new Mushroom(150, 450) );
+        // mobs.push( new Relic(450, 450) );
+        mobs.push( new Key(450, 450) );
         mobs.push( new TempleDoor(250, 450) );
         
         // Scenery
@@ -102,7 +104,14 @@ function getJungleMap() {
         }
         chunks.push( new Chunk(cWidth, 0, cWidth, cHeight, scenery, mobs) );
     }
-    return new GameMap(2*cWidth, cHeight, chunks, "gray");
+
+    let bgX = cWidth - (cWidth + visionFieldSize)/2 - visionFieldSize/2;
+    let bgY = 0
+    let bgWidth = 6916 / 8 + (cWidth - visionFieldSize)/2
+    let bgHeight = 6916 / 8 + (cWidth - visionFieldSize)/2
+    let background = new Img("./assets/maps/background/forest.png", bgX, bgY, bgWidth, bgHeight);
+
+    return new GameMap(2*cWidth, cHeight, chunks, "gray", background);
 }
 
 
