@@ -14,6 +14,7 @@ body {
     overflow: hidden;
     justify-content: center;
     /* cursor: none; */
+    user-select: none;
 }
 
 body > section {
@@ -21,6 +22,29 @@ body > section {
     position: absolute;
     top: 0;
     /* left: 0; */
+}
+
+#start-game {
+    position: absolute;
+    display: flex;
+    width: 100vw;
+    top: 50%;
+    transform: translateY(-50%);
+    justify-content: center;
+    font-size: 90px;
+    color: white;
+}
+
+#start-game input {
+    width: 40vw;
+    height: 20px;
+    padding: 10px;
+    border: 10px gray solid;
+    border-radius: 5px;
+}
+
+#start-game input:focus {
+    outline: none;
 }
 
 #game {
@@ -38,6 +62,7 @@ body > section {
 
 #menu {
     position: relative;
+    visibility: hidden;
     font-family: Mayan; 
 }
 

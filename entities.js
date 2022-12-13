@@ -502,7 +502,7 @@ class Mushroom extends Entity {
 class Key extends Entity {
 
 	constructor(x, y) {
-		super(x, y, 32, 32);
+		super(x, y, 64, 64);
 		{
 			this.sprites.push( new Img("./assets/entities/key/key.png", this.x, this.y, this.style.width, this.style. height) );
 
@@ -510,35 +510,51 @@ class Key extends Entity {
 	}
 
 	create() {
-		this.sprites[0].create();
+		if (!this.style.hidden) {
+			this.sprites[0].create();
+		}
 	}
 
 	move(x, y) {
 		super.move(x, y);
 		if ( this.playerColision() ) {
 			player.haveKey = true;
+			this.hidden(true);
 		}
 	}
 }
 
-class Temple extends Entity {
+class TempleDoor extends Entity {
 
 	constructor(x, y) {
-		super(x, y, 32, 32);
+		super(x, y, 150, 48);
 		{
-			this.sprites.push( new Img("./assets/entities/temple/temple.png", this.x, this.y, this.style.width, this.style. height) );
-
+			// this.sprites.push( new Img("./assets/entities/temple/temple.png", this.x, this.y, this.style.width, this.style. height) );
+			this.sprites.push( new Rectangle(this.x, this.y, this.style.width, this.style. height, "pink") );
+			let warning = new CText("Pegue a chave antes", this.x, this.y + this.style.height/2, this.style.width, this.style.height)
+			warning.color("white");
+			warning.fontSize(18);
+			this.sprites.push( warning );
 		}
+		this.showWarning = false;
 	}
 
 	create() {
 		this.sprites[0].create();
+		if (this.showWarning) {
+			this.sprites[1].create();
+		}
 	}
 
 	move(x, y) {
 		super.move(x, y);
 		if ( this.playerColision() ) {
-			player.haveKey = true;
+			if ( player.haveKey ) {
+				
+			} else if (!this.showWarning) {
+				this.showWarning = true;
+				setTimeout( () => {this.showWarning = false}, 2000);
+			}
 		}
 	}
 }

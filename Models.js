@@ -431,3 +431,41 @@ class ScoreBar extends SceneryObject {
 	}
 	
 }
+
+class Sound {
+
+	constructor(src, volume, autoPlay) {
+		this.sound = document.createElement("audio");
+		this.sound.src = src;
+		this.sound.setAttribute("preload", "auto");
+		if (volume != undefined) {
+			this.volume(volume);
+		}
+		this.autoPlay = autoPlay | false;
+	}
+
+	start() {
+		this.sound.play();
+		if (this.autoPlay) {
+			setTimeout( () => {this.reset(); this.start()}, this.sound.duration * 1000 );
+		}
+	}
+
+	pause() {
+		this.sound.pause();
+	}
+
+	reset() {
+		this.sound.currentTime = 0;
+	}
+
+	stop() {
+		this.pause();
+		this.reset();
+	}
+
+	volume(value) {
+		this.sound.volume = value; 
+	}
+	
+}

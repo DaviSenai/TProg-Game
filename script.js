@@ -20,6 +20,76 @@ let gravityOn = true;
 let player;
 let visionFieldSize = 350;
 
+let Sounds = {
+	menu: new Sound("./assets/sounds/menu/Musica Menu (Ringside - Dyalla).mp3", .5),
+	forest: {
+		atmosphere: new Sound("./assets/sounds/forest/Jungle Atmosphere Night.mp3"),
+		bgSound: new Sound("./assets/sounds/forest/Musica de Fundo (Mayan Ritual - Jimena Contreras).mp3", 1, true),
+		wind: new Sound("./assets/sounds/forest/Windy Forrest.mp3")
+	},
+
+	temple: {
+		atmosphere: new Sound("./assets/sounds/temple/Water Lapping Wind.mp3"),
+		bgSound: new Sound("./assets/sounds/temple/Musica de Fundo (Desert Planet - Quincas Moreira).mp3", 1, true),
+		wind: new Sound("./assets/sounds/temple/Soft Wind.mp3")
+	},
+
+	player: {
+		walk_forest: new Sound("./assets/sounds/forest/Passos (Walk on Dirt Series).mp3"),
+		jump_forest: new Sound("./assets/sounds/forest/Pulo (Walk on Dirt Series).mp3"),
+		walk_temple: new Sound("./assets/sounds/temple/Passos (Walk Fast on Concrete Series).mp3"),
+		jump_temple: new Sound("./assets/sounds/temple/Pulo (Walk Fast on Concrete Series).mp3"),
+
+		walk() {
+			if (Game.currentMap == "Forest") {
+				Sounds.player.walk_forest.start();
+			} else if (Game.currentMap == "Temple") {
+				Sounds.player.walk_temple.start();
+			}
+		},
+
+		stopWalk() {
+			if (Game.currentMap == "Forest") {
+				Sounds.player.walk_forest.stop();
+			} else if (Game.currentMap == "Temple") {
+				Sounds.player.walk_temple.stop();
+			}
+		},
+
+		jump() {
+			if (Game.currentMap == "Forest") {
+				Sounds.player.walk_forest.start();
+			} else if (Game.currentMap == "Temple") {
+				Sounds.player.walk_temple.start();
+			}
+		},
+
+		stopWalk() {
+			if (Game.currentMap == "Forest") {
+				Sounds.player.walk_forest.stop();
+			} else if (Game.currentMap == "Temple") {
+				Sounds.player.walk_temple.stop();
+			}
+		}
+	},
+
+	stopAll() {
+		Sounds.menu.stop();
+		
+		Sounds.forest.atmosphere.stop();
+		Sounds.forest.bgSound.stop();
+		Sounds.forest.wind.stop();
+		
+		Sounds.temple.atmosphere.stop();
+		Sounds.temple.bgSound.stop();
+		Sounds.temple.wind.stop();
+
+		Sounds.player.walk_forest.stop();
+		Sounds.player.jump_forest.stop();
+		Sounds.player.walk_temple.stop();
+		Sounds.player.jump_temple.stop();
+	}
+}
 
 const Game = {
 
@@ -36,15 +106,21 @@ const Game = {
 		Game.hideMenu();
 		Game.showCanvas();
 		Utils.loadMap(Game.currentMap);
-		Controls.start();
+		if (Game.currentMap == "Forest") {
+			Sounds.forest.bgSound.start();
+		} else if (Game.currentMap == "Temple") {
+			Sounds.temple.bgSound.start();
+		}
 	},
 
 	showMenu() {
 		document.querySelector("#menu").style.visibility = "visible";
+		Sounds.menu.start();
 	},
 
 	hideMenu() {
 		document.querySelector("#menu").style.visibility = "hidden";
+		Sounds.menu.stop();
 	},
 // 
 	showForestMenu() {
@@ -321,6 +397,13 @@ const Game = {
 				}, 500);
 			}
 		}
+	},
+
+	playerRegister() {
+		Game.playerName = document.querySelector("#start-game input").value;
+		Controls.mode = "player";
+		document.querySelector("#start-game").style.visibility = "hidden";
+		Game.showMenu();
 	}
 }
 
@@ -600,7 +683,8 @@ const Storage = {
 
 let Controls = {
 
-	mode: "player",
+	// mode: "player",
+	mode: "menu",
 	walking_left: false,
 	walking_right: false,
 
@@ -629,6 +713,7 @@ let Controls = {
 			switch(k.key.toLowerCase()) {
 				case "arrowup": {
 					player.jump();
+					Sounds.player.jump();
 					break;
 				}
 				case "arrowdown": {
@@ -640,25 +725,30 @@ let Controls = {
 				case "arrowleft": {
 					player.left();
 					Controls.walking_left = true;
+					Sounds.player.walk();
 					break;
 				}
 				case "arrowright": {
 					player.right();
 					Controls.walking_right = true;
+					Sounds.player.walk();
 					break;
 				}
 				case "w": {
 					player.jump();
+					Sounds.player.jump();
 					break;
 				}
 				case "a": {
 					player.left();
 					Controls.walking_left = true;
+					Sounds.player.walk();
 					break;
 				}
 				case "d": {
 					player.right();
 					Controls.walking_right = true;
+					Sounds.player.walk();
 					break;
 				}
 			}
@@ -666,46 +756,52 @@ let Controls = {
 	},
 
 	playerControls2(k) {
-		switch(k.key.toLowerCase()) {
-			case "arrowleft": {
-				if (!Controls.walking_right) {
-					player.hSpeed = 0;
-				} else {
-					player.right();
+		if ( Utils.clockStarted ) {
+			switch(k.key.toLowerCase()) {
+				case "arrowleft": {
+					if (!Controls.walking_right) {
+						player.hSpeed = 0;
+						Sounds.player.stopWalk();
+					} else {
+						player.right();
+					}
+					Controls.walking_left = false;
+					break;
 				}
-				Controls.walking_left = false;
-				break;
-			}
-			case "arrowright": {
-				if (!Controls.walking_left) {
-					player.hSpeed = 0;
-				} else {
-					player.left();
+				case "arrowright": {
+					if (!Controls.walking_left) {
+						player.hSpeed = 0;
+						Sounds.player.stopWalk();
+					} else {
+						player.left();
+					}
+					Controls.walking_right = false;
+					break;
 				}
-				Controls.walking_right = false;
-				break;
-			}
-			case "arrowdown": {
-				player.vSpeed = 0; 
-				break;
-			}
-			case "a": {
-				if (!Controls.walking_right) {
-					player.hSpeed = 0;
-				} else {
-					player.right();
+				case "arrowdown": {
+					player.vSpeed = 0; 
+					break;
 				}
-				Controls.walking_left = false;
-				break;
-			}
-			case "d": {
-				if (!Controls.walking_left) {
-					player.hSpeed = 0;
-				} else {
-					player.left();
+				case "a": {
+					if (!Controls.walking_right) {
+						player.hSpeed = 0;
+						Sounds.player.stopWalk();
+					} else {
+						player.right();
+					}
+					Controls.walking_left = false;
+					break;
 				}
-				Controls.walking_right = false;
-				break;
+				case "d": {
+					if (!Controls.walking_left) {
+						player.hSpeed = 0;
+						Sounds.player.stopWalk();
+					} else {
+						player.left();
+					}
+					Controls.walking_right = false;
+					break;
+				}
 			}
 		}
 	}
@@ -714,6 +810,10 @@ let Controls = {
 if ( Storage.get("ranking") == null ) {
 	Storage.set("ranking", []);
 }
+
+Controls.start();
+
+// Game.showMenu();
 
 // Raio
 // setTimeout( () => {

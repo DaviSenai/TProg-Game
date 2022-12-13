@@ -34,7 +34,7 @@ function getJungleMap() {
         let mobs = [];
         mobs.push( new Bat(600, 220) );
         mobs.push( new Mushroom(150, 450) );
-        mobs.push( new Snake(250, 450) );
+        mobs.push( new TempleDoor(250, 450) );
         
         // Scenery
         let scenery = [];
