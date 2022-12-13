@@ -28,12 +28,14 @@ const Game = {
 	// scoreMap2:0,
 	scoreMap1:undefined,
 	scoreMap2:undefined,
+	currentMap:"Jungle",
+	// currentMap:"Forest",
 
 	start() {
 		player = new Player(cWidth/2, cHeight/2);
 		Game.hideMenu();
 		Game.showCanvas();
-		Utils.loadMap("Forest");
+		Utils.loadMap(Game.currentMap);
 		Controls.start();
 	},
 
@@ -44,7 +46,27 @@ const Game = {
 	hideMenu() {
 		document.querySelector("#menu").style.visibility = "hidden";
 	},
+// 
+	showForestMenu() {
+		Game.currentMap = "Forest";
+		document.querySelector("#forest-menu").style.display = "block";
+		Game.hideTempleMenu();
+	},
 
+	hideForestMenu() {
+		document.querySelector("#forest-menu").style.display = "none";
+	},
+
+	showTempleMenu() {
+		Game.currentMap = "Temple";
+		document.querySelector("#temple-menu").style.display = "block";
+		Game.hideForestMenu();
+	},
+
+	hideTempleMenu() {
+		document.querySelector("#temple-menu").style.display = "none";
+	},
+// 
 	showModal() {
 		document.querySelector("#modal").style.visibility = "visible";
 	},

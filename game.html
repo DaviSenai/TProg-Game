@@ -10,17 +10,66 @@
 </head>
 <body>
     <section id="menu">
-        <div id="flex-container-inicio">
+        <div id="forest-menu" class="flex-container-inicio">
             <header>
                 <div id="title">AMAZE RELIC</div>
+                <div id="subtitle">Encontre a chave e entre no templo</div>
             </header>
             <main>
                 <div id="buttons">
-                    <button id="button-start" class="flex-buttons" onclick="Game.start()">
-                        <img src="./assets/img/play_2.png" alt="COMEÇAR">
-                    </button>
-                    <button class="flex-buttons" onClick ="Game.showScore()">PLACAR</button>
-                    <button class="flex-buttons" onClick ="Game.showHowToPlay()">COMO JOGAR?</button>
+                    <div class="left-buttons">
+                        <div>
+                            <button id="button-start" class="flex-buttons" onclick="Game.start()">
+                                <img src="./assets/img/play_2.png" alt="COMEÇAR">
+                            </button>
+                        </div>
+                        <div>
+                            <button class="buttons" onClick ="Game.showScore()">PLACAR</button>
+                        </div>
+                        <div>
+                            <button class="buttons" onClick ="Game.showHowToPlay()">COMO JOGAR?</button>
+                        </div>
+                    </div>
+                    <div class="right-buttons">
+                        <div>
+                            <button class="buttons" onclick="Game.showForestMenu()">Floresta</button>
+                        </div>
+                        <div>
+                            <button class="buttons" onclick="Game.showTempleMenu()">Templo</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer>*PRESSIONE F11 E UTILIZE FONES DE OUVIDO PARA UMA MAIOR IMERSÃO*</footer>
+        </div>
+        <div id="temple-menu" class="flex-container-inicio">
+            <header>
+                <div id="title">AMAZE RELIC</div>
+                <div id="subtitle">Encontre a relíquia e quebre a maldição</div>
+            </header>
+            <main>
+                <div id="buttons">
+                    <div class="left-buttons">
+                        <div>
+                            <button id="button-start" class="flex-buttons" onclick="Game.start()">
+                                <img src="./assets/img/play_2.png" alt="COMEÇAR">
+                            </button>
+                        </div>
+                        <div>
+                            <button class="buttons" onClick ="Game.showScore()">PLACAR</button>
+                        </div>
+                        <div>
+                            <button class="buttons" onClick ="Game.showHowToPlay()">COMO JOGAR?</button>
+                        </div>
+                    </div>
+                    <div class="right-buttons">
+                        <div>
+                            <button class="buttons" onclick="Game.showForestMenu()">Floresta</button>
+                        </div>
+                        <div>
+                            <button class="buttons" onclick="Game.showTempleMenu()">Templo</button>
+                        </div>
+                    </div>
                 </div>
             </main>
             <footer>*PRESSIONE F11 E UTILIZE FONES DE OUVIDO PARA UMA MAIOR IMERSÃO*</footer>

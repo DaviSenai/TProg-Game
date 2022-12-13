@@ -8,6 +8,7 @@ class Player extends Entity {
 		this.lifeBar = 10;
 		this.hasImmunity = false;
 		this.immunityDelay = 2000;
+		this.haveKey = false;
 
 		this.spriteParts_Left = [];
 		this.spriteParts_Right = [];
@@ -176,16 +177,16 @@ class Player extends Entity {
 	move(x, y) {
 		for (let i = 4; i < container.elements[0].shapes.length; i++) {
 			// if (Utils.inRangeX(player, 0, container.elements[0].shapes[i]) && Utils.inRangeY(player, 0, container.elements[0].shapes[i])) {
-			let chunk = container.elements[0].shapes[i];
-			if (
-				( Utils.inRangeX(player, -visionFieldSize / 2, chunk) || Utils.inRangeX(player, visionFieldSize / 2, chunk))
-				&&
-				( Utils.inRangeY(player, -visionFieldSize / 2, chunk) || Utils.inRangeY(player, visionFieldSize / 2, chunk))
-			) {
+			// let chunk = container.elements[0].shapes[i];
+			// if (
+			// 	( Utils.inRangeX(player, -visionFieldSize / 2, chunk) || Utils.inRangeX(player, visionFieldSize / 2, chunk))
+			// 	&&
+			// 	( Utils.inRangeY(player, -visionFieldSize / 2, chunk) || Utils.inRangeY(player, visionFieldSize / 2, chunk))
+			// ) {
 				container.elements[0].shapes[i].active = true;
-			} else {
-				container.elements[0].shapes[i].active = false;
-			}
+			// } else {
+			// 	container.elements[0].shapes[i].active = false;
+			// }
 		}
 		let correction = Utils.colisionVerify( player, x, y, container.elements[0].shapes);
 		if (y > 0 && y != correction.y) {
@@ -289,7 +290,9 @@ class Bat extends Entity {
 		if (x != correction.x) {
 			this.hSpeed = -this.hSpeed;
 		}
-		this.playerColision();
+		if ( this.playerColision() ) {
+			player.takeDmg( this.dmg );
+		}
 	}
 
 	next() {		
@@ -299,7 +302,6 @@ class Bat extends Entity {
 		}
 	}
 }
-
 
 class Mummy extends Entity {
 
@@ -371,7 +373,9 @@ class Mummy extends Entity {
 		if (x != correction.x) {
 			this.hSpeed = -this.hSpeed;
 		}
-		this.playerColision();
+		if ( this.playerColision() ) {
+			player.takeDmg( this.dmg );
+		}
 	}
 
 	next() {		
@@ -456,7 +460,9 @@ class Snake extends Entity {
 		if (x != correction.x) {
 			this.hSpeed = -this.hSpeed;
 		}
-		this.playerColision();
+		if ( this.playerColision() ) {
+			player.takeDmg( this.dmg );
+		}
 	}
 
 	next() {		
@@ -485,8 +491,54 @@ class Mushroom extends Entity {
 
 	move(x, y) {
 		super.move(x, y);
-		this.playerColision();
+		if ( this.playerColision() ) {
+			player.takeDmg( this.dmg );
+		}
 	}
 	
 }
 
+
+class Key extends Entity {
+
+	constructor(x, y) {
+		super(x, y, 32, 32);
+		{
+			this.sprites.push( new Img("./assets/entities/key/key.png", this.x, this.y, this.style.width, this.style. height) );
+
+		}
+	}
+
+	create() {
+		this.sprites[0].create();
+	}
+
+	move(x, y) {
+		super.move(x, y);
+		if ( this.playerColision() ) {
+			player.haveKey = true;
+		}
+	}
+}
+
+class Temple extends Entity {
+
+	constructor(x, y) {
+		super(x, y, 32, 32);
+		{
+			this.sprites.push( new Img("./assets/entities/temple/temple.png", this.x, this.y, this.style.width, this.style. height) );
+
+		}
+	}
+
+	create() {
+		this.sprites[0].create();
+	}
+
+	move(x, y) {
+		super.move(x, y);
+		if ( this.playerColision() ) {
+			player.haveKey = true;
+		}
+	}
+}

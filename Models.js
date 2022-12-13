@@ -328,9 +328,7 @@ class Entity extends Shape {
 	}
 
 	playerColision() {
-		if ( Utils.inRangeX(player, 0, this) && Utils.inRangeY(player, 0, this) ) {
-			player.takeDmg( this.dmg );
-		}
+		return ( Utils.inRangeX(player, 0, this) && Utils.inRangeY(player, 0, this) );
 	}
 	
 }
@@ -354,7 +352,7 @@ class StaticGadgets extends Rectangle {
 	}
 	
 	create() {
-		this.vignette.create();
+		// this.vignette.create();
 		this.player.create();
 		this.lifeBar.create();
 		this.scoreBar.create();

@@ -53,20 +53,31 @@ body > section {
     background: white;
 }
 
-/*INICIO*/
-#flex-container-inicio {
-    position: relative;
-    flex-direction: row-reverse;
-    width: 100vw;
-    height: 100vh;
+#forest-menu {
     background-color: black;
     background-image: url('./assets/img/cenary_2.png');
     background-repeat: no-repeat;
     background-size: cover;
 }
 
+#temple-menu {
+    display: none;
+    background-color: black;
+    background-image: url('./assets/img/temple.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
-#title{
+/*INICIO*/
+.flex-container-inicio {
+    position: relative;
+    flex-direction: row-reverse;
+    width: 100vw;
+    height: 100vh;
+}
+
+
+#menu header {
     display: block !important;
     position: absolute;
     top: 0;
@@ -80,41 +91,77 @@ body > section {
     text-align: center;
 }
 
-#flex-container-inicio main {
+header #subtitle{
+    margin:  2vh auto auto auto;
+    font-size: 50px;
+    background-color: aliceblue;
+    font-family: Mayan;
+    color: black;
+}
+
+.flex-container-inicio main {
     display: flex;
     width: 100vw;
     height: 100vh;
-    align-items: center;
 }
 
-#buttons{
-    display: flex;
-    flex-direction: row;
-    margin-top: 21vh;
-    width: 20vw;
+#buttons {
+    position: relative;
+    width: 100vw;
     height: 50vh;
-    flex-wrap: wrap;
+    margin-top: 35vh;
 }
 
 #buttons > button:hover{
     background-color: rgba(255, 255, 255, 0.432);
 }
 
-.flex-buttons{
+#buttons .left-buttons {
+    position: absolute;
+    left: 2vw;
+}
+
+#buttons .right-buttons {
+    position: absolute;
+    right: 2vw;
+    margin-top: 17vh;
+}
+
+
+#forest-menu #buttons .right-buttons > :first-child {
+    opacity: .6;
+}
+
+#temple-menu #buttons .right-buttons > :last-child {
+    opacity: .6;
+}
+
+
+#buttons > div > div {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0;
+}
+
+.buttons{
     width: 15vw;
     height: 7vh;
-    margin: auto;
     border-radius: 50px;
     border-color: transparent;
     font-size: 25px;
-    cursor: pointer;
     font-family: Mayan;
+    cursor: pointer;
+}
+
+.buttons:hover {
+    opacity: .8;
 }
 
 #button-start{
     width: 12vh;
     height: 12vh;
     border-radius: 200px;
+    cursor: pointer;
 }
 
 #button-start img{
@@ -388,5 +435,4 @@ footer {
     font-family: sans-serif;
     color: white;
 }
-
 
