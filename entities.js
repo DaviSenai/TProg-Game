@@ -9,13 +9,6 @@ class Player extends Entity {
 		this.hasImmunity = false;
 		this.immunityDelay = 2000;
 		this.haveKey = false;
-
-		// this.dead = true;
-		// this.dead = false;
-		// this.deadMsg = new CText("Você morreu!", -255/2 + this.style.width/2, -20, 255, 20);
-		// this.deadMsg.color("red");
-		// this.deadMsg.fontSize("24");
-		// this.sprites.push(this.deadMsg);
 		
 		this.spriteParts_Left = [];
 		this.spriteParts_Right = [];
@@ -78,9 +71,14 @@ class Player extends Entity {
 					container.elements[1].lifeBar.remove();
 				}
 				this.lifeBar = 0;
+				container.elements[1].died = true;
 				setTimeout( () => {
 					Utils.clockStop();
-				}, 2000)
+				}, 100)
+				setTimeout( () => {
+					Game.showMenu();
+					Game.hideCanvas();
+				}, 4000 );
 			}
 		}
 	}
@@ -491,7 +489,7 @@ class Mushroom extends Entity {
 	constructor(x, y) {
 		super(x, y, 54, 48);
 
-		this.dmg = 7;
+		this.dmg = 5;
 		{
 			this.sprites.push( new Img("./assets/entities/mushroom/mushroom.png", this.x, this.y, this.style.width, this.style. height) );
 
@@ -510,7 +508,6 @@ class Mushroom extends Entity {
 	}
 	
 }
-
 
 class Key extends Entity {
 
@@ -563,10 +560,10 @@ class TempleDoor extends Entity {
 	move(x, y) {
 		super.move(x, y);
 		if ( this.playerColision() ) {
-			if ( player.haveKey) {
+			if ( player.haveKey ) {
 				if (!this.endMap) {
 					this.endMap = true;
-					console.log("endmap")
+					container.elements[1].enterTemple = true;
 					setTimeout( () => {
 						Utils.clockStop();
 						Game.hideCanvas();
@@ -576,7 +573,7 @@ class TempleDoor extends Entity {
 						Game.scoreMap1 = container.elements[1].scoreBar.score.text;
 						Game.addScore();
 						document.querySelector("#forest-menu .right-buttons div:last-child").style = "";
-					}, 1000);
+					},3000);
 				}
 			} else if (!this.showWarning) {
 				this.showWarning = true;
@@ -589,14 +586,9 @@ class TempleDoor extends Entity {
 class Relic extends Entity {
 
 	constructor(x, y) {
-		super(x, y, 150, 48);
+		super(x, y, 144, 144);
 		{
-			// this.sprites.push( new Img("./assets/entities/temple/temple.png", this.x, this.y, this.style.width, this.style. height) );
-			this.sprites.push( new Rectangle(this.x, this.y, this.style.width, this.style. height, "pink") );
-			let warning = new CText("Pegue a chave antes", this.x, this.y + this.style.height/2, this.style.width, this.style.height)
-			warning.color("white");
-			warning.fontSize(18);
-			this.sprites.push( warning );
+			this.sprites.push( new Img("./assets/img/pedra-deus-sol.png", this.x, this.y, this.style.width, this.style.height) );
 		}
 		this.endGame = false;
 	}
@@ -612,10 +604,12 @@ class Relic extends Entity {
 		super.move(x, y);
 		if ( this.playerColision() && !this.endGame ) {
 			this.endGame = true;
+			container.elements[1].won = true;
 			Utils.thunderbolt();
 			setTimeout( () => {Utils.thunderbolt();}, 600);
 			setTimeout( () => {Utils.thunderbolt();}, 2000);
 			setTimeout( () => {
+				container.elements[1].showVignette = false;
 				document.querySelector("#game").style.transition = "5s";
 				document.querySelector("#game").style.filter = "brightness(200)";
 			}, 3000);

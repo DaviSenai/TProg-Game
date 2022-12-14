@@ -38,14 +38,14 @@ function getForestMap(){
         let mobs = [];
 
         //verificado
-        mobs.push( new Key(480, 480))
+        mobs.push( new Key(1104, 250))
         mobs.push( new Snake(1104, 960) );
         // mobs.push( new Snake(384, 220) );
         mobs.push( new Snake(652, 480) );
         mobs.push( new Snake(288, 1056) );
         mobs.push( new Snake(1632, 288) );
         mobs.push( new Snake(1632, 1196) );
-        mobs.push( new Mushroom(288, 668) );
+        mobs.push( new Mushroom(288, 672) );
 
         //n verificado
 
@@ -204,12 +204,12 @@ function getForestMap(){
 
             scenery.push( new SceneryObject(0, 620, 384, 48, shapes));  
         }
-        {
-            let shapes = [];
-            shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
+        // {
+        //     let shapes = [];
+        //     shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
 
-            scenery.push( new SceneryObject(144, 572, 48, 48, shapes));  
-        }
+        //     scenery.push( new SceneryObject(144, 572, 48, 48, shapes));  
+        // }
         {
             let shapes = [];
             shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
@@ -516,11 +516,11 @@ function getForestMap(){
         //verificado
         mobs.push( new Snake(1412, 876));
         mobs.push( new Snake(1372, 1440));
-        mobs.push( new Mushroom(340, 864));
+        mobs.push( new Mushroom(336, 864));
         mobs.push( new Mushroom(1632, 876));
         mobs.push( new Mushroom(1824, 876));
-        mobs.push( new Mushroom(284, 1248));
-        mobs.push( new Mushroom(340, 1488));
+        mobs.push( new Mushroom(288, 1248));
+        mobs.push( new Mushroom(336, 1488));
         mobs.push( new Mushroom(864, 1248));
         mobs.push( new Key(1292, 1440));
 
@@ -992,7 +992,7 @@ function getForestMap(){
             shapes.push( new Img("./assets/textures/Block.png",0,192,48,48));
 
 
-            scenery.push( new SceneryObject(144, 432, 48, 40, shapes) );
+            scenery.push( new SceneryObject(144, 432, 48, 240, shapes) );
         }
         /*3.5*/
         {
@@ -1144,16 +1144,16 @@ function getForestMap(){
 
         scenery.push( new SceneryObject(192, 1008, 1152, 48, shapes) );
         }
-        /*3.13*/
-        {
-            let shapes = [];
-            shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
-            shapes.push( new Img("./assets/textures/Block.png",48,0,48,48));
-            shapes.push( new Img("./assets/textures/Block.png",96,0,48,48));
-            shapes.push( new Img("./assets/textures/Block.png",144,0,48,48));
+        // /*3.13*/
+        // {
+        //     let shapes = [];
+        //     shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
+        //     shapes.push( new Img("./assets/textures/Block.png",48,0,48,48));
+        //     shapes.push( new Img("./assets/textures/Block.png",96,0,48,48));
+        //     shapes.push( new Img("./assets/textures/Block.png",144,0,48,48));
 
-            scenery.push( new SceneryObject(1536, 1248, 192, 48, shapes) );
-        }
+        //     scenery.push( new SceneryObject(1536, 1248, 192, 48, shapes) );
+        // }
         /*3.14*/
         {
         let shapes = [];
@@ -1274,8 +1274,8 @@ function getForestMap(){
         
         //n verificado
         mobs.push( new Snake(384, 1344));
-        mobs.push( new Mushroom(1680, 1108));
         mobs.push( new Snake(1484, 1584));
+        mobs.push( new Mushroom(1680, 1104));
         mobs.push( new TempleDoor(924, 912))
 
         let scenery = []
@@ -1624,16 +1624,16 @@ function getForestMap(){
 
             scenery.push( new SceneryObject(336, 192, 48, 192, shapes));  
         }
-        /*5.6*/
-        {
-            let shapes = [];
-            shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
-            shapes.push( new Img("./assets/textures/Block.png",0,48,48,48));
-            shapes.push( new Img("./assets/textures/Block.png",0,96,48,48));
-            shapes.push( new Img("./assets/textures/Block.png",0,144,48,48));
+        // /*5.6*/
+        // {
+        //     let shapes = [];
+        //     shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
+        //     shapes.push( new Img("./assets/textures/Block.png",0,48,48,48));
+        //     shapes.push( new Img("./assets/textures/Block.png",0,96,48,48));
+        //     shapes.push( new Img("./assets/textures/Block.png",0,144,48,48));
 
-            scenery.push( new SceneryObject(1678, 336, 48, 192, shapes));  
-        }
+        //     scenery.push( new SceneryObject(1678, 336, 48, 192, shapes));  
+        // }
         /*5.7*/
         {
             let shapes = [];
@@ -2196,7 +2196,7 @@ function getForestMap(){
         mobs.push( new Snake(144, 1632) );
 
         mobs.push( new Mushroom(1200, 336) );
-        mobs.push( new Mushroom(484, 808) );
+        mobs.push( new Mushroom(484, 816) );
         mobs.push( new Mushroom(1344, 1200) );
 
 

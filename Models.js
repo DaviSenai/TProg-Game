@@ -219,8 +219,7 @@ class Chunk extends SceneryObject {
 		this.fill(false);
 		this.active = false; // Default
 		// this.active = true;
-		// this.showBorder = false;
-		this.showBorder = true;
+		this.showBorder = false;
 	}
 
 	create() {
@@ -339,10 +338,18 @@ class StaticGadgets extends Rectangle {
 	
 	constructor() {
 		super(0, 0, cWidth, cHeight, "transparent", 1, false);
+		this.showVignette = true;
 		this.vignette = getDarkPitch();
 		this.player = player;
 		this.lifeBar = new LifeBar();
 		this.scoreBar = new ScoreBar();
+
+		this.died = false;
+		this.morreu = new Morreu();
+		this.won = false;
+		this.venceu = new Venceu();
+		this.enterTemple = false;
+		this.enterTempleMsg = new EntrouTemple();
 
 		for (let i = 0; i < this.player.lifeBar; i++) {
 			setTimeout( () => {
@@ -354,10 +361,23 @@ class StaticGadgets extends Rectangle {
 	}
 	
 	create() {
-		// this.vignette.create();
+		if (this.showVignette) {
+			this.vignette.create();
+		}
 		this.player.create();
 		this.lifeBar.create();
 		this.scoreBar.create();
+		if (this.died) {
+			this.morreu.create();
+		}
+
+		if (this.won) {
+			this.venceu.create();
+		}
+
+		if (this.enterTemple) {
+			this.enterTempleMsg.create();
+		}
 	}
 	
 }
@@ -430,6 +450,61 @@ class ScoreBar extends SceneryObject {
 
 	stop() {
 		clearInterval( this.timerId );
+	}
+	
+}
+
+class Morreu extends SceneryObject {
+
+	constructor() {
+
+		let shapes = [];
+
+		let label = new CText("Voce morreu!", cWidth/2, 30, 50, 30);
+		label.x -= label.text.length*16/2;
+		label.fontSize(24);
+		label.color("red");
+		shapes.push( label );
+
+		super( 15, 20, 200, 30, shapes);
+
+		this.timerId;
+	}
+	
+}
+
+class Venceu extends SceneryObject {
+
+	constructor() {
+
+		let shapes = [];
+
+		let label = new CText("Você Ganhou, a luz retornou ao mundo", 450, 30, 50, 30);
+		label.fontSize(24);
+		label.color("green");
+		shapes.push( label );
+
+		super( 15, 20, 200, 30, shapes);
+
+		this.timerId;
+	}
+	
+}
+
+class EntrouTemple extends SceneryObject {
+
+	constructor() {
+
+		let shapes = [];
+
+		let label = new CText("Parabéns, você encontrou o Templo", 450, 30, 50, 30);
+		label.fontSize(24);
+		label.color("green");
+		shapes.push( label );
+
+		super( 15, 20, 200, 30, shapes);
+
+		this.timerId;
 	}
 	
 }

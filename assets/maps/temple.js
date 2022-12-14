@@ -2118,8 +2118,13 @@ function getTempleMap() {
         }
         chunks.push( new Chunk(chunkW * 2, chunkH * 2, chunkW, chunkH, scenery, mobs) );
     }
-    return new GameMap(7488, 3744, chunks, "green");
-    // 2496 x 3 = 7488;
-    // 1248 x 3 = 3744;
+
+    let bgX = cWidth - (cWidth + visionFieldSize)/2 - visionFieldSize/2;
+    let bgY = 0
+    let bgWidth = 6916 / 8 + (cWidth - visionFieldSize)/2
+    let bgHeight = 6916 / 8 + (cWidth - visionFieldSize)/2
+    let background = new Img("./assets/maps/background/forest.png", bgX, bgY, bgWidth, bgHeight);
+    
+    return new GameMap(7488, 3744, chunks, "green", background);
 }
 
