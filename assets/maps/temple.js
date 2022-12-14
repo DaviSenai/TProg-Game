@@ -2125,6 +2125,6 @@ function getTempleMap() {
     let bgHeight = 6916 / 8 + (cWidth - visionFieldSize)/2
     let background = new Img("./assets/maps/background/forest.png", bgX, bgY, bgWidth, bgHeight);
     
-    return new GameMap(7488, 3744, chunks, "green", background);
+    return new GameMap(7488, 3744, chunks, "transparent", background);
 }
 

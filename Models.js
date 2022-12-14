@@ -522,10 +522,13 @@ class Sound {
 	}
 
 	start() {
-		this.sound.play();
-		if (this.autoPlay) {
-			setTimeout( () => {this.reset(); this.start()}, this.sound.duration * 1000 );
-		}
+		try {
+
+			this.sound.play();
+			if (this.autoPlay) {
+				setTimeout( () => {this.reset(); this.start()}, this.sound.duration * 1000 );
+			}
+		} catch (e) {}
 	}
 
 	pause() {

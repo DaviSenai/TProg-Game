@@ -74,6 +74,7 @@ class Player extends Entity {
 				container.elements[1].died = true;
 				setTimeout( () => {
 					Utils.clockStop();
+					Sounds.stopAll();
 				}, 100)
 				setTimeout( () => {
 					Game.showMenu();

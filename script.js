@@ -67,20 +67,22 @@ let Sounds = {
 	},
 
 	stopAll() {
-		Sounds.menu.stop();
-		
-		Sounds.forest.atmosphere.stop();
-		Sounds.forest.bgSound.stop();
-		Sounds.forest.wind.stop();
-		
-		Sounds.temple.atmosphere.stop();
-		Sounds.temple.bgSound.stop();
-		Sounds.temple.wind.stop();
+		try {
+			Sounds.menu.stop();
+			
+			Sounds.forest.atmosphere.stop();
+			Sounds.forest.bgSound.stop();
+			Sounds.forest.wind.stop();
+			
+			Sounds.temple.atmosphere.stop();
+			Sounds.temple.bgSound.stop();
+			Sounds.temple.wind.stop();
 
-		Sounds.player.walk_forest.stop();
-		Sounds.player.jump_forest.stop();
-		Sounds.player.walk_temple.stop();
-		Sounds.player.jump_temple.stop();
+			Sounds.player.walk_forest.stop();
+			Sounds.player.jump_forest.stop();
+			Sounds.player.walk_temple.stop();
+			Sounds.player.jump_temple.stop();
+		} catch (e) {};
 	}
 }
 
@@ -107,6 +109,7 @@ const Game = {
 	},
 
 	showMenu() {
+		Sounds.stopAll();
 		document.querySelector("#menu").style.visibility = "visible";
 		if ( Game.scoreMap1 == undefined ) {
 			document.querySelector("#forest-menu .right-buttons div:last-child").style.visibility = "hidden";
@@ -149,6 +152,7 @@ const Game = {
 	},
 
 	showCanvas() {
+		Sounds.stopAll();
 		document.querySelector("#game").style.visibility = "visible";
 	},
 
