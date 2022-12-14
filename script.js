@@ -58,19 +58,11 @@ let Sounds = {
 
 		jump() {
 			if (Game.currentMap == "Forest") {
-				Sounds.player.walk_forest.start();
+				Sounds.player.jump_forest.start();
 			} else if (Game.currentMap == "Temple") {
-				Sounds.player.walk_temple.start();
+				Sounds.player.jump_temple.start();
 			}
 		},
-
-		stopWalk() {
-			if (Game.currentMap == "Forest") {
-				Sounds.player.walk_forest.stop();
-			} else if (Game.currentMap == "Temple") {
-				Sounds.player.walk_temple.stop();
-			}
-		}
 	},
 
 	stopAll() {
@@ -115,6 +107,9 @@ const Game = {
 
 	showMenu() {
 		document.querySelector("#menu").style.visibility = "visible";
+		if ( Game.scoreMap1 == undefined ) {
+			document.querySelector("#forest-menu .right-buttons div:last-child").style.visibility = "hidden";
+		}
 		Sounds.menu.start();
 	},
 
@@ -163,17 +158,39 @@ const Game = {
 	showScore(){     
 
 		let playerRanks = Utils.getRank();
-		let rank = [];
+		let rank;
 
-		for (let i = 0; i < playerRanks.length; i++) {
-			if (Game.currentMap == "Forest") {
-				if (playerRanks[i].scoreMap1 != undefined) {
-					rank.push( playerRanks[i] );
-				}
-			} else {
-				if (playerRanks[i].scoreMap2 != undefined) {
-					rank.push( playerRanks[i] );
-				}
+		if (Game.currentMap == "Forest") {
+			rank = Utils.getForestRank();
+		} else if (Game.currentMap == "Temple") {
+			rank = Utils.getTempleRank();
+		}
+
+		console.log(Game.currentMap)
+		console.log(rank)
+		
+		let HTMLRank = "";
+
+
+		if (Game.currentMap == "Forest") {
+			for (let i = 0; i < rank.length; i++) {
+				HTMLRank += `
+					<tr>
+						<td class="posicao">${i+1}</td>
+						<td class="nome">${rank[i].playerName}</td>
+						<td class="tempo">${rank[i].scoreMap1}</td>
+					</tr>
+				`
+			}
+		} else if (Game.currentMap == "Temple") {
+			for (let i = 0; i < rank.length; i++) {
+				HTMLRank += `
+					<tr>
+						<td class="posicao">${i+1}</td>
+						<td class="nome">${rank[i].playerName}</td>
+						<td class="tempo">${rank[i].scoreMap2}</td>
+					</tr>
+				`
 			}
 		}
 		
@@ -199,114 +216,7 @@ const Game = {
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td class="posicao top3 top10">1</td>
-								<td class="nome top3 top10">Ana</td>
-								<td class="tempo top3 top10">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao top3 top10">2</td>
-								<td class="nome top3 top10">Ana</td>
-								<td class="tempo top3 top10">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao top3 top10">3</td>
-								<td class="nome top3 top10">Ana</td>
-								<td class="tempo top3 top10">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao top10">4</td>
-								<td class="nome top10">Ana</td>
-								<td class="tempo top10">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao top10">5</td>
-								<td class="nome top10">Ana</td>
-								<td class="tempo top10">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao top10">6</td>
-								<td class="nome top10">Ana</td>
-								<td class="tempo top10">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao top10">7</td>
-								<td class="nome top10">Ana</td>
-								<td class="tempo top10">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao top10">8</td>
-								<td class="nome top10">Ana</td>
-								<td class="tempo top10">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao top10">9</td>
-								<td class="nome top10">Ana</td>
-								<td class="tempo top10">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao top10">10</td>
-								<td class="nome top10">Ana</td>
-								<td class="tempo top10">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao">11</td>
-								<td class="nome">Ana</td>
-								<td class="tempo">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao">12</td>
-								<td class="nome">Ana</td>
-								<td class="tempo">00:30</td>
-							</tr>  
-							<tr>
-								<td class="posicao">13</td>
-								<td class="nome">Ana</td>
-								<td class="tempo">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao">13</td>
-								<td class="nome">Ana</td>
-								<td class="tempo">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao">13</td>
-								<td class="nome">Ana</td>
-								<td class="tempo">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao">13</td>
-								<td class="nome">Ana</td>
-								<td class="tempo">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao">13</td>
-								<td class="nome">Ana</td>
-								<td class="tempo">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao">13</td>
-								<td class="nome">Ana</td>
-								<td class="tempo">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao">13</td>
-								<td class="nome">Ana</td>
-								<td class="tempo">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao">13</td>
-								<td class="nome">Ana</td>
-								<td class="tempo">00:30</td>
-							</tr>
-							<tr>
-								<td class="posicao">15</td>
-								<td class="nome">Ana</td>
-								<td class="tempo">00:30</td>
-							</tr>
-							
-						   
-	
+							${HTMLRank}
 						</tbody>
 					</table>
 				</div>
@@ -418,6 +328,14 @@ const Game = {
 
 	playerRegister() {
 		Game.playerName = document.querySelector("#start-game input").value;
+		let rank = Utils.getPlayerRank(this.playerName);
+		Game.scoreMap1 = rank.scoreMap1;
+		Game.scoreMap2 = rank.scoreMap2;
+
+		if (Game.scoreMap1 == undefined) {
+			document.querySelector("#forest-menu .right-buttons div:last-child").style.visibility = "hidden";
+		}
+		
 		Controls.mode = "player";
 		document.querySelector("#start-game").style.visibility = "hidden";
 		Game.showMenu();
@@ -685,6 +603,38 @@ const Utils = {
 
 	getRank() {
 		return Storage.get("ranking");
+	},
+
+	getForestRank() {
+		let rank = Storage.get("ranking");
+		let sorted = [];
+		for (let i = 0; i < rank.length; i++) {
+			if (rank[i].scoreMap1 != undefined) {
+				sorted.push( rank[i] );
+			}
+		}
+		return sorted.sort( (a, b) => {return a.scoreMap1 - b.scoreMap1} );
+	},
+
+	getTempleRank() {
+		let rank = Storage.get("ranking");
+		let sorted = [];
+		for (let i = 0; i < rank.length; i++) {
+			if (rank[i].scoreMap2 != undefined) {
+				sorted.push( rank[i] );
+			}
+		}
+		return sorted.sort( (a, b) => {return a.scoreMap2 - b.scoreMap2} );
+	},
+
+	getPlayerRank(playerName) {
+		let rank = Utils.getRank();
+		for (let i = 0; i < rank.length; i++) {
+			if (rank[i].playerName == playerName) {
+				return rank[i];
+			}
+		}
+		return {scoreMap1:undefined, scoreMap2:undefined};
 	},
 
 	thunderbolt() {

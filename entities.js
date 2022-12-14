@@ -525,7 +525,7 @@ class Key extends Entity {
 }
 
 class TempleDoor extends Entity {
-
+	
 	constructor(x, y) {
 		super(x, y, 150, 48);
 		{
@@ -536,6 +536,7 @@ class TempleDoor extends Entity {
 			warning.fontSize(18);
 			this.sprites.push( warning );
 		}
+		this.endMap = false;
 		this.showWarning = false;
 	}
 
@@ -549,7 +550,9 @@ class TempleDoor extends Entity {
 	move(x, y) {
 		super.move(x, y);
 		if ( this.playerColision() ) {
-			if ( player.haveKey ) {
+			if ( player.haveKey && !this.endMap) {
+				this.endMap = true;
+				console.log("endmap")
 				setTimeout( () => {
 					Utils.clockStop();
 					Game.hideCanvas();
@@ -558,7 +561,7 @@ class TempleDoor extends Entity {
 					Game.showTempleMenu();
 					Game.scoreMap1 = container.elements[1].scoreBar.score.text;
 					Game.addScore();
-					document.querySelector("#forest-menu .right-buttons div:last-child").style.visibility = "visible";
+					document.querySelector("#forest-menu .right-buttons div:last-child").style = "";
 				}, 1000);
 			} else if (!this.showWarning) {
 				this.showWarning = true;
@@ -608,6 +611,8 @@ class Relic extends Entity {
 				Game.hideCanvas();
 				Game.showMenu();
 			}, 8000);
+			Game.scoreMap2 = container.elements[1].scoreBar.score.text;
+			Game.addScore();
 		}
 	}
 }

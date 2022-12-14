@@ -91,10 +91,6 @@ body > section {
     background-size: cover;
 }
 
-#forest-menu .right-buttons div:last-child {
-    visibility: hidden;
-}
-
 #temple-menu {
     display: none;
     background-color: black;
