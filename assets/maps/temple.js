@@ -1500,7 +1500,7 @@ function getTempleMap() {
         mobs.push( new Bat(720, 1968) );
         mobs.push( new Bat(1104, 672) );
         mobs.push( new Bat(1344, 672) );
-        mobs.push( new Relic(1248, 1200) );
+        mobs.push( new Relic(1248, 1100) );
         let scenery = [];
         // G.1
         {
@@ -2121,9 +2121,9 @@ function getTempleMap() {
 
     let bgX = cWidth - (cWidth + visionFieldSize)/2 - visionFieldSize/2;
     let bgY = 0
-    let bgWidth = 6916 / 8 + (cWidth - visionFieldSize)/2
-    let bgHeight = 6916 / 8 + (cWidth - visionFieldSize)/2
-    let background = new Img("./assets/maps/background/forest.png", bgX, bgY, bgWidth, bgHeight);
+    let bgWidth = 7488 / 8 + (cWidth - visionFieldSize)/2 + 200
+    let bgHeight = 7488 / 8 + (cWidth - visionFieldSize)/2 + 200
+    let background = new Img("./assets/maps/background/temple.png", bgX, bgY, bgWidth, bgHeight);
     
     return new GameMap(7488, 3744, chunks, "transparent", background);
 }

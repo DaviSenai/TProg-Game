@@ -63,6 +63,7 @@ body > section {
     height: 766px;
     margin: auto;
     border: 1px solid #222222;
+    cursor: none;
 }
 
 
