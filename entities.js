@@ -10,6 +10,13 @@ class Player extends Entity {
 		this.immunityDelay = 2000;
 		this.haveKey = false;
 
+		// this.dead = true;
+		// this.dead = false;
+		// this.deadMsg = new CText("Você morreu!", -255/2 + this.style.width/2, -20, 255, 20);
+		// this.deadMsg.color("red");
+		// this.deadMsg.fontSize("24");
+		// this.sprites.push(this.deadMsg);
+		
 		this.spriteParts_Left = [];
 		this.spriteParts_Right = [];
 		{
@@ -71,7 +78,9 @@ class Player extends Entity {
 					container.elements[1].lifeBar.remove();
 				}
 				this.lifeBar = 0;
-				Utils.clockStop();
+				setTimeout( () => {
+					Utils.clockStop();
+				}, 2000)
 			}
 		}
 	}
@@ -103,6 +112,10 @@ class Player extends Entity {
 			if (!this.style.hidden) {
 				this.spriteParts_Left[this.animPart][this.animSprite].create();
 			}
+		}
+
+		if (this.dead) {
+			this.deadMsg.create();
 		}
 
 		if (gravityOn && this.vSpeed >= 0 && this.vSpeed + gravity <= fallSpeedLimit && !this.isJumping) {

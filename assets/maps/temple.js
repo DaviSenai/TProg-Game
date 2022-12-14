@@ -32,6 +32,12 @@ function getTempleMap() {
     let chunkH = 1248;
     // CHUNK A
     {
+        let mobs = [];
+        mobs.push( new Mummy(1248, 960) );
+        mobs.push( new Mummy(960, 1056) );
+        mobs.push( new Bat(96, 768) );
+        mobs.push( new Bat(720, 960) );
+        mobs.push( new Bat(1248, 96) );
         let scenery = [];
         // A.1
         {
@@ -232,10 +238,17 @@ function getTempleMap() {
 
             scenery.push( new SceneryObject(-48, 0, 48, 1248, shapes) );
         }
-        chunks.push( new Chunk(0, 0, chunkW, chunkH, scenery) );
+        chunks.push( new Chunk(0, 0, chunkW, chunkH, scenery, mobs) );
     }
     // CHUNK B
     {
+        let mobs = [];
+        mobs.push( new Bat(384, 288) );
+        mobs.push( new Bat(720, 768) );
+        mobs.push( new Bat(1824, 768) );
+        mobs.push( new Mummy(960, 1152) );
+        mobs.push( new Mummy(1248, 960) );
+        mobs.push( new Mummy(1632, 960) );
         let scenery = [];
         // B.1
         {
@@ -330,12 +343,12 @@ function getTempleMap() {
         // B.10
         {
             let shapes = []
-            for (let i = 0, size = 0; i < 12; i++) {
+            for (let i = 0, size = 0; i < 6; i++) {
                 shapes.push(new Img("./assets/textures/brick_wall.jpg", 0, size, 48, 48) );
                 size += 48;
             }
 
-            scenery.push( new SceneryObject(624, 672, 48, 576, shapes) );
+            scenery.push( new SceneryObject(624, 672, 48, 288, shapes) );
         }
         // B.11
         {
@@ -487,10 +500,16 @@ function getTempleMap() {
 
             scenery.push( new SceneryObject(0, -48, 2496, 48, shapes) );
         }
-        chunks.push( new Chunk(chunkW, 0, chunkW, chunkH, scenery) );
+        chunks.push( new Chunk(chunkW, 0, chunkW, chunkH, scenery, mobs) );
     }
     // CHUNK C
     {
+        let mobs = [];
+        mobs.push( new Bat(2400, 144) );
+        mobs.push( new Bat(480, 240) );
+        mobs.push( new Bat(1968, 528) );
+        mobs.push( new Mummy(96, 672) );
+        mobs.push( new Mummy(1872, 1152) );
         let scenery = [];
         // C.1
         {
@@ -709,10 +728,17 @@ function getTempleMap() {
 
             scenery.push( new SceneryObject(0, -48, 2544, 48, shapes) );
         }
-        chunks.push( new Chunk(chunkW * 2, 0, chunkW, chunkH, scenery) );
+        chunks.push( new Chunk(chunkW * 2, 0, chunkW, chunkH, scenery, mobs) );
     }
     // CHUNK D
     {
+        let mobs = [];
+        mobs.push( new Mummy(96, 1152) );
+        mobs.push( new Mummy(912, 288) );
+        mobs.push( new Mummy(1680, 912) );
+        mobs.push( new Bat(336, 912) );
+        mobs.push( new Bat(1200, 480) );
+        mobs.push( new Bat(2352, 384) );
         let scenery = [];
         //D.1
         {
@@ -954,10 +980,18 @@ function getTempleMap() {
 
             scenery.push( new SceneryObject(-48, 0, 48, 1248, shapes) );
         }
-        chunks.push( new Chunk(0, chunkH, chunkW, chunkH, scenery) );
+        chunks.push( new Chunk(0, chunkH, chunkW, chunkH, scenery, mobs) );
     }
     // CHUNK E
     {
+        let mobs = [];
+        mobs.push( new Mummy(1056, 196));
+        mobs.push( new Mummy(480, 1056));
+        mobs.push( new Mummy(2016, 196));
+        mobs.push( new Bat(336, 336));
+        mobs.push( new Bat(720, 816));
+        mobs.push( new Bat(2352, 864));
+        mobs.push( new Bat(1584, 96));
         let scenery = [];
         // E.1
         {
@@ -1187,7 +1221,7 @@ function getTempleMap() {
                 size += 48;
             }
             
-            scenery.push( new SceneryObject(2116, 192, 48, 144, shapes) );
+            scenery.push( new SceneryObject(2116, 192, 48, 196, shapes) );
         }
         // E.24
         {
@@ -1229,10 +1263,18 @@ function getTempleMap() {
             
             scenery.push( new SceneryObject(0, 1248, 2496, 48, shapes) );
         }
-        chunks.push( new Chunk(chunkW, chunkH, chunkW, chunkH, scenery) );
+        chunks.push( new Chunk(chunkW, chunkH, chunkW, chunkH, scenery, mobs) );
     }
     // CHUNK F
     {
+        let mobs = [];
+        mobs.push( new Bat(96, 1056) );
+        mobs.push( new Bat(480, 144) );
+        mobs.push( new Bat(720, 336) );
+        mobs.push( new Bat(288, 624) );
+        mobs.push( new Bat(1872, 192) );
+        mobs.push( new Bat(1632, 432) );
+        mobs.push( new Bat(2112, 960) );
         let scenery = [];
         // F.1
         {
@@ -1443,7 +1485,7 @@ function getTempleMap() {
             
             scenery.push( new SceneryObject(2496, 0, 48, 1248, shapes) );
         }
-        chunks.push( new Chunk(chunkW * 2, chunkH, chunkW, chunkH, scenery) );
+        chunks.push( new Chunk(chunkW * 2, chunkH, chunkW, chunkH, scenery, mobs) );
     }
     // CHUNK G
     {
@@ -1617,7 +1659,7 @@ function getTempleMap() {
                 size += 48;
             }
 
-            scenery.push( new SceneryObject(768, 960, 192, 48, shapes) );
+            scenery.push( new SceneryObject(768, 960, 144, 48, shapes) );
         }
         // G.19
         {
@@ -1838,6 +1880,14 @@ function getTempleMap() {
     }
     // CHUNK I
     {
+        let mobs = [];
+        mobs.push( new Mummy(1920, 384) );
+        mobs.push( new Mummy(96, 1152) );
+        mobs.push( new Mummy(2400, 1152) );
+        mobs.push( new Bat(192, 192) );
+        mobs.push( new Bat(672, 576) );
+        mobs.push( new Bat(864, 480) );
+        // mobs.push( new Bat(192, 192) );
         let scenery = [];
         // I.1
         {
@@ -2039,7 +2089,7 @@ function getTempleMap() {
             
             scenery.push( new SceneryObject(2496, 0, 48, 1248, shapes) );
         }
-        chunks.push( new Chunk(chunkW * 2, chunkH * 2, chunkW, chunkH, scenery) );
+        chunks.push( new Chunk(chunkW * 2, chunkH * 2, chunkW, chunkH, scenery, mobs) );
     }
     return new GameMap(7488, 3744, chunks, "green");
     // 2496 x 3 = 7488;
