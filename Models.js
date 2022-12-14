@@ -525,7 +525,7 @@ class Sound {
 		try {
 
 			this.sound.play();
-			if (this.autoPlay) {
+			if (this.autoPlay && !this.sound.paused) {
 				setTimeout( () => {this.reset(); this.start()}, this.sound.duration * 1000 );
 			}
 		} catch (e) {}
