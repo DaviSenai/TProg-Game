@@ -35,6 +35,20 @@ function getForestMap(){
     
     /*CHUNK 1*/
     {
+        let mobs = [];
+
+        //verificado
+        mobs.push( new Key(480, 480))
+        mobs.push( new Snake(1104, 960) );
+        mobs.push( new Snake(384, 220) );
+        mobs.push( new Snake(652, 480) );
+        mobs.push( new Snake(288, 1056) );
+        mobs.push( new Snake(1632, 288) );
+        mobs.push( new Snake(1632, 1196) );
+        mobs.push( new Mushroom(288, 668) );
+
+        //n verificado
+
         let scenery = [];
         {
             let shapes = [];
@@ -67,6 +81,16 @@ function getForestMap(){
             shapes.push( new Img("./assets/textures/Block.png",816,0,48,48));
             
             scenery.push( new SceneryObject(864, 192, 864, 48 , shapes));  
+        }
+        {
+            let shapes = [];
+            shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
+            scenery.push( new SceneryObject(528, 192, 48, 48 , shapes));  
+        }
+        {
+            let shapes = [];
+            shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
+            scenery.push( new SceneryObject(1680, 144, 48, 48 , shapes));  
         }
         {
             let shapes = [];
@@ -482,11 +506,23 @@ function getForestMap(){
         }
 
 
-        chunks.push( new Chunk(0, 0, chunkWidth, chunkHeight, scenery) );
+        chunks.push( new Chunk(0, 0, chunkWidth, chunkHeight, scenery, mobs) );
     }
     /*CHUNK 2*/
     {
         let scenery = [];
+        let mobs = [];
+
+        //verificado
+        mobs.push( new Snake(1412, 876));
+        mobs.push( new Snake(1372, 1440));
+        mobs.push( new Mushroom(340, 864));
+        mobs.push( new Mushroom(1632, 876));
+        mobs.push( new Mushroom(1824, 876));
+        mobs.push( new Mushroom(284, 1248));
+        mobs.push( new Mushroom(340, 1488));
+        mobs.push( new Mushroom(864, 1248));
+        mobs.push( new Key(1292, 1440));
 
         /*2.1*/
         {
@@ -874,11 +910,23 @@ function getForestMap(){
         }
 
 
-        chunks.push( new Chunk(1728, 0, chunkWidth, chunkHeight, scenery) );
+        chunks.push( new Chunk(1728, 0, chunkWidth, chunkHeight, scenery, mobs) );
     }
-     /*CHUNK 3*/   
-    {
-        let scenery = [];
+     /*CHUNK 3*/        
+     {
+         let scenery = [];
+         let mobs = [];
+    
+         //verificado
+         mobs.push( new Mushroom(240, 240));
+         mobs.push( new Mushroom(672, 864));
+         mobs.push( new Mushroom(934, 1488));
+         mobs.push( new Snake(913, 192));
+         mobs.push( new Snake(1249, 1392));
+         mobs.push( new Snake(220, 960));
+         
+         //n verificado
+
         /*3.1*/
         {
             let shapes = [];
@@ -918,7 +966,7 @@ function getForestMap(){
             shapes.push( new Img("./assets/textures/Block.png",912,0,48,48));
 
             scenery.push( new SceneryObject(721, 192, 960, 48, shapes) );
-        }
+        }        
         /*3.3*/
         {
             let shapes = [];
@@ -942,9 +990,9 @@ function getForestMap(){
             shapes.push( new Img("./assets/textures/Block.png",0,96,48,48));
             shapes.push( new Img("./assets/textures/Block.png",0,144,48,48));
             shapes.push( new Img("./assets/textures/Block.png",0,192,48,48));
-            shapes.push( new Img("./assets/textures/Block.png",0,240,48,48));
 
-            scenery.push( new SceneryObject(144, 432, 48, 288, shapes) );
+
+            scenery.push( new SceneryObject(144, 432, 48, 40, shapes) );
         }
         /*3.5*/
         {
@@ -1103,11 +1151,8 @@ function getForestMap(){
             shapes.push( new Img("./assets/textures/Block.png",48,0,48,48));
             shapes.push( new Img("./assets/textures/Block.png",96,0,48,48));
             shapes.push( new Img("./assets/textures/Block.png",144,0,48,48));
-            shapes.push( new Img("./assets/textures/Block.png",192,0,48,48));
-            shapes.push( new Img("./assets/textures/Block.png",240,0,48,48));
-            shapes.push( new Img("./assets/textures/Block.png",288,0,48,48));
 
-            scenery.push( new SceneryObject(1392, 1248, 336, 48, shapes) );
+            scenery.push( new SceneryObject(1536, 1248, 192, 48, shapes) );
         }
         /*3.14*/
         {
@@ -1128,10 +1173,9 @@ function getForestMap(){
         shapes.push( new Img("./assets/textures/Block.png",624,0,48,48));
         shapes.push( new Img("./assets/textures/Block.png",672,0,48,48));
         shapes.push( new Img("./assets/textures/Block.png",720,0,48,48));
-        shapes.push( new Img("./assets/textures/Block.png",768,0,48,48));
-        shapes.push( new Img("./assets/textures/Block.png",816,0,48,48));
+       
 
-        scenery.push( new SceneryObject(721, 1440, 864, 48, shapes) );
+        scenery.push( new SceneryObject(721, 1440, 768, 48, shapes) );
         }
         /*3.15*/
         {
@@ -1195,6 +1239,18 @@ function getForestMap(){
 
         scenery.push( new SceneryObject(144, 960, 48, 288, shapes) );
         }
+         /*3.20*/
+         {
+            let shapes = [];
+            shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
+            scenery.push( new SceneryObject(721, 144, 48, 48, shapes) );
+        }
+         /*3.21*/
+         {
+            let shapes = [];
+            shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
+            scenery.push( new SceneryObject(1441, 1392, 48, 48, shapes) );
+        }
 
         /*HORIZONTAL*/
         {
@@ -1206,31 +1262,31 @@ function getForestMap(){
 
             scenery.push( new SceneryObject(-48, -48, 1824, 48, shapes) );
         }
-        {
-            let shapes = []
-            for (let i = 0, size = 0; i < 37; i++) {
-                shapes.push(new Img("./assets/textures/Block.png", size, 0, 48, 48) );
-                size += 48;
-            }
-
-            scenery.push( new SceneryObject(-48, -96, 1824, 48, shapes) );
-        }
-        {
-            let shapes = []
-            for (let i = 0, size = 0; i < 37; i++) {
-                shapes.push(new Img("./assets/textures/Block.png", size, 0, 48, 48) );
-                size += 48;
-            }
-
-            scenery.push( new SceneryObject(-48, -144, 1824, 48, shapes) );
-
-        }
         
-        chunks.push( new Chunk(3456, 0, chunkWidth, chunkHeight, scenery) );
+        chunks.push( new Chunk(3456, 0, chunkWidth, chunkHeight, scenery, mobs) );
     }
     /* CHUNCK 4 */
     {
+        let mobs = [];
+
+        //verificado
+        mobs.push( new Mushroom(624, 1584));
+        
+        //n verificado
+        mobs.push( new Snake(384, 1344));
+        mobs.push( new Mushroom(1680, 1108));
+        mobs.push( new Snake(1484, 1584));
+        mobs.push( new TempleDoor(924, 912))
+
         let scenery = []
+        /*pyramid*/
+        {
+            let shapes = [];
+                shapes.push( new Img("./assets/img/pyramid.png", 0, 0, 640, 640 ));
+            
+            scenery.push( new SceneryObject(480, 240, 1585, 48, shapes));  
+        }
+
         /*4.1*/
         {
             let shapes = [];
@@ -1275,9 +1331,15 @@ function getForestMap(){
             shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
             shapes.push( new Img("./assets/textures/Block.png",48,0,48,48));
             shapes.push( new Img("./assets/textures/Block.png",96,0,48,48));
-            shapes.push( new Img("./assets/textures/Block.png",144,0,48,48));
 
-            scenery.push( new SceneryObject(96, 1104, 192, 48, shapes));  
+            scenery.push( new SceneryObject(144, 1104, 144, 48, shapes));  
+        }
+        /*4.13*/
+        {
+            let shapes = [];
+            shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
+
+            scenery.push( new SceneryObject(96, 1248, 48, 48, shapes));  
         }
         /*4.3*/
         {
@@ -1435,7 +1497,7 @@ function getForestMap(){
             scenery.push( new SceneryObject(1200, 1296, 48, 288, shapes));  
         }
 
-                /*HORIZONTAL*/
+          /*HORIZONTAL*/
         {
             let shapes = []
             for (let i = 0, size = 0; i < 37; i++) {
@@ -1445,8 +1507,6 @@ function getForestMap(){
 
             scenery.push( new SceneryObject(-48, -48, 1824, 48, shapes) );
         }
-
-
 
         /*VERTICAL*/
         {
@@ -1460,10 +1520,20 @@ function getForestMap(){
         }
 
 
-        chunks.push( new Chunk(5184, 0, chunkWidth, chunkHeight, scenery) );
+        chunks.push( new Chunk(5184, 0, chunkWidth, chunkHeight, scenery, mobs) );
     }
     /*CHUNK 5*/
     {
+    let mobs = [];
+    //verificado
+    mobs.push( new Mushroom(1344, 384) );
+    mobs.push( new Mushroom(624, 192) );
+    mobs.push( new Mushroom(768, 1056) );
+    mobs.push( new Mushroom(768, 864) );
+    mobs.push( new Mushroom(1536, 1392) );
+    mobs.push( new Snake(240, 1536) );
+    mobs.push( new Snake(240, 1344) );
+
     let scenery = [];
         /*5.1*/
         {
@@ -1609,20 +1679,7 @@ function getForestMap(){
             shapes.push( new Img("./assets/textures/Block.png",0,624,48,48));
             shapes.push( new Img("./assets/textures/Block.png",0,672,48,48));
 
-            scenery.push( new SceneryObject(720, 624, 48, 720, shapes) );
-        }
-        /*5.9*/
-        {
-            let shapes = [];
-            shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
-            shapes.push( new Img("./assets/textures/Block.png",48,0,48,48));
-            shapes.push( new Img("./assets/textures/Block.png",96,0,48,48));
-            shapes.push( new Img("./assets/textures/Block.png",144,0,48,48));
-            shapes.push( new Img("./assets/textures/Block.png",192,0,48,48));
-            shapes.push( new Img("./assets/textures/Block.png",240,0,48,48));
-            shapes.push( new Img("./assets/textures/Block.png",288,0,48,48));
-
-            scenery.push( new SceneryObject(720, 1344, 336, 48, shapes) );
+            scenery.push( new SceneryObject(336, 624, 48, 720, shapes) );
         }
          /*5.10*/
          {
@@ -1639,15 +1696,92 @@ function getForestMap(){
             shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
             shapes.push( new Img("./assets/textures/Block.png",48,0,48,48));
             shapes.push( new Img("./assets/textures/Block.png",96,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",144,0,48,48));
 
-            scenery.push( new SceneryObject(1440, 576, 144, 48, shapes) );
+            scenery.push( new SceneryObject(1392, 816, 192, 48, shapes) );
+        }
+         /*5.12*/
+        {
+            let shapes = [];
+            shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,48,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,96,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,144,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,192,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,240,48,48));
+
+            scenery.push( new SceneryObject(1584, 576, 48, 288, shapes) );
+        }
+        /*5.13*/
+        {
+            let shapes = [];
+            shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",48,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",96,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",144,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",192,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",240,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",288,0,48,48));
+
+            scenery.push( new SceneryObject(528, 816, 336, 48, shapes) );
+        }
+        /*5.14*/
+        {
+            let shapes = [];
+            shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",48,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",96,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",144,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",192,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",240,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",288,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",336,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",384,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",432,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",480,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",528,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",576,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",624,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",720,0,48,48))
+            shapes.push( new Img("./assets/textures/Block.png",768,0,48,48))
+            shapes.push( new Img("./assets/textures/Block.png",816,0,48,48))
+            shapes.push( new Img("./assets/textures/Block.png",864,0,48,48))
+            shapes.push( new Img("./assets/textures/Block.png",912,0,48,48))
+            shapes.push( new Img("./assets/textures/Block.png",960,0,48,48))
+            shapes.push( new Img("./assets/textures/Block.png",1008,0,48,48))
+            
+            scenery.push( new SceneryObject(528, 1008, 1056, 48, shapes) );
         }
         /*5.15*/
          {
             let shapes = [];
             shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,48,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,96,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,144,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,192,48,48));
 
-            scenery.push( new SceneryObject(0, 1008, 48, 48, shapes) );
+            scenery.push( new SceneryObject(528, 816, 48, 240, shapes) );
+        }
+        /*5.20*/
+        {
+            let shapes = [];
+            shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,48,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,96,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,144,48,48));
+
+            scenery.push( new SceneryObject(1200, 1008, 48, 192, shapes) );
+        }
+        /*5.17*/
+        {
+            let shapes = [];
+            shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,48,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,96,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,144,48,48));
+
+            scenery.push( new SceneryObject(1392, 1200, 48, 192, shapes) );
         }
         /*5.18*/
         {
@@ -1659,8 +1793,16 @@ function getForestMap(){
             shapes.push( new Img("./assets/textures/Block.png",192,0,48,48));
             shapes.push( new Img("./assets/textures/Block.png",240,0,48,48));
             shapes.push( new Img("./assets/textures/Block.png",288,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",336,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",384,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",432,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",480,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",528,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",576,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",624,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",672,0,48,48))
 
-            scenery.push( new SceneryObject(0, 1344, 336, 48, shapes) );
+            scenery.push( new SceneryObject(1008, 1344, 720, 48, shapes) );
         }
         /*5.19*/
         {
@@ -1672,14 +1814,19 @@ function getForestMap(){
             shapes.push( new Img("./assets/textures/Block.png",192,0,48,48));
             shapes.push( new Img("./assets/textures/Block.png",240,0,48,48));
             shapes.push( new Img("./assets/textures/Block.png",288,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",336,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",384,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",432,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",480,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",528,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",576,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",624,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",672,0,48,48))
 
-            scenery.push( new SceneryObject(0, 1344, 336, 48, shapes) );
+            scenery.push( new SceneryObject(0, 1344, 720, 48, shapes) );
         }
-    
-
-
         
-            /*HORIZONTAL*/
+        /*HORIZONTAL*/
         {
             let shapes = []
             for (let i = 0, size = 0; i < 37; i++) {
@@ -1689,9 +1836,7 @@ function getForestMap(){
 
             scenery.push( new SceneryObject(-48, 1584, 1824, 48, shapes) );
         }
-  
-
-               /*VERTICAL*/
+        /*VERTICAL*/
         {
             let shapes = [];
             for (let i = 0, size = 0; i < 33; i++) {
@@ -1702,12 +1847,21 @@ function getForestMap(){
             scenery.push( new SceneryObject(-48, 0, 48, 1632, shapes) );
         }
 
-
-        chunks.push( new Chunk(0, 1584, chunkWidth, chunkHeight, scenery) ); 
+        chunks.push( new Chunk(0, 1584, chunkWidth, chunkHeight, scenery, mobs) ); 
     }
     /*CHUNK 6*/
     {
+        let mobs = [];
+
+        //verificado
+
+        mobs.push( new Mushroom(1584, 384) );
+        mobs.push( new Mushroom(720, 480) );
+        mobs.push( new Mushroom(240, 1200) );
+        mobs.push( new Snake(480, 1584) );
+        mobs.push( new Snake(1680, 1008) );
         let scenery = [];
+
         /*6.1*/
         {
             let shapes = [];
@@ -1716,7 +1870,7 @@ function getForestMap(){
             shapes.push( new Img("./assets/textures/Block.png",96,0,48,48));
             shapes.push( new Img("./assets/textures/Block.png",144,0,48,48));
 
-            scenery.push( new SceneryObject(0, 192, 192, 48, shapes) );
+            scenery.push( new SceneryObject(0, 190, 192, 48, shapes) );
         }
         /*6.2*/
         {
@@ -2007,6 +2161,18 @@ function getForestMap(){
 
             scenery.push( new SceneryObject(0, 1344, 48, 240, shapes) );
         }
+        /*6.19*/
+        {
+            let shapes = [];
+            shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,48,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,96,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,144,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,192,48,48));
+            shapes.push( new Img("./assets/textures/Block.png",0,240,48,48));
+
+            scenery.push( new SceneryObject(1680, 960, 48, 240, shapes) );
+        }
 
          /*HORIZONTAL*/
          {
@@ -2018,28 +2184,24 @@ function getForestMap(){
 
             scenery.push( new SceneryObject(-48, 1584, 1824, 48, shapes) );
         }
-        {
-            let shapes = []
-            for (let i = 0, size = 0; i < 37; i++) {
-                shapes.push(new Img("./assets/textures/Block.png", size, 0, 48, 48) );
-                size += 48;
-            }
-
-            scenery.push( new SceneryObject(-48, 1632, 1824, 48, shapes) );
-        }
-        {
-            let shapes = []
-            for (let i = 0, size = 0; i < 37; i++) {
-                shapes.push(new Img("./assets/textures/Block.png", size, 0, 48, 48) );
-                size += 48;
-            }
-
-            scenery.push( new SceneryObject(-48, 1680, 1824, 48, shapes) );
-        }
-        chunks.push( new Chunk(1728, 1584, chunkWidth, chunkHeight, scenery) ); 
+        chunks.push( new Chunk(1728, 1584, chunkWidth, chunkHeight, scenery, mobs) ); 
     }
     /*CHUNK 7*/
     {
+        let mobs = [];
+
+        //verificado
+        mobs.push( new Snake(1728, 1392) );
+        mobs.push( new Snake(1728, 1632) );
+        mobs.push( new Snake(144, 1632) );
+
+        mobs.push( new Mushroom(1200, 336) );
+        mobs.push( new Mushroom(484, 808) );
+        mobs.push( new Mushroom(1344, 1200) );
+
+
+        //n verificado
+
         let scenery = [];
         {
             /*7.1*/
@@ -2323,10 +2485,25 @@ function getForestMap(){
            
         }
 
-        chunks.push( new Chunk(3456, 1584, chunkWidth, chunkHeight, scenery) );
+        chunks.push( new Chunk(3456, 1584, chunkWidth, chunkHeight, scenery, mobs) );
     }
     /* CHUNCK 8 */
     {
+        let mobs = [];
+
+        //verificado
+        mobs.push( new Snake(720, 192) );
+        mobs.push( new Snake(360, 1296) );
+        mobs.push( new Snake(1536, 1628) );
+        mobs.push( new Mushroom(336, 768) );
+        mobs.push( new Mushroom(904, 1628) );
+        mobs.push( new Mushroom(1824, 1200) );
+        mobs.push( new Key(1296, 1628) );
+
+
+        //n verificado
+
+
         let scenery = [];
         /*8.1*/
         {
@@ -2404,8 +2581,15 @@ function getForestMap(){
 
             scenery.push( new SceneryObject(480, 144, 1248, 48, shapes) );
         }
+        /*8.16*/
+        {
+            let shapes = [];
+            shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
+
+            scenery.push( new SceneryObject(480, 96, 48, 48, shapes) );
+        }
          /*8.4*/
-         {
+        {
             let shapes = [];
             shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
             shapes.push( new Img("./assets/textures/Block.png",48,0,48,48));
@@ -2423,7 +2607,7 @@ function getForestMap(){
 
             scenery.push( new SceneryObject(1104, 576, 624, 48, shapes) );
         }
-         /*8.5*/
+        /*8.5*/
         {
             let shapes = [];
             shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
@@ -2607,11 +2791,19 @@ function getForestMap(){
 
             scenery.push( new SceneryObject(1296, 1392, 48, 240, shapes) );
         }
+         /*8.17*/
+        {
+            let shapes = [];
+            shapes.push( new Img("./assets/textures/Block.png",0,0,48,48));
+    
+
+            scenery.push( new SceneryObject(576, 1296, 48, 48, shapes) );
+        }
 
         /*HORIZONTAL*/
         {
                     let shapes = []
-                    for (let i = 0, size = 0; i < 37; i++) {
+                    for (let i = 0, size = 0; i < 38; i++) {
                         shapes.push(new Img("./assets/textures/Block.png", size, 0, 48, 48) );
                         size += 48;
                     }

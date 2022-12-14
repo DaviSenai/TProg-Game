@@ -1489,6 +1489,18 @@ function getTempleMap() {
     }
     // CHUNK G
     {
+        let mobs = [];
+        mobs.push( new Mummy(96, 1152) );
+        mobs.push( new Mummy(1776, 1152) );
+        mobs.push( new Bat(1872, 192) );
+        mobs.push( new Bat(96, 384) );
+        mobs.push( new Bat(96, 864) );
+        mobs.push( new Bat(816, 384) );
+        mobs.push( new Bat(720, 1056) );
+        mobs.push( new Bat(720, 1968) );
+        mobs.push( new Bat(1104, 672) );
+        mobs.push( new Bat(1344, 672) );
+        mobs.push( new Relic(1248, 1200) );
         let scenery = [];
         // G.1
         {
@@ -1681,10 +1693,23 @@ function getTempleMap() {
 
             scenery.push( new SceneryObject(-48, 0, 48, 1248, shapes) );
         }
-        chunks.push( new Chunk(0, chunkH * 2, chunkW, chunkH, scenery) );
+        chunks.push( new Chunk(0, chunkH * 2, chunkW, chunkH, scenery, mobs) );
     }
     // CHUNK H
     {
+        let mobs = [];
+        mobs.push( new Mummy(576, 1152) );
+        mobs.push( new Mummy(2400, 1152) );
+        mobs.push( new Mummy(336, 1152) );
+        mobs.push( new Mummy(768, 912) );
+        mobs.push( new Mummy(1776, 912) );
+        mobs.push( new Mummy(2064, 912) );
+        mobs.push( new Bat(0, 144) );
+        mobs.push( new Bat(480, 384) );
+        mobs.push( new Bat(768, 720) );
+        mobs.push( new Bat(336, 912) );
+        mobs.push( new Bat(1584, 144) );
+        mobs.push( new Bat(1776, 528) );
         let scenery = [];
         // H.1
         {
@@ -1774,7 +1799,7 @@ function getTempleMap() {
                 size += 48;
             }
             
-            scenery.push( new SceneryObject(672, 1008, 1056, 48, shapes) );
+            scenery.push( new SceneryObject(672, 1008, 1824, 48, shapes) );
         }
         // H.10
         {
@@ -1799,12 +1824,12 @@ function getTempleMap() {
         // H.12
         {
             let shapes = [];
-            for (let i = 0, size = 0; i < 13; i++) {
+            for (let i = 0, size = 0; i < 9; i++) {
                 shapes.push(new Img("./assets/textures/brick_floor.jpg", size, 0, 48, 48) );
                 size += 48;
             }
             
-            scenery.push( new SceneryObject(480, 816, 624, 48, shapes) );
+            scenery.push( new SceneryObject(672, 816, 432, 48, shapes) );
         }
         // H.13
         {
@@ -1876,7 +1901,7 @@ function getTempleMap() {
             
             scenery.push( new SceneryObject(0, 240, 432, 48, shapes) );
         }
-        chunks.push( new Chunk(chunkW, chunkH * 2, chunkW, chunkH, scenery) );
+        chunks.push( new Chunk(chunkW, chunkH * 2, chunkW, chunkH, scenery, mobs) );
     }
     // CHUNK I
     {
@@ -1885,9 +1910,11 @@ function getTempleMap() {
         mobs.push( new Mummy(96, 1152) );
         mobs.push( new Mummy(2400, 1152) );
         mobs.push( new Bat(192, 192) );
-        mobs.push( new Bat(672, 576) );
+        mobs.push( new Bat(672, 480) );
         mobs.push( new Bat(864, 480) );
-        // mobs.push( new Bat(192, 192) );
+        mobs.push( new Bat(1056, 684) );
+        mobs.push( new Bat(432, 720) );
+        mobs.push( new Bat(384, 912) );
         let scenery = [];
         // I.1
         {
