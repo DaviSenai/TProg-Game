@@ -422,7 +422,7 @@ class Snake extends Entity {
 		this.faceRight = true;
 		this.onAnimation = false;
 
-		this.hSpeed = 200 / frameRate;
+		this.hSpeed = 150 / frameRate;
 		this.hMoveDistance = 250 / frameRate;
 	}
 
@@ -543,7 +543,7 @@ class TempleDoor extends Entity {
 		super(x, y, 150, 48);
 		{
 			// this.sprites.push( new Img("./assets/entities/temple/temple.png", this.x, this.y, this.style.width, this.style. height) );
-			this.sprites.push( new Rectangle(this.x, this.y, this.style.width, this.style. height, "pink") );
+			this.sprites.push( new Rectangle(this.x, this.y, this.style.width, this.style. height, "transparent") );
 			let warning = new CText("Pegue a chave antes", this.x, this.y + this.style.height/2, this.style.width, this.style.height)
 			warning.color("white");
 			warning.fontSize(18);
@@ -563,19 +563,21 @@ class TempleDoor extends Entity {
 	move(x, y) {
 		super.move(x, y);
 		if ( this.playerColision() ) {
-			if ( player.haveKey && !this.endMap) {
-				this.endMap = true;
-				console.log("endmap")
-				setTimeout( () => {
-					Utils.clockStop();
-					Game.hideCanvas();
-					Game.showMenu();
-					Game.hideForestMenu();
-					Game.showTempleMenu();
-					Game.scoreMap1 = container.elements[1].scoreBar.score.text;
-					Game.addScore();
-					document.querySelector("#forest-menu .right-buttons div:last-child").style = "";
-				}, 1000);
+			if ( player.haveKey) {
+				if (!this.endMap) {
+					this.endMap = true;
+					console.log("endmap")
+					setTimeout( () => {
+						Utils.clockStop();
+						Game.hideCanvas();
+						Game.showMenu();
+						Game.hideForestMenu();
+						Game.showTempleMenu();
+						Game.scoreMap1 = container.elements[1].scoreBar.score.text;
+						Game.addScore();
+						document.querySelector("#forest-menu .right-buttons div:last-child").style = "";
+					}, 1000);
+				}
 			} else if (!this.showWarning) {
 				this.showWarning = true;
 				setTimeout( () => {this.showWarning = false}, 2000);

@@ -40,7 +40,7 @@ function getForestMap(){
         //verificado
         mobs.push( new Key(480, 480))
         mobs.push( new Snake(1104, 960) );
-        mobs.push( new Snake(384, 220) );
+        // mobs.push( new Snake(384, 220) );
         mobs.push( new Snake(652, 480) );
         mobs.push( new Snake(288, 1056) );
         mobs.push( new Snake(1632, 288) );
@@ -1282,7 +1282,7 @@ function getForestMap(){
         /*pyramid*/
         {
             let shapes = [];
-                shapes.push( new Img("./assets/img/pyramid.png", 0, 0, 640, 640 ));
+                shapes.push( new Img("./assets/entities/temple/temple.png", 0, 0, 640, 640 ));
             
             scenery.push( new SceneryObject(480, 240, 1585, 48, shapes));  
         }

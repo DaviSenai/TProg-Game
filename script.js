@@ -18,7 +18,8 @@ let gravity = 1;
 let fallSpeedLimit = 20;
 let gravityOn = true;
 let player;
-let visionFieldSize = 350;
+let visionFieldSize = 450;
+// let visionFieldSize = 350;
 
 let Sounds = {
 	menu: new Sound("./assets/sounds/menu/Musica Menu (Ringside - Dyalla).mp3", .5),
@@ -90,8 +91,8 @@ const Game = {
 	// scoreMap2:0,
 	scoreMap1:undefined,
 	scoreMap2:undefined,
-	currentMap:"Jungle",
-	// currentMap:"Forest",
+	// currentMap:"Jungle",
+	currentMap:"Forest",
 
 	start() {
 		player = new Player(cWidth/2, cHeight/2);
@@ -700,12 +701,12 @@ let Controls = {
 					Sounds.player.jump();
 					break;
 				}
-				case "arrowdown": {
-					if (!player.isJumping) {
-						player.vSpeed = 20;
-					}
-					break;
-				}
+				// case "arrowdown": {
+				// 	if (!player.isJumping) {
+				// 		player.vSpeed = 20;
+				// 	}
+				// 	break;
+				// }
 				case "arrowleft": {
 					player.left();
 					Controls.walking_left = true;
@@ -762,10 +763,10 @@ let Controls = {
 					Controls.walking_right = false;
 					break;
 				}
-				case "arrowdown": {
-					player.vSpeed = 0; 
-					break;
-				}
+				// case "arrowdown": {
+				// 	player.vSpeed = 0; 
+				// 	break;
+				// }
 				case "a": {
 					if (!Controls.walking_right) {
 						player.hSpeed = 0;
